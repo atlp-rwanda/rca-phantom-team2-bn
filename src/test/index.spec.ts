@@ -1,4 +1,5 @@
 import assert from 'assert'
+
 describe('Test setup', () => {
     it('should find the correct artist', () => {
         const artist = 'Illenium'

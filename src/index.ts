@@ -1,22 +1,15 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 const app = express()
-const port = process.env.PORT || 3003
 
-const normalResponse = {
-    msg: 'App running.'
-}
-const exceptionalResponse= {
-    msg: 'Wow! you\'re a deep digger'
-}
-app.use('/', (req, res) => {
-    res.json(normalResponse)
+const PORT = process.env.PORT || 4000
+
+app.get("", (req: Request, res: Response) => {
+    return res.status(200).send({
+        message: "Welcome to Phantom server",
+        serverStatus: "RUNNING"
+    })
 })
 
-app.use('*', (req, res) => {
-    
-    res.json(exceptionalResponse)
-})
-
-app.listen(port, () => {
-    console.info(port)
+app.listen(PORT, () => {
+    console.info(`Server started at: https://localhost:${PORT}`)
 })
