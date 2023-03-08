@@ -1,8 +1,29 @@
 import express, { Request, Response } from 'express'
-const app = express()
+import swaggerUI from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerConfig from "../swagger.json"
+import morgan from "morgan";
+import cors from "cors"
 
+const app = express()
 const PORT = process.env.PORT || 4000
 
+app.use(cors({origin: "*"}))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(morgan("tiny"));
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerConfig)));
+
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     description: Get sever status
+ *     responses:
+ *       200:
+ *         description: Server status and welcome message
+ */
 app.get("", (req: Request, res: Response) => {
     return res.status(200).send({
         message: "Welcome to Phantom server",
@@ -11,5 +32,5 @@ app.get("", (req: Request, res: Response) => {
 })
 
 app.listen(PORT, () => {
-    console.info(`Server started at: https://localhost:${PORT}`)
+    console.info(`Server started at: http://localhost:${PORT}`)
 })
