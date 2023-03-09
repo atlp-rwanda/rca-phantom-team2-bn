@@ -1,0 +1,9 @@
+{
+    "greeting": "Bienvenue au serveur fantôme",
+    "user_exits_message": "L'utilisateur existe déjà",
+    "user_created_message": "Utilisateur créé avec succès",
+    "user_not_found_message": "Utilisateur non trouvé",
+    "login_credentials_message": "Identifiants de connexion",
+    "your_login_credentials_message": "Vos identifiants de connexion :",
+    "Failed_to_create_user_message": "Échec de la création de l'utilisateur"
+}
