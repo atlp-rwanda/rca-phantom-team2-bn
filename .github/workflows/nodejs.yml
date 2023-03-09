@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline ]
   pull_request:
-    branches: [ main ]
+    branches: [ ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline ]
 
 jobs:
   build:
