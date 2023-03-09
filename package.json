@@ -44,8 +44,8 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
-    "express": "^4.17.1",
     "@types/express": "^4.17.6",
+    "express": "^4.17.1",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
