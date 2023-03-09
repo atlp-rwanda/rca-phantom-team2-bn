@@ -1,0 +1,28 @@
+{
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Phantom API documentation",
+            "version": "1.0.0",
+            "description": "Elevate the public transport experience",
+            "termsOfService": "http://example.com/terms",
+            "contact": {
+                "name": "API Support",
+                "url": "http://www.exmaple.com/support",
+                "email": "support@example.com"
+            }
+        },
+        "servers": [
+            {
+                "url": "http://localhost:4000",
+                "description": "Development sever"
+            }
+        ]
+    },
+    "apis": [
+        "./src/*.ts",
+        "./documentation/*.json",
+        "./documentation/*.yml",
+        "./documentation/*.yaml"
+    ]
+}
