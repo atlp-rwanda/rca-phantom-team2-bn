@@ -1,0 +1,12 @@
+{
+    "/test2": {
+        "get": {
+            "description": "Example JSON documentation",
+            "responses": {
+                "400": {
+                    "description": "Not Found"
+                }
+            }
+        }
+    }
+}
