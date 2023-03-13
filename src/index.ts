@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json"
@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan("tiny"));
 app.use(i18n.init);
-
+  
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerConfig)));
 
 /**
@@ -28,16 +28,10 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerConfig
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-    const greeting = i18n.__('greeting');
-    console.log(`The greeting: ${greeting}`);
-    res.status(200).send({ message: greeting, serverStatus: "RUNNING" });
+    // req.setLocale("fr");
+    res.status(200).send({ message: res.__('greeting'), serverStatus: "RUNNING" });
 });
 
-app.get('/switch-language/:language', function (req: Request, res: Response) {
-    const language = req.params.language;
-    i18n.setLocale(language);
-    res.redirect('/');
-});
 
 app.listen(PORT, () => {
     console.info(`Server started at: http://localhost:${PORT}`)
