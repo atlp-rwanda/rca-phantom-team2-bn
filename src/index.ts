@@ -32,7 +32,6 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-    // req.setLocale("fr");
     res.status(200).send({ message: res.__('greeting'), serverStatus: "RUNNING" });
 });
 
