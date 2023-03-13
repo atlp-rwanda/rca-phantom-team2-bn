@@ -4,7 +4,7 @@
   "description": "Elevate the public transport experience",
   "main": "src/index.ts",
   "scripts": {
-    "start": "tsc && node build/src/index.js",
+    "start": "node build/src/index.js",
     "dev": "nodemon",
     "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts",
     "lint": "eslint src",
