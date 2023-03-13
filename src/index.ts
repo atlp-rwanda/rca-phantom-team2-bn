@@ -1,22 +1,26 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response } from "express";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
-import swaggerConfig from "../swagger.json"
+import swaggerConfig from "../swagger.json";
 import morgan from "morgan";
 import cors from "cors"
 import i18n from "./configs/i18n";
-import path from 'path';
+import { connectDB, sequelize } from "./db/config";\
 
-const app = express()
-const PORT = process.env.PORT || 4000
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-app.use(cors({ origin: "*" }))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 app.use(i18n.init);
-  
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerConfig)));
+app.use(
+  "/api-docs",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerJsDoc(swaggerConfig))
+);
 
 /**
  * @openapi
@@ -33,6 +37,10 @@ app.get("", (req: Request, res: Response) => {
 });
 
 
-app.listen(PORT, () => {
-    console.info(`Server started at: http://localhost:${PORT}`)
-})
+app.listen(PORT, async () => {
+  console.info(`Server started at: http://localhost:${PORT}`);
+  await connectDB();
+  sequelize.sync({ force: false }).then(() => {
+    console.log("Synced database successfully...");
+  });
+});
