@@ -5,7 +5,7 @@ import swaggerConfig from "../swagger.json";
 import morgan from "morgan";
 import cors from "cors"
 import i18n from "./configs/i18n";
-import { connectDB, sequelize } from "./db/config";\
+import { connectDB, sequelize } from "./db/config";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
