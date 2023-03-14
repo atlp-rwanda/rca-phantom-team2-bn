@@ -65,8 +65,11 @@
 
     "resolveJsonModule": true
   },
-  "exclude": [
-    "src/test",
-    "build"
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.spec.ts"
   ],
+  "exclude": [
+    "build"
+  ]
 }
