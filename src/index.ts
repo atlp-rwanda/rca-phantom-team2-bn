@@ -1,3 +1,6 @@
+//switch dotenv environment
+import dotenv from "dotenv";
+import path from "path";
 import express, { Request, Response } from "express";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
@@ -6,9 +9,22 @@ import morgan from "morgan";
 import cors from "cors";
 import { connectDB, sequelize } from "./db/config";
 
+switch (process.env.NODE_ENV) {
+  case "development":
+    dotenv.config({ path: path.join(__dirname, "../.env.development") });
+    break;
+  case "production":
+    dotenv.config({ path: path.join(__dirname, "../.env.production") });
+    break;
+  default:
+    dotenv.config({ path: path.join(__dirname, "../.env") });
+    break;
+}
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+app.set("secretKey", process.env.SECRET_KEY);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
