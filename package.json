@@ -4,11 +4,12 @@
   "description": "Elevate the public transport experience",
   "main": "src/index.ts",
   "scripts": {
+    "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.js",
     "dev": "nodemon",
     "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts",
     "lint": "eslint src",
-    "build": "tsc"
+    "lint:fix": "eslint --fix src"
   },
   "mocha": {
     "extension": [
@@ -77,6 +78,7 @@
     "assert": "^2.0.0",
     "chai": "^4.3.7",
     "eslint": "^8.35.0",
+    "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "sinon": "^15.0.1",

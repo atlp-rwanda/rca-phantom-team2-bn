@@ -1,10 +1,10 @@
-import i18n from 'i18n';
+import i18n from "i18n"
 
 i18n.configure({
-  locales: ['en', 'fr'],
-  directory: `${__dirname}/../locales/`,
-  defaultLocale: 'en',
-  register: global,
-});
+    locales: ["en", "fr"],
+    directory: `${__dirname}/../locales/`,
+    defaultLocale: "en",
+    register: global,
+})
 
-export default i18n;
+export default i18n
