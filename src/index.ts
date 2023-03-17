@@ -1,23 +1,22 @@
-//switch dotenv environment
-import dotenv from "dotenv";
-import path from "path";
 import express, { Request, Response } from "express";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json";
 import morgan from "morgan";
 import cors from "cors";
+import i18n from "./configs/i18n";
 import { connectDB, sequelize } from "./db/config";
+import { config } from "dotenv";
 
 switch (process.env.NODE_ENV) {
   case "development":
-    dotenv.config({ path: path.join(__dirname, "../.env.development") });
+    config({ path: ".env.development" });
     break;
   case "production":
-    dotenv.config({ path: path.join(__dirname, "../.env.production") });
+    config({ path: ".env.production" });
     break;
   default:
-    dotenv.config({ path: path.join(__dirname, "../.env") });
+    config({ path: ".env" });
     break;
 }
 
@@ -29,6 +28,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
+app.use(i18n.init);
 
 app.use(
   "/api-docs",
@@ -46,10 +46,9 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-  return res.status(200).send({
-    message: "Welcome to Phantom server",
-    serverStatus: "RUNNING",
-  });
+  res
+    .status(200)
+    .send({ message: res.__("greeting"), serverStatus: "RUNNING" });
 });
 
 app.listen(PORT, async () => {
