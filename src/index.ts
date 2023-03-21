@@ -17,11 +17,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("tiny"))
 app.use(i18n.init)
 
-app.use(cors({ origin: "*" }))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(morgan("tiny"))
-app.use(i18n.init)
 app.use(
     "/api-docs",
     swaggerUI.serve,
