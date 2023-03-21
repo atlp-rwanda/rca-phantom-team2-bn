@@ -1,24 +1,46 @@
 {
     "env": {
-        "node": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
+    "overrides": [
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2020,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "plugins": ["@typescript-eslint"],
     "rules": {
         "indent": [
-            "error",
-            4
+            "error", 4,
+            {
+                "SwitchCase": 1,
+                "VariableDeclarator": {
+                    "var": 2,
+                    "let": 2,
+                    "const": 3
+                },
+                "outerIIFEBody": 1,
+                "MemberExpression": 1,
+                "FunctionDeclaration": {
+                    "body": 1,
+                    "parameters": 2
+                },
+                "FunctionExpression": {
+                    "body": 1,
+                    "parameters": 2
+                },
+                "CallExpression": {
+                    "arguments": 1
+                },
+                "ArrayExpression": 1,
+                "ObjectExpression": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -26,11 +48,21 @@
         ],
         "quotes": [
             "error",
-            "single"
+            "double"
         ],
         "semi": [
             "error",
             "never"
+        ],
+        "no-invalid-regexp": "error",
+        "camelcase": [
+            "error",
+            {
+                "properties": "always",
+                "ignoreImports": false,
+                "ignoreDestructuring": true,
+                "ignoreGlobals": false
+            }
         ]
     }
 }

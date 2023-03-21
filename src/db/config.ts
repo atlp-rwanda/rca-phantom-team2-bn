@@ -1,8 +1,7 @@
-require('dotenv').config()
-import { Sequelize, DataTypes } from 'sequelize'
+import { Sequelize, DataTypes } from "sequelize"
 
 const sequelize = new Sequelize({
-    dialect: 'postgres',
+    dialect: "postgres",
     host: String(process.env.DB_HOST),
     port: Number(process.env.DB_PORT),
     database: String(process.env.DB_NAME),
@@ -13,9 +12,9 @@ const sequelize = new Sequelize({
 async function connectDB() {
     try {
         await sequelize.authenticate()
-        console.log('Successfully connected to DB')
+        console.log("Successfully connected to DB")
     } catch (error) {
-        console.error('Database connection error:', error)
+        console.error("Database connection error:", error)
     }
 }
 
