@@ -1,20 +1,20 @@
-import joi from 'joi'
-import { Request, Response, NextFunction } from 'express'
-import { API_RESPONSE } from '../utils/response/response'
+import joi from "joi"
+import { Request, Response, NextFunction } from "express"
+import { API_RESPONSE } from "../utils/response/response"
 
 export const signupValidation = (req: Request, res: Response, next: NextFunction) => {
     const schema = joi.object({
         firstName: joi.string().alphanum().min(3).max(30).required(),
         lastName: joi.string().alphanum().min(3).max(30).required(),
         email: joi.string().email().required(),
-        role: joi.string().valid('admin', 'driver', 'operator').required()
+        role: joi.string().valid("admin", "driver", "operator").required()
     })
     const { error } = schema.validate(req.body)
 
     if (error) {
         return API_RESPONSE(res, {
             success: false,
-            message: error.details[0].message.split('"').join(''),
+            message: error.details[0].message.split("\"").join(""),
             status: 400,
         })
     }

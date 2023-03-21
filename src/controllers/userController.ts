@@ -1,8 +1,8 @@
-import { hashPassword } from './../utils/passwords/hashPassword'
-import { Request, Response } from 'express'
-import nodemailer from 'nodemailer'
-import UserModel from '../model/UserModel'
-import { API_RESPONSE } from '../utils/response/response'
+import { hashPassword } from "./../utils/passwords/hashPassword"
+import { Request, Response } from "express"
+import nodemailer from "nodemailer"
+import UserModel from "../model/UserModel"
+import { API_RESPONSE } from "../utils/response/response"
 export const createUser = async (req: Request, res: Response) => {
     const { email, role, firstName, lastName } = req.body
 
@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
         if (userExists) {
             return API_RESPONSE(res, {
                 success: false,
-                message: res.__('user_exits_message'),
+                message: res.__("user_exits_message"),
                 status: 400,
             })
         }
@@ -30,7 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
                 user: process.env.EMAIL_ADDRESS,
                 pass: process.env.EMAIL_PASSWORD,
@@ -40,8 +40,8 @@ export const createUser = async (req: Request, res: Response) => {
         const mailOptions = {
             from: process.env.EMAIL_ADDRESS,
             to: email,
-            subject: res.__('login_credentials_message'),
-            text: `${res.__('your_login_credentials_message')}.\nEmail: ${email}\nPassword: ${password}`,
+            subject: res.__("login_credentials_message"),
+            text: `${res.__("your_login_credentials_message")}.\nEmail: ${email}\nPassword: ${password}`,
         }
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -53,7 +53,7 @@ export const createUser = async (req: Request, res: Response) => {
         
         return API_RESPONSE(res, {
             success: true,
-            message: res.__('user_created_message'),
+            message: res.__("user_created_message"),
             data: rest,
             status: 201,
         })
@@ -62,7 +62,7 @@ export const createUser = async (req: Request, res: Response) => {
         console.log(error)
         return API_RESPONSE(res, {
             success: false,
-            message: res.__('failed_to_create_user_message'),
+            message: res.__("failed_to_create_user_message"),
             status: 400,
         })
     }

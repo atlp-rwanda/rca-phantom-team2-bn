@@ -1,5 +1,5 @@
 
-import { Response } from 'express'
+import { Response } from "express"
 
 interface responseData {
     success: boolean,
