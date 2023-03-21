@@ -4,6 +4,6 @@ import { signupValidation } from "../validations/userValidations"
 
 const userRouter = express.Router()
 
-userRouter.post("/users", signupValidation, createUser)
+userRouter.post("/register", signupValidation, createUser)
 
 export default userRouter

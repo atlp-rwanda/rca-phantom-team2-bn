@@ -36,7 +36,7 @@ app.get("", (req: Request, res: Response) => {
     res.status(200).send({ message: res.__("greeting"), serverStatus: "RUNNING" })
 })
 
-app.use("/api", userRouter)
+app.use("/api/users", userRouter)
 
 app.listen(PORT, async () => {
     console.info(`Server started at: http://localhost:${PORT}`)
