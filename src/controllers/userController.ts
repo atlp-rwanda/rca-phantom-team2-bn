@@ -1,8 +1,10 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
 import { Request, Response } from "express"
+import dotenv from "dotenv"
 import nodemailer from "nodemailer"
 import UserModel from "../model/UserModel"
 import { API_RESPONSE } from "../utils/response/response"
+dotenv.config()
 export const createUser = async (req: Request, res: Response) => {
     const { email, role, firstName, lastName } = req.body
 
