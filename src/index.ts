@@ -9,11 +9,22 @@ import { connectDB, sequelize } from "./db/config";
 import { config } from "dotenv";
 import userRouter from "./routes/userRoutes";
 
+switch (process.env.NODE_ENV) {
+  case "development":
+    config({ path: ".env.development" });
+    break;
+  case "production":
+    config({ path: ".env.production" });
+    break;
+  default:
+    config({ path: ".env" });
+    break;
+}
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-config({});
-
+app.set("secretKey", process.env.SECRET_KEY);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
