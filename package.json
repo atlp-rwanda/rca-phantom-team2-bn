@@ -46,12 +46,9 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
-    "@sideway/formula": "^3.0.1",
-    "@sideway/pinpoint": "^2.0.0",
     "@types/i18n-js": "^3.8.4",
     "bcrypt": "^5.1.0",
     "chai-http": "^4.3.0",
-    "combined-stream": "^1.0.8",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -93,7 +90,7 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "sinon": "^15.0.1",
-    "source-map-support": "^0.5.19",
-    "ts-node": "^9.0.0"
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1"
   }
 }
