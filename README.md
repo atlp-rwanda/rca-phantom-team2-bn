@@ -1,6 +1,10 @@
 # Phantom (backend)
 
+<<<<<<< HEAD
 Elevate the public transport experience
+=======
+Elevate the public transport experience  
+>>>>>>> eb816f969d90a9fd67ae2af901d890f640d79569
 
 [![Github Actions](https://github.com/atlp-rwanda/rca-phantom-team2-bn/actions/workflows/nodejs.yml/badge.svg?branch=develop)](https://github.com/atlp-rwanda/rca-phantom-team2-bn/actions/workflows/nodejs.yml)
 
@@ -54,9 +58,15 @@ Execute the command `npm run test` to run all tests
 
 ## Contribute
 
+<<<<<<< HEAD
 After cloning and running the project successfully, follow these steps:
 
 - Create a new branch from `develop`.
+=======
+After cloning and running the project successfully, follow these steps: 
+
+- Create a new branch from `develop`. 
+>>>>>>> eb816f969d90a9fd67ae2af901d890f640d79569
 - Make changes in the new branch, commit, push and raise a pull request (PR).
 
 Please, adhere to the following rules and conventions [here](https://github.com/atlp-rwanda/engineering-playbook/wiki)
