@@ -10,7 +10,8 @@ import morgan from "morgan"
 import cors from "cors"
 import i18n from "./configs/i18n"
 import { connectDB, sequelize } from "./db/config"
-import RolesRouter from "./routers/roles.router"
+import rolesRouter from "./routers/roles.router"
+import permissionsRouter from "./routers/permissions.router"
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -26,7 +27,8 @@ app.use(
     swaggerUI.serve,
     swaggerUI.setup(swaggerJsDoc(swaggerConfig))
 )
-app.use("/api/roles", RolesRouter)
+app.use("/api/roles", rolesRouter)
+app.use("/api/permissions", permissionsRouter)
 app.get("", (req: Request, res: Response) => {
     res.status(200).send({ message: res.__("greeting"), serverStatus: "RUNNING" })
 })

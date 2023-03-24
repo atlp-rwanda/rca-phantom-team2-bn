@@ -1,8 +1,10 @@
 import express from "express"
-import { deleteRoleById, getAllRoles, getRoleById, registerRole, updateRoleById } from "../controllers/roles.controller"
-import { newRoleValidation, updateRoleValidation } from "../validations/roleValidations"
+import { deleteRoleById, getAllRoles, getRoleById, grantRolePermission, registerRole, updateRoleById } from "../controllers/roles.controller"
+import { newRoleValidation, rolePermissionValidation, updateRoleValidation } from "../validations/roles"
 
 const router = express.Router()
+
+router.post("/grant-permission", rolePermissionValidation, grantRolePermission)
 
 router.post("", newRoleValidation, registerRole)
 

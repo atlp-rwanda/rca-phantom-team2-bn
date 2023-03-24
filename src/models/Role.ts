@@ -1,8 +1,9 @@
+import { Model } from "sequelize"
 import { sequelize, DataTypes } from "../db/config"
-import Permission from "./Permission"
-import RolePermission from "./RolePermission"
 
-const Role = sequelize.define("Role", {
+class Role extends Model {}
+
+Role.init({
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -18,10 +19,9 @@ const Role = sequelize.define("Role", {
         allowNull: false
     }
 }, {
-    timestamps: true
+    sequelize: sequelize,
+    timestamps: true,
+    modelName: "Role"
 })
-
-Role.belongsToMany(Permission, { through: RolePermission, foreignKey: "roleId" })
-
 
 export default Role

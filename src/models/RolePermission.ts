@@ -1,8 +1,11 @@
+import { Model } from "sequelize"
 import { sequelize, DataTypes } from "../db/config"
 import Permission from "./Permission"
 import Role from "./Role"
 
-const RolePermission = sequelize.define("roles", {
+class RolePermission extends Model {}
+
+RolePermission.init({
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -25,7 +28,9 @@ const RolePermission = sequelize.define("roles", {
         }
     }
 },{
-    timestamps: true
+    sequelize: sequelize,
+    timestamps: true,
+    modelName: "RolePermission"
 })
 
 

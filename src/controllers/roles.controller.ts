@@ -1,5 +1,6 @@
 import { Response, Request } from "express"
 import Role from "../models/Role"
+import RolePermission from "../models/RolePermission"
 import Paginator from "../utils/pagination/paginator"
 
 const paginator = new Paginator(Role)
@@ -10,7 +11,7 @@ export const registerRole = async (req: Request, res: Response)=> {
         description: req.body.description
     })
     
-    return res.status(200).send({
+    return res.status(201).send({
         success: true,
         message: res.__("role_created"),
         data: role
@@ -81,5 +82,15 @@ export const deleteRoleById = async (req: Request, res: Response)=> {
         message: res.__("success"),
         status: 200,
         data: {count: deleteCount}
+    })
+}
+
+export const grantRolePermission = async (req: Request, res: Response)=> {
+    const rolePermission = await RolePermission.create(req.body)
+
+    return res.status(201).send({
+        success: true,
+        message: res.__("permission_granted"),
+        data: rolePermission
     })
 }

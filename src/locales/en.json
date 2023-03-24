@@ -2,5 +2,10 @@
     "greeting": "Welcome to Phantom server",
     "success": "success",
     "role_not_found": "Role is not found",
-    "role_created": "Role created successfully"
+    "role_created": "Role created successfully",
+    "invalid_operations": "Invalid operations",
+    "invalid_model_name": "Invalid model name",
+    "permission_created": "Permission created",
+    "permission_granted": "Permission granted",
+    "permission_not_found": "Permission not found"
 }
