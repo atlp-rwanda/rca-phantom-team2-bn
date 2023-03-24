@@ -7,6 +7,7 @@ import cors from "cors";
 import i18n from "./configs/i18n";
 import { connectDB, sequelize } from "./db/config";
 import { config } from "dotenv";
+import session from "express-session";
 import userRouter from "./routes/userRoutes";
 
 switch (process.env.NODE_ENV) {
@@ -30,6 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 app.use(i18n.init);
+app.use(session({
+  secret: process.env.SESSION_SECRET as string,
+  resave: false,
+  saveUninitialized: false,
+}));
 
 app.use(
   "/api-docs",
