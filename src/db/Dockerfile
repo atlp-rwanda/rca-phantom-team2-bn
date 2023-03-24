@@ -1,0 +1,9 @@
+FROM postgres:15.2-alpine
+
+ENV POSTGRES_USER postgres
+
+ENV POSTGRES_PASSWORD Q5pusAHnukzzbQvJLqxi
+
+ENV POSTGRES_DB railway
+
+EXPOSE 5432

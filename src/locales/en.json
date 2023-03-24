@@ -1,3 +1,6 @@
 {
-    "greeting": "Welcome to Phantom server"
+    "greeting": "Welcome to Phantom server",
+    "success": "success",
+    "role_not_found": "Role is not found",
+    "role_created": "Role created successfully"
 }

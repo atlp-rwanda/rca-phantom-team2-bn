@@ -1,0 +1,12 @@
+/roles:
+  parameters:
+    - name: "Accept-Language"
+      in: "header"
+      default: en
+      required: true
+      description: Preferred language
+  get:
+    tags:
+      - Roles
+    description: Get all roles
+    

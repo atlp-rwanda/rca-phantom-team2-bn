@@ -1,0 +1,13 @@
+/:
+  get:
+    tags:
+      - Base
+    description: Get sever status
+    parameters:
+      - name: "Accept-Language"
+        in: "header"
+        required: true
+        description: Preferred language
+    responses:
+      200:
+        description: Server status and welcome message

@@ -1,3 +1,7 @@
+import { config } from "dotenv"
+
+config({})
+
 import express, { Request, Response } from "express"
 import swaggerUI from "swagger-ui-express"
 import swaggerJsDoc from "swagger-jsdoc"
@@ -6,12 +10,10 @@ import morgan from "morgan"
 import cors from "cors"
 import i18n from "./configs/i18n"
 import { connectDB, sequelize } from "./db/config"
-import { config } from "dotenv"
+import RolesRouter from "./routers/roles.router"
 
 const app = express()
 const PORT = process.env.PORT || 4000
-
-config({})
 
 app.use(cors({ origin: "*" }))
 app.use(express.json())
@@ -24,16 +26,7 @@ app.use(
     swaggerUI.serve,
     swaggerUI.setup(swaggerJsDoc(swaggerConfig))
 )
-
-/**
- * @openapi
- * /:
- *   get:
- *     description: Get sever status
- *     responses:
- *       200:
- *         description: Server status and welcome message
- */
+app.use("/api/roles", RolesRouter)
 app.get("", (req: Request, res: Response) => {
     res.status(200).send({ message: res.__("greeting"), serverStatus: "RUNNING" })
 })

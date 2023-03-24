@@ -1,3 +1,6 @@
 {
-    "greeting": "Bienvenue au serveur fantôme"
+    "greeting": "Bienvenue au serveur fantôme",
+    "success": "succès",
+    "role_not_found": "Le rôle est introuvable",
+    "role_created": "Rôle créé avec succès"
 }
