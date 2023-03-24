@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
+    "@types/express-session": "^1.17.7",
     "@types/i18n-js": "^3.8.4",
     "bcrypt": "^5.1.0",
     "chai-http": "^4.3.0",

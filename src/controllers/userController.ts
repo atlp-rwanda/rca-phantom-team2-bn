@@ -131,3 +131,13 @@ export const signIn = (req: Request, res: Response) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+
+export const logout = (req: Request, res: Response) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/signin");
+  });
+};
