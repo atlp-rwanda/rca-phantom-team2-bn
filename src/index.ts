@@ -9,7 +9,8 @@ import { connectDB, sequelize } from "./db/config"
 import userRouter from "./routes/userRoutes"
 
 const app = express()
-const PORT = process.env.PORT || 4000
+// const PORT = process.env.PORT || 4000
+const PORT:number=parseInt(<string>process.env.PORT,10) || 4000;
 
 app.use(cors({ origin: "*" }))
 app.use(express.json())
