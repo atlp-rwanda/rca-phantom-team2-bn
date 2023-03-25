@@ -1,6 +1,16 @@
 import { config } from "dotenv"
 
-config({})
+switch (process.env.NODE_ENV) {
+    case "development":
+        config({ path: ".env.development" })
+        break
+    case "production":
+        config({ path: ".env.production" })
+        break
+    default:
+        config({ path: ".env" })
+        break
+}
 
 import express, { Request, Response } from "express"
 import swaggerUI from "swagger-ui-express"
@@ -30,9 +40,10 @@ app.use(
 app.use("/api/roles", rolesRouter)
 app.use("/api/permissions", permissionsRouter)
 app.get("", (req: Request, res: Response) => {
-    res.status(200).send({ message: res.__("greeting"), serverStatus: "RUNNING" })
+    res
+        .status(200)
+        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
 })
-
 
 app.listen(PORT, async () => {
     console.info(`Server started at: http://localhost:${PORT}`)
