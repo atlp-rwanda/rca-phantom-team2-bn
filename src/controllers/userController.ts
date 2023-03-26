@@ -1,9 +1,9 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
 import { Request, Response } from "express"
 import dotenv from "dotenv"
-import nodemailer from "nodemailer"
 import UserModel from "../model/UserModel"
 import { API_RESPONSE } from "../utils/response/response"
+import { sendEmail } from "../utils/email/sendEmail"
 dotenv.config()
 export const createUser = async (req: Request, res: Response) => {
     const { email, role, firstName, lastName } = req.body
@@ -11,7 +11,7 @@ export const createUser = async (req: Request, res: Response) => {
     const password: string = Math.random().toString(36).substring(2, 8)
 
     try {
-        const userExists: UserModel | null = await findUserById(email)
+        const userExists: UserModel | null = await findUserByEmail(email)
 
         if (userExists) {
             return API_RESPONSE(res, {
@@ -30,28 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
         })
         const { password: _, ...rest } = newUser.toJSON()
 
-
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_ADDRESS,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-        })
-
-        const mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
-            to: email,
-            subject: res.__("login_credentials_message"),
-            text: `${res.__("your_login_credentials_message")}.\nEmail: ${email}\nPassword: ${password}`,
-        }
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log(error)
-            } else {
-                console.log(`Email sent: ${info.response}`)
-            }
-        })
+        sendEmail(email, password, res)
         
         return API_RESPONSE(res, {
             success: true,
@@ -70,7 +49,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 }
 
-const findUserById = async (email: string) => {
+const findUserByEmail = async (email: string) => {
     try {
         const user: UserModel | null = await UserModel.findOne({
             where: {
