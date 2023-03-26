@@ -8,9 +8,24 @@ import i18n from "./configs/i18n"
 import { connectDB, sequelize } from "./db/config"
 import userRouter from "./routes/userRoutes"
 
+import { config } from "dotenv"
+
+switch (process.env.NODE_ENV) {
+    case "development":
+        config({ path: ".env.development" })
+        break
+    case "production":
+        config({ path: ".env.production" })
+        break
+    default:
+        config({ path: ".env" })
+        break
+}
+
 const app = express()
 const PORT = process.env.PORT || 4000
 
+app.set("secretKey", process.env.SECRET_KEY)
 app.use(cors({ origin: "*" }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -33,9 +48,10 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-    res.status(200).send({ message: res.__("greeting"), serverStatus: "RUNNING" })
+    res
+        .status(200)
+        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
 })
-
 app.use("/api/users", userRouter)
 
 app.listen(PORT, async () => {
