@@ -23,7 +23,8 @@ switch (process.env.NODE_ENV) {
 }
 
 const app = express()
-const PORT = process.env.PORT || 4000
+// const PORT = process.env.PORT || 4000
+const PORT:number=parseInt(<string>process.env.PORT,10) || 4000;
 
 app.set("secretKey", process.env.SECRET_KEY)
 app.use(cors({ origin: "*" }))
