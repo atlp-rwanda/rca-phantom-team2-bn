@@ -1,17 +1,13 @@
-import request from 'supertest'
+import request from "supertest"
 import {createUser} from "../src/controllers/userController"
-const register=createUser;
+const register=createUser
 
 
 describe("Register User ", ()=> {
-
-  it("It should createUser: return  Ok", function () {
+    it("It should createUser: return  Ok", function () {
   
-request(register).get("/api/users").expect(200);
-  });
- 
-
-
-});
+        request(register).get("/api/users").expect(200)
+    })
+})
 
 
