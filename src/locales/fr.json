@@ -7,5 +7,11 @@
     "invalid_model_name": "Nom de modèle invalide",
     "permission_created": "Permission créée",
     "permission_granted": "Permission accordée",
-    "permission_not_found": "Permission est introuvable"
+    "permission_not_found": "Permission est introuvable",
+    "user_exits_message": "L'utilisateur existe déjà",
+    "user_created_message": "Utilisateur créé avec succès",
+    "user_not_found_message": "Utilisateur non trouvé",
+    "login_credentials_message": "Identifiants de connexion",
+    "your_login_credentials_message": "Vos identifiants de connexion :",
+    "Failed_to_create_user_message": "Échec de la création de l'utilisateur"
 }

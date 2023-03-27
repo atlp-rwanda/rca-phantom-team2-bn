@@ -31,6 +31,35 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/Permission'
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of roles per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Permissions
+      description: Get all permissions
+      responses:
+        200:
+          description: All registered permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPermissionsResBody'
   /permissions/operations:
     get:
       parameters:
@@ -101,4 +130,29 @@ components:
             type: string
         modelName:
           type: string
-    
+    GetPermissionsResBody:
+      allOf:
+        - $ref: '#/components/schemas/ResBody'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                prevPage: 
+                  type: number
+                currentPage: 
+                  type: number
+                nextPage: 
+                  type: number
+                lastPage: 
+                  type: number
+                total: 
+                  type: number
+                hasPrev: 
+                  type: boolean
+                hasNext: 
+                  type: boolean
+                data: 
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Permission'

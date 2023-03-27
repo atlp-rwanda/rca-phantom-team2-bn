@@ -4,8 +4,6 @@ import RolePermission from "../models/RolePermission"
 import Paginator from "../utils/pagination/paginator"
 import Joi from "joi"
 
-const paginator = new Paginator(Role)
-
 export const registerRole = async (req: Request, res: Response)=> {
     const role = await Role.create({
         name: req.body.name,
@@ -23,6 +21,7 @@ export const registerRole = async (req: Request, res: Response)=> {
 export const getAllRoles = async (req: Request, res: Response)=> {
     const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
     const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+    const paginator = new Paginator(Role)
     const results = await paginator.paginate({}, page, perPage)
     
     return res.status(200).send({

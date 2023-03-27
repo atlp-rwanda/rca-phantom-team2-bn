@@ -5,10 +5,10 @@ import { sequelize } from "../db/config"
 
 export const newPermissionValidation = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        name: Joi.string().alphanum().min(3).max(30).required(),
-        description: Joi.string().alphanum().min(3).max(200).required(),
+        name: Joi.string().min(3).max(30).required(),
+        description: Joi.string().min(3).max(200).required(),
         operations: Joi.array<string>().min(1).required(),
-        modelName: Joi.string().alphanum().min(3).max(30).required()
+        modelName: Joi.string().min(3).max(30).required()
     })
     const { error } = schema.validate(req.body)
 

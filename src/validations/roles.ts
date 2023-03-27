@@ -5,8 +5,8 @@ import Role from "../models/Role"
 
 export const newRoleValidation = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        name: Joi.string().alphanum().min(3).max(30).required(),
-        description: Joi.string().alphanum().min(3).max(200).required()
+        name: Joi.string().min(3).max(30).required(),
+        description: Joi.string().min(3).max(200).required()
     })
     const { error } = schema.validate(req.body)
 
@@ -21,8 +21,8 @@ export const newRoleValidation = (req: Request, res: Response, next: NextFunctio
 
 export const updateRoleValidation = (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        name: Joi.string().alphanum().min(3).max(30).required(),
-        description: Joi.string().alphanum().min(3).max(200).required()
+        name: Joi.string().min(3).max(30).required(),
+        description: Joi.string().min(3).max(200).required()
     })
     const { error } = schema.validate(req.body)
 
