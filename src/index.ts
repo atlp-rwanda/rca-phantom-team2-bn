@@ -22,7 +22,7 @@ import i18n from "./configs/i18n"
 import { connectDB, sequelize } from "./db/config"
 import rolesRouter from "./routers/roles.router"
 import permissionsRouter from "./routers/permissions.router"
-import userRouter from "./routes/userRoutes"
+import userRouter from "./routers/userRoutes"
 
 const app = express()
 const PORT = parseInt(<string> process.env.PORT, 10) || 4000
