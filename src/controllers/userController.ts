@@ -6,7 +6,7 @@ import { API_RESPONSE } from "../utils/response/response"
 export const createUser = async (req: Request, res: Response) => {
     const { email, role, firstName, lastName } = req.body
 
-    const password: string = Math.random().toString(36).substring(2, 8)
+    const password: string = Math.random().toString(36).substring(2,8)
 
     try {
         const userExists: UserModel | null = await findUserById(email)
@@ -80,3 +80,54 @@ const findUserById = async (email: string) => {
         return null
     }
 }
+
+
+export const updateUserProfile = async (req: Request, res: Response) => {
+    const { id, email, firstName, lastName, password, role } = req.body;
+  
+    try {
+      const user = await UserModel.findOne({ where: { id } });
+  
+      if (!user) {
+        return API_RESPONSE(res, {
+          success: false,
+          message: res.__("user_not_found_message"),
+          status: 404,
+        });
+      }
+  
+      // Only update fields that have a value in the request body
+      user.email = email || user.email;
+      user.firstName = firstName || user.firstName;
+      user.lastName = lastName || user.lastName;
+      if (password) {
+        user.password = await hashPassword(password);
+      }
+      user.role = role || user.role;
+  
+      await user.save();
+  
+      const { password: _, ...rest } = user.toJSON();
+  
+      return API_RESPONSE(res, {
+        success: true,
+        message: res.__("user_updated_message"),
+        data: rest,
+        status: 200,
+      });
+    } catch (error) {
+      console.log(error);
+      return API_RESPONSE(res, {
+        success: false,
+        message: res.__("failed_to_update_user_message"),
+        status: 400,
+      });
+    }
+  };
+  
+
+
+
+
+
+
