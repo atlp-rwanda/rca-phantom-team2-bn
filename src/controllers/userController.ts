@@ -104,7 +104,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
   
       await user.save();
   
-      const { password: _, ...rest } = user.toJSON();
+      const { ...rest } = user.toJSON();
   
       return API_RESPONSE(res, {
         success: true,
