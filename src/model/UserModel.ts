@@ -15,8 +15,8 @@ class UserModel extends Model {
 UserModel.init(
     {
         id: {
-            type: DataTypes.UUIDV4,
-            autoIncrement: true,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         firstName: {
@@ -42,7 +42,8 @@ UserModel.init(
         },
     },
     {
-        tableName: "users",
+        modelName: "User",
+        timestamps: true,
         sequelize,
     },
 )

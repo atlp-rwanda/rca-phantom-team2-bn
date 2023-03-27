@@ -1,35 +1,46 @@
 paths:
-  /api/users/register:
+  /users/register:
     post:
-      summary: "Create a new user"
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
       description: "Creates a new user in the system"
+      tags:
+        - Users
       consumes:
         - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "User object that needs to be added"
-          required: true
-          schema:
-            type: "object"
-            required:
-              - "firstName"
-              - "lastName"
-              - "email"
-              - "role"
-            properties:
-              firstName:
-                type: "string"
-              lastName:
-                type: "string"
-              email:
-                type: "string"
-              role:
-                type: "string"
+      requestBody:
+        description: "User object that needs to be added"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
       responses:
         201:
           description: "User created"
         400:
           description: "Invalid input"
+components:
+  schemas:
+    NewUser:
+      type: "object"
+      required:
+        - "firstName"
+        - "lastName"
+        - "email"
+        - "role"
+      properties:
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        email:
+          type: "string"
+        role:
+          type: "string"
