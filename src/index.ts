@@ -10,20 +10,22 @@ import { config } from "dotenv";
 import session from "express-session";
 import userRouter from "./routes/userRoutes";
 
+
 switch (process.env.NODE_ENV) {
-  case "development":
-    config({ path: ".env.development" });
-    break;
-  case "production":
-    config({ path: ".env.production" });
-    break;
-  default:
-    config({ path: ".env" });
-    break;
+    case "development":
+        config({ path: ".env.development" })
+        break
+    case "production":
+        config({ path: ".env.production" })
+        break
+    default:
+        config({ path: ".env" })
+        break
 }
 
-const app = express();
-const PORT = process.env.PORT || 4000;
+const app = express()
+// const PORT = process.env.PORT || 4000
+const PORT:number=parseInt(<string>process.env.PORT,10) || 4000
 
 app.set("secretKey", process.env.SECRET_KEY);
 app.use(cors({ origin: "*" }));
@@ -38,10 +40,10 @@ app.use(session({
 }));
 
 app.use(
-  "/api-docs",
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerJsDoc(swaggerConfig))
-);
+    "/api-docs",
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerJsDoc(swaggerConfig))
+)
 
 /**
  * @openapi
@@ -53,10 +55,11 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-  res
-    .status(200)
-    .send({ message: res.__("greeting"), serverStatus: "RUNNING" });
-});
+    res
+        .status(200)
+        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
+})
+app.use("/api/users", userRouter)
 
 app.use("/api/users", userRouter);
 
