@@ -1,13 +1,28 @@
-/:
-  get:
-    tags:
-      - Base
-    description: Get sever status
-    parameters:
-      - name: "Accept-Language"
-        in: "header"
-        required: true
-        description: Preferred language
-    responses:
-      200:
-        description: Server status and welcome message
+paths:
+  /:
+    get:
+      tags:
+        - Base
+      description: Get sever status
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      responses:
+        200:
+          description: Server status and welcome message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerStatus'
+components:
+  schemas:
+    ServerStatus:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string

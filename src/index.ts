@@ -32,18 +32,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("tiny"))
 app.use(i18n.init)
 
-app.use(
-    "/api-docs",
-    swaggerUI.serve,
-    swaggerUI.setup(swaggerJsDoc(swaggerConfig))
-)
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerConfig)))
+app.get("/api", (_req: Request, res: Response) => res.status(200).send({ message: res.__("greeting"), status: "RUNNING" }))
 app.use("/api/roles", rolesRouter)
 app.use("/api/permissions", permissionsRouter)
-app.get("", (req: Request, res: Response) => {
-    res
-        .status(200)
-        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
-})
 
 app.listen(PORT, async () => {
     console.info(`Server started at: http://localhost:${PORT}`)

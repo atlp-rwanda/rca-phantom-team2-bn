@@ -1,0 +1,104 @@
+paths:
+  /permissions:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Permissions
+      description: Create/register new permission
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPermission'
+      responses:
+        201:
+          description: Permission created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Permission'
+  /permissions/operations:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Permissions
+      description: Get all supported operations on models
+      responses:
+        200:
+          description: All operations
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: string 
+  /permissions/models:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Permissions
+      description: Get all model names
+      responses:
+        200:
+          description: All model names
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: string
+components:
+  schemas:
+    NewPermission:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        operations:
+          type: array
+          min: 1
+          items:
+            type: string
+        modelName:
+          type: string
+    

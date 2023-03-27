@@ -27,6 +27,7 @@ export const registerNewPermission = async (req: Request, res: Response)=> {
     return res.status(201).send({
         success: true,
         message: res.__("permission_created"),
+        status: 201,
         data: permission
     })
 }

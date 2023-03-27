@@ -2,6 +2,7 @@ import { Response, Request } from "express"
 import Role from "../models/Role"
 import RolePermission from "../models/RolePermission"
 import Paginator from "../utils/pagination/paginator"
+import Joi from "joi"
 
 const paginator = new Paginator(Role)
 
@@ -14,13 +15,14 @@ export const registerRole = async (req: Request, res: Response)=> {
     return res.status(201).send({
         success: true,
         message: res.__("role_created"),
+        status: 201,
         data: role
     })
 }
 
 export const getAllRoles = async (req: Request, res: Response)=> {
-    const page = parseInt((String(req.query.page ? req.query.page : 1)))
-    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10)))
+    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
     const results = await paginator.paginate({}, page, perPage)
     
     return res.status(200).send({
@@ -32,6 +34,12 @@ export const getAllRoles = async (req: Request, res: Response)=> {
 }
 
 export const getRoleById = async (req: Request, res: Response)=> {
+    if(Joi.string().uuid({version: "uuidv4"}).validate(req.params.roleId).error)
+        return res.status(404).send({
+            success: false,
+            message: res.__("role_not_found"),
+            status: 404
+        })
     const role = await Role.findByPk(req.params.roleId)
     if(!role) return res.status(404).send({
         success: false,
