@@ -6,7 +6,7 @@ import { API_RESPONSE } from "../utils/response/response"
 import { sendEmail } from "../utils/email/sendEmail"
 dotenv.config()
 export const createUser = async (req: Request, res: Response) => {
-    const { email, role, firstName, lastName } = req.body
+    const { email, roleId, firstName, lastName } = req.body
 
     const password: string = Math.random().toString(36).substring(2, 8)
 
@@ -26,7 +26,7 @@ export const createUser = async (req: Request, res: Response) => {
             firstName: firstName,
             lastName: lastName,
             password: hashedPassword,
-            role: role
+            roleId: roleId
         })
         const { ...rest } = newUser.toJSON()
 

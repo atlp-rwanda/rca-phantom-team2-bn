@@ -1,51 +1,45 @@
 import { Model, DataTypes } from "sequelize"
 import { sequelize } from "../db/config"
+import Role from "./Role"
 
-class UserModel extends Model {
-    public id!: number
-    public firstName!: string
-    public lastName!: string
-    public email!: string
-    public password!: string
-    public role!: string
-    public readonly createdAt!: Date
-    public readonly updatedAt!: Date
-}
+class UserModel extends Model { }
 
-UserModel.init(
-    {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-        },
-        firstName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+UserModel.init({
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
     },
-    {
-        modelName: "User",
-        timestamps: true,
-        sequelize,
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-)
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    roleId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: Role,
+            key: "id"
+        }
+    }
+},
+{
+    modelName: "User",
+    timestamps: true,
+    sequelize,
+})
 
 export default UserModel
