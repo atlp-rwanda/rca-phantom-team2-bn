@@ -83,10 +83,10 @@ const findUserById = async (email: string) => {
 
 
 export const updateUserProfile = async (req: Request, res: Response) => {
-    const { id, email, firstName, lastName, password, role } = req.body;
+    const {  email, firstName, lastName, password, role } = req.body;
   
     try {
-      const user = await UserModel.findOne({ where: { id } });
+      const user = await UserModel.findOne({ where: { email:email } });
   
       if (!user) {
         return API_RESPONSE(res, {
