@@ -2,9 +2,16 @@ import { Model, DataTypes } from "sequelize"
 import { sequelize } from "../db/config"
 import Role from "./Role"
 
-class UserModel extends Model { }
+class User extends Model {
+    id!: string
+    firstName!: string
+    lastName!: string
+    email!: string
+    password!: string
+    roleId!: string
+}
 
-UserModel.init({
+User.init({
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -42,4 +49,4 @@ UserModel.init({
     sequelize,
 })
 
-export default UserModel
+export default User

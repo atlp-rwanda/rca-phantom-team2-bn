@@ -9,13 +9,13 @@ paths:
           description: Preferred language
       security:
         - bearerAuth: []
-      description: "Creates a new user in the system"
+      description: Creates a new user in the system
       tags:
         - Users
       consumes:
         - "application/json"
       requestBody:
-        description: "User object that needs to be added"
+        description: Request body
         required: true
         content:
           application/json:
@@ -23,24 +23,53 @@ paths:
               $ref: '#/components/schemas/NewUser'
       responses:
         201:
-          description: "User created"
+          description: User created
         400:
           description: "Invalid input"
+  /users/signin:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: header
+          default: en
+          required: true
+          description: Preferred language
+      description: User sign in
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        200:
+          description: Sign in successful
 components:
   schemas:
-    NewUser:
-      type: "object"
+    UserLogin:
+      type: object
       required:
-        - "firstName"
-        - "lastName"
-        - "email"
-        - "role"
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    NewUser:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - roleId
       properties:
         firstName:
-          type: "string"
+          type: string
         lastName:
-          type: "string"
+          type: string
         email:
-          type: "string"
-        role:
-          type: "string"
+          type: string
+        roleId:
+          type: string

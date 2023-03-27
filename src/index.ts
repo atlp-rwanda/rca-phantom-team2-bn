@@ -40,6 +40,8 @@ app.use("/api/permissions", permissionsRouter)
 app.use("/api/users", userRouter)
 app.get("/api", (_req: Request, res: Response) => res.status(200).send({ message: res.__("greeting"), status: "RUNNING" }))
 
+app.use("/api/users", userRouter)
+
 app.listen(PORT, async () => {
     console.info(`Server started at: http://localhost:${PORT}`)
     await connectDB()
@@ -47,3 +49,5 @@ app.listen(PORT, async () => {
         console.log("Synced database successfully...")
     })
 })
+
+export default app
