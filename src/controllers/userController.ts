@@ -100,9 +100,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
       user.email = email || user.email;
       user.firstName = firstName || user.firstName;
       user.lastName = lastName || user.lastName;
-      if (password) {
-        user.password = await hashPassword(password);
-      }
       user.role = role || user.role;
   
       await user.save();
