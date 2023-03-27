@@ -28,7 +28,7 @@ export const createUser = async (req: Request, res: Response) => {
             password: hashedPassword,
             role: role
         })
-        const { password: _, ...rest } = newUser.toJSON()
+        const { ...rest } = newUser.toJSON()
 
         sendEmail(email, password, res)
         

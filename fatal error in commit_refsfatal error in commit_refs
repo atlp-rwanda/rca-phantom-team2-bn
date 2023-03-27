@@ -1,0 +1,373 @@
+[33mcommit 382ae42472783726959920c115769ead31aa7e43[m[33m ([m[1;36mHEAD -> [m[1;32mft-create-roles-and-permissions-9[m[33m)[m
+Merge: 2bb3249 00ebd83
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Mon Mar 27 14:15:17 2023 +0200
+
+    Merge branch 'ft-register-drivers-and-operators' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ft-create-roles-and-permissions-9
+
+[33mcommit 2bb3249de60a7771632fd503999f85b0b6efafc0[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Mon Mar 27 12:27:54 2023 +0200
+
+    feat(authentication): added swagger documentation for roles and permissions
+
+[33mcommit 00ebd839adcaaf02b13833b0cd9a4a135aeefd6c[m[33m ([m[1;31morigin/ft-register-drivers-and-operators[m[33m)[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 27 00:21:26 2023 +0200
+
+    core: added super test
+
+[33mcommit 12842b9189caac6b7ffebd22faa29d5fc1d0b4ae[m
+Merge: 3334cf0 a5b2819
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 27 00:09:46 2023 +0200
+
+    Merge branch 'ft-register-drivers-and-operators' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ft-register-drivers-and-operators
+
+[33mcommit 3334cf0eeaeef8ee5dbb741efcd4f231e0a78ed4[m
+Merge: d67dccd eb816f9
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 27 00:09:16 2023 +0200
+
+    core: pulled from develop
+
+[33mcommit d67dccdcd114bf4745c1d134c22e4ff4ee47f4e3[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 27 00:05:29 2023 +0200
+
+    feat-Work on feedback
+
+[33mcommit a5b28191534781a47b75c01eee26fde581712307[m
+Author: pauline12 <paulineishimwe12@gmail.com>
+Date:   Sun Mar 26 00:45:44 2023 +0200
+
+    feat: Added Register-User tests in userController.test.ts
+
+[33mcommit 69158daa2a51aa9d85db5aff6dbb0bac28156e7c[m
+Merge: 176f179 eb816f9
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Sat Mar 25 11:05:36 2023 +0200
+
+    Merge branch 'develop' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ft-create-roles-and-permissions-9
+
+[33mcommit 176f179d76ec3b728b5eacf2d07fd219eece575f[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Fri Mar 24 15:38:42 2023 +0200
+
+    feat((authentication): Add roles and permissions control
+    
+        - The Administrator should be able to create, update, and delete roles.
+        - The administrator should be able to set and update role's permissions.
+
+[33mcommit 3c08630fd66b8df5dd7d7e396ab4dc9e80ca6b90[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Fri Mar 24 15:34:06 2023 +0200
+
+    ft(authentication): Add roles and permissions control
+    
+    - The Administrator should be able to create, update, and delete roles.
+    - The administrator should be able to set and update role's permissions.
+
+[33mcommit eb816f969d90a9fd67ae2af901d890f640d79569[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Fiston Nshimiyandinze <76660182+fistonfle@users.noreply.github.com>
+Date:   Wed Mar 22 15:46:28 2023 +0200
+
+    Dotenv setup (#6)
+    
+    * feat : dotenv setup
+    
+    * feat : added dotenv example
+    
+    * feat : added dotenv example
+    
+    * Added node_env property
+
+[33mcommit bac32ec15ad2fd6e350891e504ea5e4c2a3b0df2[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 23:17:33 2023 +0200
+
+    core: config detenv
+
+[33mcommit 0ede9b91dc1d530cefa5638b1c1f240eb31bebd0[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 14:49:38 2023 +0200
+
+    core: change routes
+
+[33mcommit 6e8f57d243bee9f84c3138802b0bf7893beeb784[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 14:25:18 2023 +0200
+
+    feat: remove duplications
+
+[33mcommit d795ca34e21e7a1462ff930b2bbf53ddbd546ac9[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 02:08:37 2023 +0200
+
+    feat: add linters
+
+[33mcommit e67841121f6dc9e4e86f152985ea185833b23e99[m
+Merge: 27a764a 65466f1
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 02:08:18 2023 +0200
+
+    Merge branch 'develop' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ft-register-drivers-and-operators
+
+[33mcommit 27a764aae5dacf8e392b75c2f713be7129dfe207[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 21 01:54:41 2023 +0200
+
+    feat: Add register user, send email and send error messages
+
+[33mcommit 65466f12eaff5c5f0881bc569dce2b1f65043b79[m[33m ([m[1;31morigin/ft-create-roles-and-permissions-9[m[33m)[m
+Merge: 4baac29 004a377
+Author: Freddy <freddykaberuka2009@gmail.com>
+Date:   Fri Mar 17 01:18:27 2023 +0200
+
+    Merge pull request #7 from atlp-rwanda/bg-fix-eslint-and-readme-1
+    
+    #1 Configure & enable Eslint and README.md
+
+[33mcommit 004a37791c315dcc6b61fe13e68e21f7c0026eaa[m[33m ([m[1;31morigin/bg-fix-eslint-and-readme-1[m[33m, [m[1;32mbg-fix-eslint-and-readme-1[m[33m)[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Thu Mar 16 17:29:36 2023 +0200
+
+    fix(style): Lint the project
+    
+    - Fix Eslint errors
+    
+    [Fixes #1]
+
+[33mcommit b801ae99676db0184798015d824b6237f8bea905[m
+Merge: dfb92d0 4baac29
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Thu Mar 16 17:17:23 2023 +0200
+
+    Merge branch 'develop' into bg-fix-eslint-and-readme-1
+
+[33mcommit dfb92d071ed10af79a6cbe7dd5d671ff3be8ee62[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Thu Mar 16 16:43:54 2023 +0200
+
+    fix(style): configure/enable Eslint and README
+    
+    - Configure and enable Eslint
+    - Add Eslint to git pre-commit and pre-push hooks with husky
+    - Edit README.md
+    
+    [Fixes #1]
+
+[33mcommit 4baac29887440c9ab68a650cdcd95a3259e0259c[m
+Merge: 2d93d2f 28ac8db
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Tue Mar 14 15:01:27 2023 +0200
+
+    Merge pull request #2 from atlp-rwanda/ch-support-multiple-languages
+    
+    chore(setup): add support for mulitple languages
+
+[33mcommit 2d93d2f7953121aa51fe258d337c6c0a727a6986[m
+Merge: e873fee babdc53
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 17:05:19 2023 +0200
+
+    Merge pull request #4 from atlp-rwanda/ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline
+    
+    (chore) setup: add continuous integration and quality assurance pipeline
+
+[33mcommit 28ac8db4a444437b20e572230afd28a3a0edbe3b[m[33m ([m[1;31morigin/ch-support-multiple-languages[m[33m, [m[1;32mch-support-multiple-languages[m[33m)[m
+Author: MANZI Mike <48416679+MikeManzi@users.noreply.github.com>
+Date:   Mon Mar 13 16:01:00 2023 +0200
+
+    fix(db setup): import db correctly
+
+[33mcommit f9f8b871a4af279b647555ae2e6a11598832ccba[m
+Author: MANZI Mike <48416679+MikeManzi@users.noreply.github.com>
+Date:   Mon Mar 13 15:21:21 2023 +0200
+
+    refactor(setup): remove unnecessary comment
+
+[33mcommit 991393252510eb9b49e54b21243767d50f4e8b0d[m
+Merge: 2815c69 e873fee
+Author: MANZI Mike <48416679+MikeManzi@users.noreply.github.com>
+Date:   Mon Mar 13 15:14:13 2023 +0200
+
+    Merge branch 'develop' into ch-support-multiple-languages
+
+[33mcommit babdc53594f5d8a3117357bc80bdafc32505d4cf[m[33m ([m[1;31morigin/ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline[m[33m)[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 14:42:57 2023 +0200
+
+    refactor: refactor README.md file
+
+[33mcommit 4a67ea1dffaf9ec456573d0ce004520d20cc9e10[m
+Merge: f16de46 e873fee
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 14:41:07 2023 +0200
+
+    core: Merge branch 'develop' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline
+
+[33mcommit f16de466c391167b78f48a01980a3440f1627617[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 14:10:09 2023 +0200
+
+    core: change start script
+
+[33mcommit 6399818d97661d98fde1c5d2670b9aec97a2616f[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 13:42:07 2023 +0200
+
+    core: change start script
+
+[33mcommit e873fee7d6e77f864a6af0ea3c14d79d2816a4ff[m[33m ([m[1;32mdevelop[m[33m)[m
+Merge: c6ad375 d2be6e2
+Author: Freddy <freddykaberuka2009@gmail.com>
+Date:   Mon Mar 13 13:41:19 2023 +0200
+
+    Merge pull request #3 from atlp-rwanda/ch-configure-postgres-db
+    
+    Configure the app to use Postgres database
+
+[33mcommit 861ce0a5aba371163ed714558f82e1e08dbb495d[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 13:17:26 2023 +0200
+
+    core: change start script
+
+[33mcommit 2815c6975640fb6138cb1d839a183d24330f8d50[m
+Author: Manzi Mike <manzimike378@gmail.com>
+Date:   Mon Mar 13 12:55:15 2023 +0200
+
+    fix(i18n configs): render correct message
+
+[33mcommit be7dcb70d202c13cf2a95809e2b910a9ffe6da38[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Mon Mar 13 11:55:44 2023 +0200
+
+    core: add repository to code climate
+
+[33mcommit d2be6e2837f84276ad6cf50c3c694a31a2fb3c30[m[33m ([m[1;31morigin/ch-configure-postgres-db[m[33m, [m[1;32mch-configure-postgres-db[m[33m)[m
+Author: kelliaUmuhire <50176390+kelliaUmuhire@users.noreply.github.com>
+Date:   Mon Mar 13 10:35:39 2023 +0200
+
+    chore(database): configure postgres db
+
+[33mcommit 3ad294ffa1ab15d6ba394b3ff8a49f50997a6f20[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Fri Mar 10 02:32:59 2023 +0200
+
+    Core: update README.md
+
+[33mcommit d35e572115230c5070d77d2816d2e2f586c01e2c[m
+Author: Manzi Mike <manzimike378@gmail.com>
+Date:   Fri Mar 10 01:51:32 2023 +0200
+
+    chore(setup): add support for mulitple languages
+
+[33mcommit 4d75dd5d58d13550556548a02a448a9b8d2e8b8e[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 18:44:40 2023 +0200
+
+    core: update dependencies
+
+[33mcommit 1710df056eee2305dd3e184b7620848c4aad79d8[m
+Merge: e65cfa1 c6ad375
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 18:42:57 2023 +0200
+
+    Merge branch 'develop' of https://github.com/atlp-rwanda/rca-phantom-team2-bn into ch-Setup-Continuous-Integration-and-Quality-Assurance-pipeline
+
+[33mcommit e65cfa1dcb881aca93fa4e8cef815ecc618aa88d[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 14:12:15 2023 +0200
+
+    core: add github actions
+
+[33mcommit 170e16b850e6f914daa5671987156649e130ca60[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 12:04:58 2023 +0200
+
+    feat: Configured Testing environment with Mocha, Chai and Sinon to ensure that all functionalities are tested before deployment.
+
+[33mcommit c6ad375c979433300df701db903e49adf6d0f822[m
+Merge: 89a7f65 7e436a2
+Author: Freddy <freddykaberuka2009@gmail.com>
+Date:   Thu Mar 9 12:01:29 2023 +0200
+
+    Merge pull request #1 from atlp-rwanda/ch-initial-project-setup-23
+    
+    #23 Set up Node.js REST API empty project
+
+[33mcommit d93fc1638e5452d7de0e1ece7e30a1711b1479cf[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 11:07:23 2023 +0200
+
+    core: add build script
+
+[33mcommit f39935af0397ef4131b1797e1d95a05601572a15[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 11:02:21 2023 +0200
+
+    core: update steps
+
+[33mcommit e75034eb0f358826281cd7f463c70e5750e3663f[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 11:01:16 2023 +0200
+
+    core: update steps
+
+[33mcommit 5d721644fa1333eb5005618fa7c4b9c621fb5336[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 10:56:23 2023 +0200
+
+    chore-Update Node.js version in Github Actions workflow branch
+
+[33mcommit 54ea3d0a9c3c46a1eeccfee02d736fc228d496b5[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 10:55:26 2023 +0200
+
+    chore-Update Node.js version in Github Actions workflow
+
+[33mcommit 16e7e399b3680dedff502ac11462903e15cc1f20[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 10:42:44 2023 +0200
+
+    chore-Update Node.js version in Github Actions workflow
+
+[33mcommit c0143494b9f309856b82f4e0b1824d7ff063399c[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 10:39:00 2023 +0200
+
+    chore-changed-the-branch
+
+[33mcommit 4e1eead25bc017dbe57ad7b83269d585e34d6948[m
+Author: Mutoni Denyse <mdenyse15@gmail.com>
+Date:   Thu Mar 9 10:33:54 2023 +0200
+
+    feat-add a basic github action workflows
+
+[33mcommit 7e436a2f482ec433254275dc848807f0cf411ec1[m[33m ([m[1;31morigin/ch-initial-project-setup-23[m[33m, [m[1;32mch-initial-project-setup-23[m[33m)[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Wed Mar 8 18:01:02 2023 +0200
+
+    chore(setup): add swagger documentation
+    
+    - add swagger documentation
+    - add required middlewares and cors configuration
+    
+    [Finishes #-23]
+
+[33mcommit a72f7973cbfd118dd2e9e2fe42657bd6abbe94aa[m
+Author: Harerimana Egide <egideharerimana085@gmail.com>
+Date:   Wed Mar 8 15:58:10 2023 +0200
+
+    chore(setup): initial project setup
+    
+    -upgrade and fix dependencies
+    -config files (configuration)
+
+[33mcommit 89a7f655b1b2ec4ca0ed12a3992272c775b69a12[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: anguandia mike <mikeanguandia@gmail.com>
+Date:   Tue Mar 7 19:05:24 2023 +0200
+
+    Initial commit
