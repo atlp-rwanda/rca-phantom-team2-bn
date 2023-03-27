@@ -142,3 +142,69 @@ export const logout = (req: Request, res: Response) => {
     res.status(200).send("Logged out successfully")
   });
 };
+
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const { email, currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await findUserById(email);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found.',
+      });
+    }
+
+    const passwordMatches = bcrypt.compareSync(
+      currentPassword,
+      user.password
+    );
+
+    if (!passwordMatches) {
+      return res.status(400).json({
+        success: false,
+        message: 'Current password is incorrect.',
+      });
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+    user.password = hashedPassword;
+    await user.save();
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_ADDRESS,
+      to: email,
+      subject: 'Password Reset Confirmation',
+      text: 'Your password has been successfully reset.',
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password successfully reset.',
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to reset password.',
+    });
+  }
+};
