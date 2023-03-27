@@ -1,3 +1,9 @@
 {
-    "greeting": "Welcome to Phantom server"
+    "greeting": "Welcome to Phantom server",
+    "user_exits_message": "User already exists",
+    "user_created_message": "User created successfully",
+    "user_not_found_message": "User not found",
+    "login_credentials_message": "Login credentials",
+    "your_login_credentials_message": "Your login credentials:",
+    "failed_to_create_user_message": "Failed to create user"
 }

@@ -1,40 +1,43 @@
-import express, { Request, Response } from "express";
-import swaggerUI from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
-import swaggerConfig from "../swagger.json";
-import morgan from "morgan";
-import cors from "cors";
-import i18n from "./configs/i18n";
-import { connectDB, sequelize } from "./db/config";
-import { config } from "dotenv";
+import express, { Request, Response } from "express"
+import swaggerUI from "swagger-ui-express"
+import swaggerJsDoc from "swagger-jsdoc"
+import swaggerConfig from "../swagger.json"
+import morgan from "morgan"
+import cors from "cors"
+import i18n from "./configs/i18n"
+import { connectDB, sequelize } from "./db/config"
+import userRouter from "./routes/userRoutes"
+
+import { config } from "dotenv"
 
 switch (process.env.NODE_ENV) {
-  case "development":
-    config({ path: ".env.development" });
-    break;
-  case "production":
-    config({ path: ".env.production" });
-    break;
-  default:
-    config({ path: ".env" });
-    break;
+    case "development":
+        config({ path: ".env.development" })
+        break
+    case "production":
+        config({ path: ".env.production" })
+        break
+    default:
+        config({ path: ".env" })
+        break
 }
 
-const app = express();
-const PORT = process.env.PORT || 4000;
+const app = express()
+// const PORT = process.env.PORT || 4000
+const PORT:number=parseInt(<string>process.env.PORT,10) || 4000
 
-app.set("secretKey", process.env.SECRET_KEY);
-app.use(cors({ origin: "*" }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan("tiny"));
-app.use(i18n.init);
+app.set("secretKey", process.env.SECRET_KEY)
+app.use(cors({ origin: "*" }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(morgan("tiny"))
+app.use(i18n.init)
 
 app.use(
-  "/api-docs",
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerJsDoc(swaggerConfig))
-);
+    "/api-docs",
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerJsDoc(swaggerConfig))
+)
 
 /**
  * @openapi
@@ -46,15 +49,16 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-  res
-    .status(200)
-    .send({ message: res.__("greeting"), serverStatus: "RUNNING" });
-});
+    res
+        .status(200)
+        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
+})
+app.use("/api/users", userRouter)
 
 app.listen(PORT, async () => {
-  console.info(`Server started at: http://localhost:${PORT}`);
-  await connectDB();
-  sequelize.sync({ force: false }).then(() => {
-    console.log("Synced database successfully...");
-  });
-});
+    console.info(`Server started at: http://localhost:${PORT}`)
+    await connectDB()
+    sequelize.sync({ force: false }).then(() => {
+        console.log("Synced database successfully...")
+    })
+})
