@@ -1,9 +1,10 @@
-import express from "express"
-import { createUser } from "../controllers/userController"
-import { signupValidation } from "../validations/userValidations"
+import express from "express";
+import { createUser, signIn } from "../controllers/userController";
+import { signupValidation } from "../validations/userValidations";
 
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-userRouter.post("/register", signupValidation, createUser)
+userRouter.post("/register", signupValidation, createUser);
+userRouter.post("/signin", signIn);
 
-export default userRouter
+export default userRouter;
