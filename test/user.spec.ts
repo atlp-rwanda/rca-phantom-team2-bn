@@ -1,9 +1,9 @@
 import request from "supertest";
-import { createUser } from "../src/controllers/userController";
-const register = createUser;
 import app from "../src/index";
 import chai from "chai";
 import chaiHttp from "chai-http";
+import { createUser } from "../src/controllers/userController";
+const register = createUser;
 
 let agent = request.agent(app);
 let should = chai.should();
