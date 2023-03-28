@@ -1,29 +1,30 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import jwt from "jsonwebtoken"
-import { Response } from "express"
+import jwt, { JwtPayload } from "jsonwebtoken"
+import { Response, Request, NextFunction } from "express"
 
-const verifyToken = (req: any, res: Response, next: any) => {
-    const token = req.headers["x-access-token"]
+export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+    let token = req.headers.authorization
 
-    if (!token) {
-        return res.status(403).send({
-            message: "No token provided!",
+    if (!token || token.replace("Bearer", "").trim().length < 10) return res.status(401).send({
+        success: false,
+        message: "Unauthorized",
+        status: 401
+    })
+
+    token = token.replace("Bearer", "").trim()
+
+    try {
+        const decoded = jwt.verify(token, String(process.env.AUTH_KEY)) as JwtPayload
+        req.auth = {
+            userId: decoded.userId,
+            roleId: decoded.roleId,
+        }
+        return next()
+    } catch (error) {
+        return res.status(401).send({
+            success: false,
+            message: "Unauthorized",
+            status: 401
         })
     }
-
-    jwt.verify(token, String(process.env.AUTH_KEY), (err: any, decoded: any) => {
-        if (err) {
-            return res.status(401).send({
-                message: "Unauthorized!",
-            })
-        }
-        req.userId = decoded.id
-        next()
-    })
 }
 
-const authJwt = {
-    verifyToken: verifyToken,
-}
-
-module.exports = authJwt

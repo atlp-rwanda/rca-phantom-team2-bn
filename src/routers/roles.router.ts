@@ -1,19 +1,22 @@
 import express from "express"
 import { deleteRoleById, getAllRoles, getRoleById, grantRolePermission, registerRole, updateRoleById } from "../controllers/roles.controller"
+import { ModelOperation } from "../enums/permissions.enums"
+import { verifyToken } from "../middlewares/auth.middlewares"
+import { hasPermission } from "../middlewares/roles.middlewares"
 import { newRoleValidation, rolePermissionValidation, updateRoleValidation } from "../validations/roles"
 
 const router = express.Router()
 
-router.post("/grant-permission", rolePermissionValidation, grantRolePermission)
+router.post("/grant-permission", rolePermissionValidation, verifyToken, hasPermission(ModelOperation.CREATE, "RolePermission"), grantRolePermission)
 
-router.post("", newRoleValidation, registerRole)
+router.post("", newRoleValidation, verifyToken, hasPermission(ModelOperation.CREATE, "Role"), registerRole)
 
-router.get("/role/:roleId", getRoleById)
+router.get("/role/:roleId", verifyToken, hasPermission(ModelOperation.VIEW, "Role"), getRoleById)
 
-router.get("", getAllRoles)
+router.get("", verifyToken, hasPermission(ModelOperation.VIEW, "Role"), getAllRoles)
 
-router.put("/:roleId", updateRoleValidation, updateRoleById)
+router.put("/:roleId", verifyToken, updateRoleValidation, hasPermission(ModelOperation.UPDATE, "Role"), updateRoleById)
 
-router.delete(":/roleId", deleteRoleById)
+router.delete(":/roleId", verifyToken, hasPermission(ModelOperation.DELETE, "Role"), deleteRoleById)
 
 export default router

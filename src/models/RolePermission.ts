@@ -3,7 +3,11 @@ import { sequelize, DataTypes } from "../db/config"
 import Permission from "./Permission"
 import Role from "./Role"
 
-class RolePermission extends Model {}
+class RolePermission extends Model {
+    id!: string
+    roleId!: string
+    permissionId!: string
+}
 
 RolePermission.init({
     id: {

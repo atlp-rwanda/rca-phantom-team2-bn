@@ -37,6 +37,8 @@ User.init({
     roleId: {
         type: DataTypes.UUID,
         allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
             model: Role,
             key: "id"

@@ -1,6 +1,5 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
 import { Request, Response } from "express"
-import nodemailer from "nodemailer"
 import User from "../models/User"
 import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
@@ -30,30 +29,30 @@ export const createUser = async (req: Request, res: Response) => {
             roleId: roleId,
         })
         const { ...rest } = newUser.toJSON()
+        
+        // const transporter = nodemailer.createTransport({
+        //     service: "gmail",
+        //     auth: {
+        //         user: process.env.EMAIL_ADDRESS,
+        //         pass: process.env.EMAIL_PASSWORD,
+        //     },
+        // })
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_ADDRESS,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-        })
-
-        const mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
-            to: email,
-            subject: res.__("login_credentials_message"),
-            text: `${res.__(
-                "your_login_credentials_message"
-            )}.\nEmail: ${email}\nPassword: ${password}`,
-        }
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log(error)
-            } else {
-                console.log(`Email sent: ${info.response}`)
-            }
-        })
+        // const mailOptions = {
+        //     from: process.env.EMAIL_ADDRESS,
+        //     to: email,
+        //     subject: res.__("login_credentials_message"),
+        //     text: `${res.__(
+        //         "your_login_credentials_message"
+        //     )}.\nEmail: ${email}\nPassword: ${password}`,
+        // }
+        // transporter.sendMail(mailOptions, (error, info) => {
+        //     if (error) {
+        //         console.log(error)
+        //     } else {
+        //         console.log(`Email sent: ${info.response}`)
+        //     }
+        // })
 
         return API_RESPONSE(res, {
             success: true,
@@ -107,7 +106,7 @@ export const signIn = (req: Request, res: Response) => {
                 })
             }
 
-            const token = jwt.sign({ id: user.id }, String(process.env.AUTH_KEY), {
+            const token = jwt.sign({ userId: user.id, roleId: user.roleId }, String(process.env.AUTH_KEY), {
                 expiresIn: 86400, // 24 hours
             })
 
