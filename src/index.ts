@@ -12,20 +12,20 @@ import userRouter from "./routes/userRoutes";
 
 
 switch (process.env.NODE_ENV) {
-    case "development":
-        config({ path: ".env.development" })
-        break
-    case "production":
-        config({ path: ".env.production" })
-        break
-    default:
-        config({ path: ".env" })
-        break
+  case "development":
+    config({ path: ".env.development" });
+    break;
+  case "production":
+    config({ path: ".env.production" });
+    break;
+  default:
+    config({ path: ".env" });
+    break;
 }
 
-const app = express()
+const app = express();
 // const PORT = process.env.PORT || 4000
-const PORT:number=parseInt(<string>process.env.PORT,10) || 4000
+const PORT: number = parseInt(<string>process.env.PORT, 10) || 4000;
 
 app.set("secretKey", process.env.SECRET_KEY);
 app.use(cors({ origin: "*" }));
@@ -40,10 +40,10 @@ app.use(session({
 }));
 
 app.use(
-    "/api-docs",
-    swaggerUI.serve,
-    swaggerUI.setup(swaggerJsDoc(swaggerConfig))
-)
+  "/api-docs",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerJsDoc(swaggerConfig))
+);
 
 /**
  * @openapi
@@ -55,19 +55,21 @@ app.use(
  *         description: Server status and welcome message
  */
 app.get("", (req: Request, res: Response) => {
-    res
-        .status(200)
-        .send({ message: res.__("greeting"), serverStatus: "RUNNING" })
-})
-app.use("/api/users", userRouter)
+  res
+    .status(200)
+    .send({ message: res.__("greeting"), serverStatus: "RUNNING" });
+});
+app.use("/api/users", userRouter);
 
 app.use("/api/users", userRouter);
 
-app.listen(PORT, async () => {
+
+app.listen(PORT, () => {
   console.info(`Server started at: http://localhost:${PORT}`);
-  await connectDB();
+  connectDB();
   sequelize.sync({ force: false }).then(() => {
     console.log("Synced database successfully...");
+    app.emit("appStarted");
   });
 });
 

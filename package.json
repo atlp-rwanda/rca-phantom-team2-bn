@@ -7,7 +7,7 @@
     "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.ts",
     "dev": "nodemon",
-    "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --exit",
+    "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 15000 --exit",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src"
   },
