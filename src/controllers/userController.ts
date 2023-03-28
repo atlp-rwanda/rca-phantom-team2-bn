@@ -83,10 +83,11 @@ const findUserById = async (email: string) => {
 
 
 export const updateUserProfile = async (req: Request, res: Response) => {
-    const { id, email, firstName, lastName, password, role } = req.body;
+    const { email, firstName, lastName, role} = req.body;
   
     try {
-      const user = await UserModel.findOne({ where: { id } });
+       
+      const user = await UserModel.findOne({ where: { email:email } });
   
       if (!user) {
         return API_RESPONSE(res, {
@@ -96,18 +97,15 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         });
       }
   
-      // Only update fields that have a value in the request body
       user.email = email || user.email;
       user.firstName = firstName || user.firstName;
       user.lastName = lastName || user.lastName;
-      if (password) {
-        user.password = await hashPassword(password);
-      }
+    
       user.role = role || user.role;
   
       await user.save();
   
-      const { password: _, ...rest } = user.toJSON();
+      const { ...rest } = user.toJSON();
   
       return API_RESPONSE(res, {
         success: true,
