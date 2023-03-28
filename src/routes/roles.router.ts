@@ -11,9 +11,9 @@ router.post("/grant-permission", rolePermissionValidation, verifyToken, hasPermi
 
 router.post("", newRoleValidation, verifyToken, hasPermission(ModelOperation.CREATE, "Role"), registerRole)
 
-router.get("/role/:roleId", verifyToken, hasPermission(ModelOperation.VIEW, "Role"), getRoleById)
+router.get("/role/:roleId", verifyToken, getRoleById)
 
-router.get("", verifyToken, hasPermission(ModelOperation.VIEW, "Role"), getAllRoles)
+router.get("", verifyToken, getAllRoles)
 
 router.put("/:roleId", verifyToken, updateRoleValidation, hasPermission(ModelOperation.UPDATE, "Role"), updateRoleById)
 
