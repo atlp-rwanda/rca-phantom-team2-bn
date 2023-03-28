@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 app.use(i18n.init);
 app.use(session({
-  secret: process.env.SESSION_SECRET as string,
+  secret: process.env.SESSION_SECRET as string || 'phantom_session',
   resave: false,
   saveUninitialized: false,
 }));
