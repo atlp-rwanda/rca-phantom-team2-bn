@@ -4,6 +4,7 @@ import User from "../models/User"
 import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import { sendEmail } from "../utils/email/sendEmail"
 
 export const createUser = async (req: Request, res: Response) => {
     const { email, roleId, firstName, lastName } = req.body
@@ -30,29 +31,7 @@ export const createUser = async (req: Request, res: Response) => {
         })
         const { ...rest } = newUser.toJSON()
         
-        // const transporter = nodemailer.createTransport({
-        //     service: "gmail",
-        //     auth: {
-        //         user: process.env.EMAIL_ADDRESS,
-        //         pass: process.env.EMAIL_PASSWORD,
-        //     },
-        // })
-
-        // const mailOptions = {
-        //     from: process.env.EMAIL_ADDRESS,
-        //     to: email,
-        //     subject: res.__("login_credentials_message"),
-        //     text: `${res.__(
-        //         "your_login_credentials_message"
-        //     )}.\nEmail: ${email}\nPassword: ${password}`,
-        // }
-        // transporter.sendMail(mailOptions, (error, info) => {
-        //     if (error) {
-        //         console.log(error)
-        //     } else {
-        //         console.log(`Email sent: ${info.response}`)
-        //     }
-        // })
+        sendEmail(email, password, res)
 
         return API_RESPONSE(res, {
             success: true,

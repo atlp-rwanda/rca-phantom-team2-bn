@@ -7,12 +7,17 @@ const sequelize = new Sequelize({
     database: String(process.env.DB_NAME),
     username: String(process.env.DB_USER),
     password: String(process.env.DB_PASSWORD),
+    sync: {
+        force: false,
+        alter: {drop: false}
+    }
 })
 
 async function connectDB() {
     try {
         await sequelize.authenticate()
-        console.log("Successfully connected to DB")
+        await sequelize.sync()
+        console.log("Successfully connected and synced the database")
     } catch (error) {
         console.error("Database connection error:", error)
     }
