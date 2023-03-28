@@ -1,11 +1,12 @@
 {
-	"greeting": "Welcome to Phantom server",
-	"user_exits_message": "User already exists",
-	"user_created_message": "User created successfully",
-	"user_not_found_message": "User not found",
-	"login_credentials_message": "Login credentials",
-	"your_login_credentials_message": "Your login credentials:",
-	"failed_to_create_user_message": "Failed to create user",
-	"failed_to_update_user_message": "failed_to_update_user_message",
-	"user_updated_message": "user_updated_message"
+  "greeting": "Welcome to Phantom server",
+  "user_exits_message": "User already exists",
+  "user_created_message": "User created successfully",
+  "user_not_found_message": "User not found",
+  "login_credentials_message": "Login credentials",
+  "your_login_credentials_message": "Your login credentials:",
+  "failed_to_create_user_message": "Failed to create user",
+  "signin_successful_message": "Sign in successful",
+  "failed_to_sign_in_message": "Failed to sign in",
+  "invalid_password_message": "Invalid message"
 }
