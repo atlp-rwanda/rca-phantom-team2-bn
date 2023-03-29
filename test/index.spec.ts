@@ -1,4 +1,8 @@
-import chai from 'chai'
-import sinon from 'sinon'
+import assert from "assert"
 
-const expect = chai.expect
+describe("Test setup", () => {
+    it("should find the correct artist", () => {
+        const artist = "Illenium"
+        assert(typeof artist === "string", "you don't know ts, do you?")
+    })
+})

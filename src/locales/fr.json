@@ -1,5 +1,13 @@
 {
     "greeting": "Bienvenue au serveur fantôme",
+    "success": "succès",
+    "role_not_found": "Le rôle est introuvable",
+    "role_created": "Rôle créé avec succès",
+    "invalid_operations": "Opérations invalides",
+    "invalid_model_name": "Nom de modèle invalide",
+    "permission_created": "Permission créée",
+    "permission_granted": "Permission accordée",
+    "permission_not_found": "Permission est introuvable",
     "user_exits_message": "L'utilisateur existe déjà",
     "user_created_message": "Utilisateur créé avec succès",
     "user_not_found_message": "Utilisateur non trouvé",

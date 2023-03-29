@@ -1,9 +1,20 @@
 {
-    "greeting": "Welcome to Phantom server",
-    "user_exits_message": "User already exists",
-    "user_created_message": "User created successfully",
-    "user_not_found_message": "User not found",
-    "login_credentials_message": "Login credentials",
-    "your_login_credentials_message": "Your login credentials:",
-    "failed_to_create_user_message": "Failed to create user"
+  "greeting": "Welcome to Phantom server",
+  "success": "success",
+  "role_not_found": "Role is not found",
+  "role_created": "Role created successfully",
+  "invalid_operations": "Invalid operations",
+  "invalid_model_name": "Invalid model name",
+  "permission_created": "Permission created",
+  "permission_granted": "Permission granted",
+  "permission_not_found": "Permission not found",
+  "user_exits_message": "User already exists",
+  "user_created_message": "User created successfully",
+  "user_not_found_message": "User not found",
+  "login_credentials_message": "Login credentials",
+  "your_login_credentials_message": "Your login credentials:",
+  "failed_to_create_user_message": "Failed to create user",
+  "signin_successful_message": "Sign in successful",
+  "failed_to_sign_in_message": "Failed to sign in",
+  "invalid_password_message": "Invalid message"
 }
