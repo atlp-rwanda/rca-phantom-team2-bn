@@ -1,7 +1,10 @@
 paths:
   /api/users/updateUser/:id:
     put:
+    
       summary: "Update a user "
+      tags:
+      - User
       description: "Updates an existing user in a system"
       consumes:
         - "application/json"

@@ -2,6 +2,8 @@ paths:
   /api/users/register:
     post:
       summary: "Create a new user"
+      tags:
+      - User
       description: "Creates a new user in the system"
       consumes:
         - "application/json"
