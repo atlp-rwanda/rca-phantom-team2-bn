@@ -30,7 +30,7 @@ export const createUser = async (req: Request, res: Response) => {
             roleId: roleId,
         })
         const { ...rest } = newUser.toJSON()
-        
+
         sendEmail(email, password, res)
 
         return API_RESPONSE(res, {
@@ -106,3 +106,15 @@ export const signIn = (req: Request, res: Response) => {
             res.status(500).send({ message: err.message })
         })
 }
+
+export const logout = (req: Request, res: Response) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send(err)
+        }
+        res.status(200).send("Logged out successfully")
+    })
+}
+
+

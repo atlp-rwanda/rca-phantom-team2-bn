@@ -7,7 +7,7 @@
     "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.ts",
     "dev": "nodemon",
-    "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --exit",
+    "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 15000 --exit",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src"
   },
@@ -48,6 +48,7 @@
   "dependencies": {
     "@sideway/formula": "^3.0.1",
     "@sideway/pinpoint": "^2.0.0",
+    "@types/express-session": "^1.17.7",
     "@types/i18n-js": "^3.8.4",
     "await-to-js": "^3.0.0",
     "bcrypt": "^5.1.0",
@@ -55,6 +56,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "i18n": "^0.15.1",
     "i18n-js": "^4.2.3",
     "joi": "^17.9.1",

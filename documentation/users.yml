@@ -47,6 +47,18 @@ paths:
       responses:
         200:
           description: Sign in successful
+  /users/logout:
+    get:
+      tags:
+        - Users
+      description: User logout
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Logged out successfully
+        500:
+          description: Internal Server Error
 components:
   schemas:
     UserLogin:
