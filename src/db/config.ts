@@ -24,3 +24,4 @@ async function connectDB() {
 }
 
 export { connectDB, sequelize, Sequelize, DataTypes };
+

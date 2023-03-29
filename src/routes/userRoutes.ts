@@ -1,12 +1,18 @@
-import express from "express"
-import { createUser } from "../controllers/userController"
-import {updateUserProfile} from "../controllers/userController"
-import { signupValidation } from "../validations/userValidations"
+import express from "express";
+import {
+  createUser,
+  signIn,
+  logout,
+  updateUserProfile,
+} from "../controllers/userController";
+import { signupValidation } from "../validations/userValidations";
+import authJwt from "../middleware/auth";
 
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-userRouter.post("/register", signupValidation, createUser)
-userRouter.put("/updateUser/:id",updateUserProfile)
+userRouter.post("/register", signupValidation, createUser);
+userRouter.post("/signin", signIn);
+userRouter.get("/logout", authJwt.verifyToken, logout);
+userRouter.put("/updateUser/:id", updateUserProfile);
 
-
-export default userRouter
+export default userRouter;

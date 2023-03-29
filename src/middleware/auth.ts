@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { Response } from "express";
 
 const verifyToken = (req: any, res: Response, next: any) => {
-  let token = req.headers["x-access-token"];
+  let token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
     return res.status(403).send({
@@ -26,4 +26,4 @@ const authJwt = {
   verifyToken: verifyToken,
 };
 
-module.exports = authJwt;
+export default authJwt;

@@ -6,7 +6,6 @@
   "scripts": {
     "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.ts",
-
     "dev": "nodemon",
     "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --exit",
     "lint": "eslint src",
@@ -49,17 +48,20 @@
   "dependencies": {
     "@sideway/formula": "^3.0.1",
     "@sideway/pinpoint": "^2.0.0",
+    "@types/express-session": "^1.17.7",
     "@types/i18n-js": "^3.8.4",
     "bcrypt": "^5.1.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "i18n": "^0.15.1",
     "i18n-js": "^4.2.3",
     "joi": "^17.9.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.1",
-
     "nodemon": "^2.0.21",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
@@ -70,7 +72,6 @@
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
-
     "@types/bcrypt": "^5.0.0",
     "@types/chai": "^4.3.4",
     "@types/cors": "^2.8.13",
@@ -81,10 +82,8 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^16.7.1",
     "@types/nodemailer": "^6.4.7",
-  
     "@types/sinon": "^10.0.13",
     "@types/supertest": "^2.0.12",
-
     "@types/swagger-jsdoc": "^6.0.1",
     "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
