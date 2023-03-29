@@ -125,3 +125,13 @@ export const signIn = (req: Request, res: Response) => {
       });
     });
 };
+
+export const logout = (req: Request, res: Response) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+    res.status(200).send("Logged out successfully")
+  });
+};
