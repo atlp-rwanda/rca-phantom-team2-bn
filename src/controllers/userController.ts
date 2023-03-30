@@ -1,7 +1,7 @@
 import { hashPassword } from "./../utils/passwords/hashPassword";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import UserModel from "../model/UserModel";
+import UserModel from "../models/UserModel";
 import { API_RESPONSE } from "../utils/response/response";
 import { sendEmail } from "../utils/email/sendEmail";
 import jwt from "jsonwebtoken";
@@ -132,6 +132,6 @@ export const logout = (req: Request, res: Response) => {
       console.log(err);
       res.status(500).send(err);
     }
-    res.status(200).send("Logged out successfully")
+    res.status(200).send("Logged out successfully");
   });
 };

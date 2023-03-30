@@ -9,7 +9,7 @@ import { connectDB, sequelize } from "./db/config";
 import { config } from "dotenv";
 import session from "express-session";
 import userRouter from "./routes/userRoutes";
-
+import routeRouter from "./routes/routeRoutes";
 
 switch (process.env.NODE_ENV) {
   case "development":
@@ -33,11 +33,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
 app.use(i18n.init);
-app.use(session({
-  secret: process.env.SESSION_SECRET as string || 'phantom_session',
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use(
+  session({
+    secret: (process.env.SESSION_SECRET as string) || "phantom_session",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(
   "/api-docs",
@@ -61,8 +63,7 @@ app.get("", (req: Request, res: Response) => {
 });
 app.use("/api/users", userRouter);
 
-app.use("/api/users", userRouter);
-
+app.use("/api/routes", routeRouter);
 
 app.listen(PORT, () => {
   console.info(`Server started at: http://localhost:${PORT}`);
