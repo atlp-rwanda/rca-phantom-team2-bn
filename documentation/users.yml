@@ -49,6 +49,12 @@ paths:
           description: Sign in successful
   /users/logout:
     get:
+      parameters:
+        - name: "Accept-Language"
+          in: header
+          default: en
+          required: true
+          description: Preferred language
       tags:
         - Users
       description: User logout
@@ -59,6 +65,47 @@ paths:
           description: Logged out successfully
         500:
           description: Internal Server Error
+  /users/updateUser/:id:
+    put:
+      parameters:
+        - name: "Accept-Language"
+          in: header
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Users
+      description: "Updates an existing user in a system"
+      security:
+        - bearerAuth: []
+      produces:
+        - "application/json"
+      requestBody:
+        description: User object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - email
+                - roleId
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                roleId:
+                  type: string
+      responses:
+        201:
+          description: "User updated successfully"
+        400:
+          description: "User not found"
 components:
   schemas:
     UserLogin:

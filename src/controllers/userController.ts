@@ -119,4 +119,42 @@ export const logout = (req: Request, res: Response) => {
     })
 }
 
-
+export const updateUserProfile = async (req: Request, res: Response) => {
+    const {  email, firstName, lastName, roleId } = req.body
+  
+    try {
+        const user = await User.findOne({ where: { email:email } })
+  
+        if (!user) {
+            return API_RESPONSE(res, {
+                success: false,
+                message: res.__("user_not_found_message"),
+                status: 404,
+            })
+        }
+  
+        user.email = email || user.email
+        user.firstName = firstName || user.firstName
+        user.lastName = lastName || user.lastName
+    
+        user.roleId = roleId || user.roleId
+  
+        await user.save()
+  
+        const { ...rest } = user.toJSON()
+  
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("user_updated_message"),
+            data: rest,
+            status: 200,
+        })
+    } catch (error) {
+        console.log(error)
+        return API_RESPONSE(res, {
+            success: false,
+            message: res.__("failed_to_update_user_message"),
+            status: 400,
+        })
+    }
+}
