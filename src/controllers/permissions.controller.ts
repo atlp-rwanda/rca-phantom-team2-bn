@@ -3,9 +3,10 @@ import { ModelOperation } from "../enums/permissions.enums"
 import { sequelize } from "../db/config"
 import Permission from "../models/Permission"
 import Paginator from "../utils/pagination/paginator"
+import { API_RESPONSE } from "../utils/response/response"
 
 export const getSupportedOperations = (req: Request, res: Response)=> {
-    return res.status(200).send({
+    return API_RESPONSE(res, {
         success: true,
         message: res.__("success"),
         status: 200,
@@ -14,7 +15,7 @@ export const getSupportedOperations = (req: Request, res: Response)=> {
 }
 
 export const getAllModels = (req: Request, res: Response)=> {
-    return res.status(200).send({
+    return API_RESPONSE(res, {
         success: true,
         message: res.__("success"),
         status: 200,
@@ -25,7 +26,7 @@ export const getAllModels = (req: Request, res: Response)=> {
 export const registerNewPermission = async (req: Request, res: Response)=> {
     const permission = await Permission.create(req.body)
     
-    return res.status(201).send({
+    return API_RESPONSE(res, {
         success: true,
         message: res.__("permission_created"),
         status: 201,
@@ -40,7 +41,7 @@ export const getAllPermissions = async (req: Request, res: Response)=> {
 
     const results = await paginator.paginate({}, page, perPage)
     
-    return res.status(200).send({
+    return API_RESPONSE(res, {
         success: true,
         message: res.__("success"),
         status: 200,
