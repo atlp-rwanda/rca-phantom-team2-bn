@@ -5,5 +5,8 @@
     "user_not_found_message": "Utilisateur non trouvé",
     "login_credentials_message": "Identifiants de connexion",
     "your_login_credentials_message": "Vos identifiants de connexion :",
-    "Failed_to_create_user_message": "Échec de la création de l'utilisateur"
+    "Failed_to_create_user_message": "Échec de la création de l'utilisateur",
+    "route_updated_message": "Route a été mis à jour avec succès",
+  "route_deleted_message":"Route supprimée avec succès"
+
 }

@@ -24,3 +24,26 @@ export const createRouteValidation = (
 
   return next();
 };
+
+export const updateRouteValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const schema = joi.object({
+    routeName: joi.string().alphanum().min(3).max(50),
+    latitude: joi.number(),
+    longitude: joi.number(),
+  });
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return API_RESPONSE(res, {
+      success: false,
+      message: error.details[0].message.split('"').join(""),
+      status: 400,
+    });
+  }
+
+  return next();
+};
