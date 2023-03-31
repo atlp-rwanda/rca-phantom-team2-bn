@@ -1,4 +1,4 @@
-export {}
+import * as express from "express"
 
 interface UserAuth {
     userId: string,
@@ -13,3 +13,5 @@ declare global {
         }
     }
 }
+
+export {}
