@@ -96,9 +96,7 @@ export const signIn = (req: Request, res: Response) => {
                 email,
                 roleId,
             }))(user)
-
-            req.session.save()
-
+            
             res.status(200).send({
                 user: uObject,
                 accessToken: token,
