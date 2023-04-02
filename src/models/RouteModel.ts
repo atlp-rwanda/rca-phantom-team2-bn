@@ -13,21 +13,21 @@ class RouteModel extends Model {
 RouteModel.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
-      autoIncrement: true,
-      primaryKey: true,
+      type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
+      defaultValue: sequelize.fn("uuid_generate_v4"),
     },
     routeName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     latitude: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     longitude: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
   },

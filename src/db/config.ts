@@ -10,9 +10,17 @@ import dotenv from "dotenv";
 //     password: String(process.env.DB_PASSWORD),
 // })
 
-const sequelize = new Sequelize(
-  "postgresql://postgres:Q5pusAHnukzzbQvJLqxi@containers-us-west-194.railway.app:7407/railway"
-);
+// const sequelize = new Sequelize(
+//   "postgresql://postgres:Q5pusAHnukzzbQvJLqxi@containers-us-west-194.railway.app:7407/railway"
+// );
+const sequelize = new Sequelize({
+  dialect: "postgres",
+  host: "localhost",
+  port: 5432,
+  database: "railway",
+  username: "postgres",
+  password: "qwerty12345*",
+});
 
 async function connectDB() {
   try {
@@ -24,4 +32,3 @@ async function connectDB() {
 }
 
 export { connectDB, sequelize, Sequelize, DataTypes };
-

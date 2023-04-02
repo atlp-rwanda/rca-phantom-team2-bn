@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { Response } from "express";
 
 const verifyToken = (req: any, res: Response, next: any) => {
-  let token = req.headers.authorization?.split(' ')[1];
+  let token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(403).send({
@@ -21,6 +21,8 @@ const verifyToken = (req: any, res: Response, next: any) => {
     next();
   });
 };
+
+// const isOperator =
 
 const authJwt = {
   verifyToken: verifyToken,

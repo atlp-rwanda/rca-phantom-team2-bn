@@ -47,7 +47,7 @@ describe("Sign In", () => {
         res.body.should.have.property("message").eq("User not found");
         done();
       });
-  });
+  }); 
   it("invalid password", (done) => {
     agent
       .post("/api/users/signin")

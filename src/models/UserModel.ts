@@ -15,9 +15,10 @@ class UserModel extends Model {
 UserModel.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      allowNull: false,
       primaryKey: true,
+      defaultValue: sequelize.fn("uuid_generate_v4"),
     },
     firstName: {
       type: DataTypes.STRING,

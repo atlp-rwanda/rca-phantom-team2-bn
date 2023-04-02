@@ -14,5 +14,6 @@
 	"failed_to_create_route_message": "Failed to create route",
 	"route_updated_message": "Route updated successfully",
 	"route_deleted_message": "Route deleted successfully",
-	"route_found_message": "route_found_message"
+	"route_found_message": "route_found_message",
+	"route_not_found_message": "route_not_found_message"
 }

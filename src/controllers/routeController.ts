@@ -32,7 +32,7 @@ export const createRoute = async (req: Request, res: Response) => {
     return API_RESPONSE(res, {
       success: false,
       message: res.__("failed_to_create_route_message"),
-      status: 400,
+      status: 500,
     });
   }
 };
@@ -64,7 +64,7 @@ export const getAllRoutes = async (req: Request, res: Response) => {
       success: true,
       message: res.__("route_found_message"),
       data: routes,
-      status: 201,
+      status: 200,
     });
   } catch (error) {
     return API_RESPONSE(res, {
@@ -89,7 +89,7 @@ export const findRouteById = async (req: Request, res: Response) => {
       success: true,
       message: res.__("route_found_message"),
       data: route,
-      status: 201,
+      status: 200,
     });
   } catch (error) {
     return API_RESPONSE(res, {
@@ -99,7 +99,7 @@ export const findRouteById = async (req: Request, res: Response) => {
     });
   }
 };
-export const updateRouteById = async (req: Request, res: Response)=>{
+export const updateRouteById = async (req: Request, res: Response) => {
   try {
     const { routeName, latitude, longitude } = req.body;
     let route: RouteModel | null = await RouteModel.findByPk(req.params.id);
@@ -110,14 +110,13 @@ export const updateRouteById = async (req: Request, res: Response)=>{
         data: {},
         status: 404,
       });
-    }
-    else{
-      route = await route.update({routeName,latitude,longitude})
+    } else {
+      route = await route.update({ routeName, latitude, longitude });
       return API_RESPONSE(res, {
         success: true,
         message: res.__("route_updated_message"),
         data: route.toJSON(),
-        status: 201,
+        status: 200,
       });
     }
   } catch (error) {
@@ -127,8 +126,8 @@ export const updateRouteById = async (req: Request, res: Response)=>{
       status: 400,
     });
   }
-}
-export const deleteRouteById = async (req: Request, res: Response)=>{
+};
+export const deleteRouteById = async (req: Request, res: Response) => {
   try {
     const route: RouteModel | null = await RouteModel.findByPk(req.params.id);
     if (!route) {
@@ -138,14 +137,13 @@ export const deleteRouteById = async (req: Request, res: Response)=>{
         data: {},
         status: 404,
       });
-    }
-    else{
+    } else {
       await route.destroy();
       return API_RESPONSE(res, {
         success: true,
         message: res.__("route_deleted_message"),
         // data: deleteRes,
-        status: 201,
+        status: 200,
       });
     }
   } catch (error) {
@@ -155,4 +153,4 @@ export const deleteRouteById = async (req: Request, res: Response)=>{
       status: 400,
     });
   }
-}
+};
