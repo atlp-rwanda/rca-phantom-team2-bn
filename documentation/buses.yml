@@ -1,0 +1,202 @@
+paths:
+  /buses:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Create/register new bus
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBus'
+      responses:
+        201:
+          description: Bus registered
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Bus'
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of buses per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Get all buses
+      responses:
+        200:
+          description: All registered buses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBusesResBody'
+  /buses/bus/{busId}:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: busId
+          in: path
+          required: true
+          description: The bus ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Get bus by Id
+      responses:
+        200:
+          description: The bus
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Bus'
+  /buses/{busId}:
+    put:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: busId
+          in: path
+          required: true
+          description: The bus ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Update bus by Id
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBus'
+      responses:
+        200:
+          description: Bus updated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          count:
+                            type: number
+    delete:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: busId
+          in: path
+          required: true
+          description: The bus ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Delete bus by Id
+      responses:
+        200:
+          description: Bus deleted
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          count:
+                            type: number
+components:
+  schemas:
+    NewBus:
+      type: object
+      properties:
+        type:
+          type: string
+        plateNumber:
+          type: string
+        regNumber:
+          type: string
+        model:
+          type: string
+        manufacturer:
+          type: string
+    GetBusesResBody:
+      allOf:
+        - $ref: '#/components/schemas/ResBody'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                prevPage: 
+                  type: number
+                currentPage: 
+                  type: number
+                nextPage: 
+                  type: number
+                lastPage: 
+                  type: number
+                total: 
+                  type: number
+                hasPrev: 
+                  type: boolean
+                hasNext: 
+                  type: boolean
+                data: 
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Bus'
