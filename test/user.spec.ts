@@ -3,7 +3,6 @@ import app from "../src/app";
 import chai from "chai";
 import chaiHttp from "chai-http";
 import { createUser } from "../src/controllers/userController";
-import { connectDB } from "../src/db/config";
 const register = createUser;
 
 const agent = request.agent(app);
@@ -17,11 +16,6 @@ const tUser = {
 };
 
 describe("Users tests", () => {
-  //   before(async (done) => {
-  //     await connectDB();
-  //     done();
-  //   });
-
   it("It should create user", function () {
     request(register).get("/api/users").expect(200);
   });
