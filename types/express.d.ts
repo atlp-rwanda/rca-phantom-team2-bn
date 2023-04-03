@@ -1,17 +1,14 @@
-import * as express from "express"
+import "express"
 
 interface UserAuth {
     userId: string,
     roleId: string
 }
 
-
 declare global {
-    namespace Express {
-        interface Request {
-            auth?: UserAuth
-        }
+  namespace Express {
+    interface Request {
+      auth?: UserAuth
     }
+  }
 }
-
-export {}

@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken"
-import { Response, Request, NextFunction } from "express"
+import { Request, Response, NextFunction } from "express"
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = async (req: any, res: Response, next: NextFunction) => {
     let token = req.headers.authorization
 
     if (!token || token.replace("Bearer", "").trim().length < 10) return res.status(401).send({
