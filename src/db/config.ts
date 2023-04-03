@@ -6,7 +6,13 @@ dotenv.config()
 const sequelize =
   process.env.NODE_ENV === "test"
       ? new Sequelize(
-          "postgresql://postgres:reaYBl4M1hbiDdxjnTdr@containers-us-west-194.railway.app:7407/railway"
+          "postgresql://postgres:reaYBl4M1hbiDdxjnTdr@containers-us-west-194.railway.app:7407/railway", {
+              logging: false,
+              sync: {
+                  force: false,
+                  alter: { drop: false },
+              },
+          }
       )
       : new Sequelize({
           dialect: "postgres",
