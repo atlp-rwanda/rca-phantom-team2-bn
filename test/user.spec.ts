@@ -3,24 +3,17 @@ import app from "../src/app"
 import chai from "chai"
 import chaiHttp from "chai-http"
 import { createUser } from "../src/controllers/userController"
-import { connectDB } from "../src/db/config"
 const register = createUser
 
 const agent = request.agent(app)
-
 chai.use(chaiHttp)
 
 const tUser = {
     email: "tester@phantom.com",
-    password: "w6vav7",
+    password: "x36w5n",
 }
 
 describe("Users tests", () => {
-    before(async (done)=> {
-        await connectDB()
-        done()
-    })
-
     it("It should create user", function () {
         request(register).get("/api/users").expect(200)
     })
@@ -48,7 +41,7 @@ describe("Users tests", () => {
                 done()
             })
     })
-    
+
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")

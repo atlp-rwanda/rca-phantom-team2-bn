@@ -70,7 +70,12 @@ export const signIn = (req: Request, res: Response) => {
     })
         .then((user) => {
             if (!user) {
-                return res.status(404).send({ message: "User Not found." })
+                return API_RESPONSE(res, {
+                    success: true,
+                    message: res.__("user_not_found_message"),
+                    data: {},
+                    status: 404,
+                })
             }
 
             const passwordIsValid = bcrypt.compareSync(
@@ -79,15 +84,20 @@ export const signIn = (req: Request, res: Response) => {
             )
 
             if (!passwordIsValid) {
-                return res.status(401).send({
-                    accessToken: null,
-                    message: "Invalid Password!",
+                return API_RESPONSE(res, {
+                    success: false,
+                    message: res.__("invalid_password_message"),
+                    status: 401,
                 })
             }
 
-            const token = jwt.sign({ userId: user.id, roleId: user.roleId }, String(process.env.AUTH_KEY), {
-                expiresIn: 86400, // 24 hours
-            })
+            const token = jwt.sign(
+                { userId: user.id, roleId: user.roleId },
+                String(process.env.AUTH_KEY),
+                {
+                    expiresIn: 86400, // 24 hours
+                }
+            )
 
             const uObject = (({ id, firstName, lastName, email, roleId }) => ({
                 id,
@@ -96,14 +106,21 @@ export const signIn = (req: Request, res: Response) => {
                 email,
                 roleId,
             }))(user)
-            
-            res.status(200).send({
-                user: uObject,
-                accessToken: token,
+
+            return API_RESPONSE(res, {
+                success: true,
+                message: res.__("signin_successful_message"),
+                data: { uObject, accessToken: token },
+                status: 200,
             })
         })
         .catch((err) => {
-            res.status(500).send({ message: err.message })
+            console.log("ERROR: ", err.message)
+            return API_RESPONSE(res, {
+                success: false,
+                message: res.__("failed_to_sign_in_message"),
+                status: 400,
+            })
         })
 }
 
@@ -118,11 +135,11 @@ export const logout = (req: Request, res: Response) => {
 }
 
 export const updateUserProfile = async (req: Request, res: Response) => {
-    const {  email, firstName, lastName, roleId } = req.body
-  
+    const { email, firstName, lastName, roleId } = req.body
+
     try {
-        const user = await User.findOne({ where: { email:email } })
-  
+        const user = await User.findOne({ where: { email: email } })
+
         if (!user) {
             return API_RESPONSE(res, {
                 success: false,
@@ -130,17 +147,17 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 status: 404,
             })
         }
-  
+
         user.email = email || user.email
         user.firstName = firstName || user.firstName
         user.lastName = lastName || user.lastName
-    
+
         user.roleId = roleId || user.roleId
-  
+
         await user.save()
-  
+
         const { ...rest } = user.toJSON()
-  
+
         return API_RESPONSE(res, {
             success: true,
             message: res.__("user_updated_message"),
