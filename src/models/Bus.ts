@@ -2,12 +2,12 @@ import { DataTypes, Model } from "sequelize"
 import { sequelize } from "../db/config"
 
 class Bus extends Model {
-    id!: string
-    type!: string
-    plateNumber!: string
-    regNumber!: string
-    model!: string
-    manufacturer!: string
+    declare id: string
+    declare type: string
+    declare plateNumber: string
+    declare regNumber: string
+    declare model: string
+    declare manufacturer: string
 }
 
 Bus.init({
