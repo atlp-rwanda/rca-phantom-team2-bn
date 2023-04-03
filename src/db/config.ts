@@ -12,10 +12,6 @@ const sequelize = new Sequelize({
   password: String(process.env.DB_PASSWORD),
 });
 
-// const sequelize = new Sequelize(
-//   "postgresql://postgres:Q5pusAHnukzzbQvJLqxi@containers-us-west-194.railway.app:7407/railway"
-// );
-
 async function connectDB() {
   try {
     await sequelize.authenticate();
