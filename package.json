@@ -8,8 +8,8 @@
     "start": "node build/src/index.ts",
     "dev": "nodemon",
     "test": "cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 15000 --exit",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "eslint  src test",
+    "lint:fix": "eslint --fix src test"
   },
   "mocha": {
     "extension": [
