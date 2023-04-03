@@ -6,6 +6,7 @@ import { createUser } from "../src/controllers/userController"
 const register = createUser
 
 const agent = request.agent(app)
+chai.should()
 chai.use(chaiHttp)
 
 const tUser = {
