@@ -10,6 +10,7 @@ import { config } from "dotenv";
 import session from "express-session";
 import userRouter from "./routes/userRoutes";
 import routeRouter from "./routes/routeRoutes";
+import locationRouter from "./routes/locationRoutes";
 
 switch (process.env.NODE_ENV) {
   case "development":
@@ -64,6 +65,7 @@ app.get("", (req: Request, res: Response) => {
 app.use("/api/users", userRouter);
 
 app.use("/api/routes", routeRouter);
+app.use("/api/locations", locationRouter);
 
 app.listen(PORT, () => {
   console.info(`Server started at: http://localhost:${PORT}`);

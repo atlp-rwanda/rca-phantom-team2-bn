@@ -12,17 +12,17 @@ import {
 } from "../validations/routeValidations";
 import authJwt from "../middleware/auth";
 
-const userRouter = express.Router();
+const routeRouter = express.Router();
 
-userRouter.post("/", authJwt.verifyToken, createRouteValidation, createRoute);
-userRouter.get("/", authJwt.verifyToken, getAllRoutes);
-userRouter.get("/:id", authJwt.verifyToken, findRouteById);
-userRouter.put(
+routeRouter.post("/", authJwt.verifyToken, createRouteValidation, createRoute);
+routeRouter.get("/", authJwt.verifyToken, getAllRoutes);
+routeRouter.get("/:id", authJwt.verifyToken, findRouteById);
+routeRouter.put(
   "/:id",
   authJwt.verifyToken,
   updateRouteValidation,
   updateRouteById
 );
-userRouter.delete("/:id", authJwt.verifyToken, deleteRouteById);
+routeRouter.delete("/:id", authJwt.verifyToken, deleteRouteById);
 
-export default userRouter;
+export default routeRouter;

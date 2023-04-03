@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import RouteModel from "../models/RouteModel";
+import RouteModel from "../models/Route";
 import { API_RESPONSE } from "../utils/response/response";
 
 export const createRoute = async (req: Request, res: Response) => {
-  const { routeName, latitude, longitude } = req.body;
+  const { name, origin, destination } = req.body;
 
   try {
-    const routeExists: RouteModel | null = await findRouteByName(routeName);
+    const routeExists: RouteModel | null = await findRouteByName(name);
 
     if (routeExists) {
       return API_RESPONSE(res, {
@@ -17,9 +17,9 @@ export const createRoute = async (req: Request, res: Response) => {
     }
 
     const newRoute = await RouteModel.create({
-      routeName,
-      latitude,
-      longitude,
+      name,
+      origin,
+      destination,
     });
 
     return API_RESPONSE(res, {
@@ -41,7 +41,7 @@ const findRouteByName = async (name: string) => {
   try {
     const route: RouteModel | null = await RouteModel.findOne({
       where: {
-        routeName: name,
+        name: name,
       },
     });
     return route;
@@ -101,7 +101,7 @@ export const findRouteById = async (req: Request, res: Response) => {
 };
 export const updateRouteById = async (req: Request, res: Response) => {
   try {
-    const { routeName, latitude, longitude } = req.body;
+    const { name, origin, destination } = req.body;
     let route: RouteModel | null = await RouteModel.findByPk(req.params.id);
     if (!route) {
       return API_RESPONSE(res, {
@@ -111,7 +111,7 @@ export const updateRouteById = async (req: Request, res: Response) => {
         status: 404,
       });
     } else {
-      route = await route.update({ routeName, latitude, longitude });
+      route = await route.update({ name, origin, destination });
       return API_RESPONSE(res, {
         success: true,
         message: res.__("route_updated_message"),

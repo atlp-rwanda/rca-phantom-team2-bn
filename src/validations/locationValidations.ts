@@ -2,15 +2,15 @@ import joi from "joi";
 import { Request, Response, NextFunction } from "express";
 import { API_RESPONSE } from "../utils/response/response";
 
-export const createRouteValidation = (
+export const createLocationValidation = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const schema = joi.object({
-    name: joi.string().min(3).max(50).required(),
-    origin: joi.string().uuid({ version: "uuidv4" }).required(),
-    destination: joi.string().uuid({ version: "uuidv4" }).required(),
+    name: joi.string().alphanum().min(3).max(50).required(),
+    latitude: joi.number().required(),
+    longitude: joi.number().required(),
   });
   const { error } = schema.validate(req.body);
 
@@ -25,15 +25,15 @@ export const createRouteValidation = (
   return next();
 };
 
-export const updateRouteValidation = (
+export const updateLocationValidation = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const schema = joi.object({
     name: joi.string().alphanum().min(3).max(50),
-    origin: joi.string().uuid({ version: "uuidv4" }),
-    destination: joi.string().uuid({ version: "uuidv4" }),
+    latitude: joi.number(),
+    longitude: joi.number(),
   });
   const { error } = schema.validate(req.body);
 

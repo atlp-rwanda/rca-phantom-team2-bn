@@ -1,11 +1,12 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/config";
+import Location from "./Location";
 
 class RouteModel extends Model {
   public id!: number;
-  public routeName!: string;
-  public latitude!: number;
-  public longitude!: number;
+  public name!: string;
+  public origin!: string;
+  public destination!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -18,21 +19,33 @@ RouteModel.init(
       primaryKey: true,
       defaultValue: sequelize.fn("uuid_generate_v4"),
     },
-    routeName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    latitude: {
-      type: DataTypes.DECIMAL,
+    origin: {
+      type: DataTypes.UUID,
       allowNull: false,
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+      references: {
+        model: Location,
+        key: "id",
+      },
     },
-    longitude: {
-      type: DataTypes.DECIMAL,
+    destination: {
+      type: DataTypes.UUID,
       allowNull: false,
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+      references: {
+        model: Location,
+        key: "id",
+      },
     },
   },
   {
-    tableName: "routes",
+    tableName: "Routes",
     sequelize,
   }
 );
