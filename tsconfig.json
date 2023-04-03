@@ -65,6 +65,6 @@
 
     "resolveJsonModule": true               /* Allow resolving JSON modules in imports */
   },
-  "include": ["src/**/*.ts", "test/**/*.spec.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["build"]
 }
