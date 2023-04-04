@@ -27,6 +27,7 @@ describe("Users tests", () => {
                 res.should.have.status(200)
                 res.body.should.be.a("object")
                 res.body.should.have.property("data")
+                res.body.should.have.property("message").eq("Sign in successful")
                 done()
             })
     })
@@ -37,6 +38,7 @@ describe("Users tests", () => {
             .send({ email: "ghost@mail.com", password: "12345" })
             .end((err, res) => {
                 res.should.have.status(404)
+                res.body.should.have.property("message").eq("User not found")
                 done()
             })
     })
@@ -44,9 +46,10 @@ describe("Users tests", () => {
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")
-            .send({ email: "admin@phantom.com", password: "1290" })
+            .send({ email: "tester@phantom.com", password: "1290" })
             .end((err, res) => {
                 res.should.have.status(401)
+                res.body.should.have.property("message").eq("Invalid message")
                 done()
             })
     })
