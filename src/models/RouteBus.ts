@@ -1,34 +1,34 @@
 import { Model } from "sequelize";
 import { sequelize, DataTypes } from "../db/config";
-import Permission from "./Permission";
-import Role from "./Role";
+import Route from "./Route";
+import Bus from "./Bus";
 
-class RolePermission extends Model {
+class RouteBus extends Model {
   declare id: string;
-  declare roleId: string;
-  declare permissionId: string;
+  declare routeId: string;
+  declare busId: string;
 }
 
-RolePermission.init(
+RouteBus.init(
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    roleId: {
+    routeId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: Role,
+        model: Route,
         key: "id",
       },
     },
-    permissionId: {
+    busId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: Permission,
+        model: Bus,
         key: "id",
       },
     },
@@ -36,8 +36,8 @@ RolePermission.init(
   {
     sequelize: sequelize,
     timestamps: true,
-    modelName: "RolePermission",
+    modelName: "RouteBus",
   }
 );
 
-export default RolePermission;
+export default RouteBus;
