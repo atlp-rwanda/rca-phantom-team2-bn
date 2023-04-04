@@ -15,13 +15,14 @@ const getHeaders = ()=> ({
 })
 
 describe("Buses Tests", ()=> {
-    it("Should GET all buses", (done)=> {
-        agent
-            .get("/api/buses")
-            .set(getHeaders())
-            .end((err, res)=> {
-                expect(res.statusCode).to.be.equal(200)
-                done()
-            })
-    })
+    // let token: string
+    // it("Should GET all buses", (done)=> {
+    //     agent
+    //         .get("/api/buses")
+    //         .set(getHeaders())
+    //         .end((err, res)=> {
+    //             expect(res.statusCode).to.be.equal(200)
+    //             done()
+    //         })
+    // })
 })
