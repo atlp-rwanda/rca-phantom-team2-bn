@@ -14,9 +14,8 @@ Location.init(
   {
     id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      defaultValue: sequelize.fn("uuid_generate_v4"),
     },
     name: {
       type: DataTypes.STRING,
@@ -32,7 +31,7 @@ Location.init(
     },
   },
   {
-    tableName: "Locations",
+    tableName: "Location",
     sequelize,
   }
 );
