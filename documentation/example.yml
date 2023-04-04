@@ -1,6 +1,0 @@
-/test1:
-  get:
-    description: Example YML documentation
-    responses:
-      404:
-        description: Not Found

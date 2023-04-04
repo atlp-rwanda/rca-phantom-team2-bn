@@ -7,9 +7,9 @@
     "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.ts",
     "dev": "nodemon",
-    "test": "mocha --require ts-node/register --recursive test/**/*.spec.ts --exit",
-    "lint": "eslint src",
-    "lint:fix": "eslint --fix src"
+    "test": "cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 15000 --exit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "mocha": {
     "extension": [
@@ -50,6 +50,7 @@
     "@sideway/pinpoint": "^2.0.0",
     "@types/express-session": "^1.17.7",
     "@types/i18n-js": "^3.8.4",
+    "await-to-js": "^3.0.0",
     "bcrypt": "^5.1.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
@@ -82,6 +83,7 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^16.7.1",
     "@types/nodemailer": "^6.4.7",
+    "@types/sequelize": "^4.28.14",
     "@types/sinon": "^10.0.13",
     "@types/supertest": "^2.0.12",
     "@types/swagger-jsdoc": "^6.0.1",
@@ -90,6 +92,7 @@
     "@typescript-eslint/parser": "^5.54.1",
     "assert": "^2.0.0",
     "chai": "^4.3.7",
+    "cross-env": "^7.0.3",
     "eslint": "^8.35.0",
     "husky": "^8.0.3",
     "mocha": "^10.2.0",

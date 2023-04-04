@@ -1,0 +1,29 @@
+version: "3.1"
+services:
+  backend:
+    image: phantom/backend
+    container_name: phantom_backend
+    network_mode: host # https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode
+    restart: always
+    build: .
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    profiles: # Prevent starting this container
+     - donotstart
+  db:
+    image: phantom/postgres
+    container_name: phantom_db
+    network_mode: host
+    restart: always
+    build: ./src/db
+    ports:
+      - 5432:5432
+  adminer:
+    image: adminer
+    container_name: adminer_panel
+    network_mode: host
+    restart: always
+    ports:
+      - 8080:8080
