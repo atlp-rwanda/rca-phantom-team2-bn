@@ -10,19 +10,50 @@
                 "name": "API Support",
                 "url": "http://www.exmaple.com/support",
                 "email": "support@example.com"
+            },
+            "license": {
+                "name": "Apache 2.0",
+                "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
             }
         },
         "servers": [
             {
-                "url": "http://localhost:4000",
-                "description": "Development sever"
+                "url": "{scheme}://{host}:{port}{basePath}",
+                "description": "Development sever",
+                "variables": {
+                    "scheme": {
+                        "enum": [ "https", "http" ],
+                        "default": "http"
+                    },
+                    "host": {
+                        "enum": [ "localhost" ],
+                        "default": "localhost"
+                    },
+                    "port": {
+                        "enum": [ "4000", "443" ],
+                        "default": "4000"
+                    },
+                    "basePath": {
+                        "enum": ["/api", ""],
+                        "default": "/api"
+                    }
+                }
             }
-        ]
+        ],
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
+            }
+        }
     },
     "apis": [
-        "./src/*.ts",
-        "./documentation/*.json",
-        "./documentation/*.yml",
-        "./documentation/*.yaml"
+        "./src/**/*.ts",
+        "./documentation/**/*.json",
+        "./documentation/**/*.yml",
+        "./documentation/**/*.yaml"
     ]
 }

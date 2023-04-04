@@ -1,5 +1,5 @@
 import express from "express";
-import authJwt from "../middleware/auth";
+import { verifyToken } from "../middlewares/auth.middlewares";
 import {
   createLocationValidation,
   updateLocationValidation,
@@ -11,23 +11,32 @@ import {
   getAllLocations,
   updateLocationById,
 } from "../controllers/locationController";
+import { hasPermission } from "../middlewares/roles.middlewares";
+import { ModelOperation } from "../enums/permissions.enums";
 
 const locationRouter = express.Router();
 
 locationRouter.post(
   "/",
-  authJwt.verifyToken,
+  verifyToken,
   createLocationValidation,
+  hasPermission(ModelOperation.CREATE, "Location"),
   createLocation
 );
-locationRouter.get("/", authJwt.verifyToken, getAllLocations);
-locationRouter.get("/:id", authJwt.verifyToken, findLocationById);
+locationRouter.get("/", verifyToken, getAllLocations);
+locationRouter.get("/:id", verifyToken, findLocationById);
 locationRouter.put(
   "/:id",
-  authJwt.verifyToken,
+  verifyToken,
   updateLocationValidation,
+  hasPermission(ModelOperation.UPDATE, "Location"),
   updateLocationById
 );
-locationRouter.delete("/:id", authJwt.verifyToken, deleteLocationById);
+locationRouter.delete(
+  "/:id",
+  verifyToken,
+  hasPermission(ModelOperation.DELETE, "Location"),
+  deleteLocationById
+);
 
 export default locationRouter;

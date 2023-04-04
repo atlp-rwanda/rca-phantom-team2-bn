@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/config";
 
-class LocationModel extends Model {
+class Location extends Model {
   public id!: number;
   public name!: string;
   public latitude!: number;
@@ -10,7 +10,7 @@ class LocationModel extends Model {
   public readonly updatedAt!: Date;
 }
 
-LocationModel.init(
+Location.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -37,4 +37,4 @@ LocationModel.init(
   }
 );
 
-export default LocationModel;
+export default Location;

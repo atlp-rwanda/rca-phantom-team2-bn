@@ -1,0 +1,50 @@
+components:
+  schemas:
+    ResBody:
+      type: object
+      properties:
+        success: 
+          type: boolean
+        message:
+          type: string
+        status:
+          type: number
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+    RolePermission:
+      type: object
+      properties:
+        id:
+          type: string
+        roleId:
+          type: string
+        permissionId:
+          type: string
+    Permission:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+        - $ref: '#/components/schemas/NewPermission'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date
+            updatedAt:
+              type: string
+              format: date

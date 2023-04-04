@@ -1,6 +1,6 @@
 {
-    "watch": ["src", "documentation"],
+    "watch": ["src", "documentation", "types"],
     "ext": ".ts,.js,.json,.yml,.yaml",
     "ignore": ["src/test"],
-    "exec": "ts-node src/index.ts"
+    "exec": "ts-node --files src/index.ts"
 }

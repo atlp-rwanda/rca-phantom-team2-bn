@@ -10,19 +10,33 @@ import {
   createRouteValidation,
   updateRouteValidation,
 } from "../validations/routeValidations";
-import authJwt from "../middleware/auth";
+import { verifyToken } from "../middlewares/auth.middlewares";
+import { hasPermission } from "../middlewares/roles.middlewares";
+import { ModelOperation } from "../enums/permissions.enums";
 
 const routeRouter = express.Router();
 
-routeRouter.post("/", authJwt.verifyToken, createRouteValidation, createRoute);
-routeRouter.get("/", authJwt.verifyToken, getAllRoutes);
-routeRouter.get("/:id", authJwt.verifyToken, findRouteById);
+routeRouter.post(
+  "/",
+  verifyToken,
+  createRouteValidation,
+  hasPermission(ModelOperation.CREATE, "Route"),
+  createRoute
+);
+routeRouter.get("/", verifyToken, getAllRoutes);
+routeRouter.get("/:id", verifyToken, findRouteById);
 routeRouter.put(
   "/:id",
-  authJwt.verifyToken,
+  verifyToken,
   updateRouteValidation,
+  hasPermission(ModelOperation.UPDATE, "Route"),
   updateRouteById
 );
-routeRouter.delete("/:id", authJwt.verifyToken, deleteRouteById);
+routeRouter.delete(
+  "/:id",
+  verifyToken,
+  hasPermission(ModelOperation.DELETE, "Route"),
+  deleteRouteById
+);
 
 export default routeRouter;

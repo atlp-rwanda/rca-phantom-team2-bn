@@ -1,35 +1,28 @@
 import request from "supertest";
-import app from "../src/index";
+import app from "../src/app";
 import chai from "chai";
 import chaiHttp from "chai-http";
 import { createUser } from "../src/controllers/userController";
 const register = createUser;
 
-let agent = request.agent(app);
-let should = chai.should();
-
+const agent = request.agent(app);
+chai.should();
 chai.use(chaiHttp);
 
-let t_user = {
+const tUser = {
   email: "tester@phantom.com",
-  password: "w6vav7",
+  password: "x36w5n",
 };
 
-before((done) => {
-  app.on("appStarted", () => done());
-});
-
-describe("Register User ", () => {
-  it("It should createUser: return  Ok", function () {
+describe("Users tests", () => {
+  it("It should create user", function () {
     request(register).get("/api/users").expect(200);
   });
-});
 
-describe("Sign In", () => {
   it("should sign in user", (done) => {
     agent
       .post("/api/users/signin")
-      .send(t_user)
+      .send(tUser)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("object");
@@ -38,6 +31,7 @@ describe("Sign In", () => {
         done();
       });
   });
+
   it("user not found", (done) => {
     agent
       .post("/api/users/signin")
@@ -47,7 +41,8 @@ describe("Sign In", () => {
         res.body.should.have.property("message").eq("User not found");
         done();
       });
-  }); 
+  });
+
   it("invalid password", (done) => {
     agent
       .post("/api/users/signin")

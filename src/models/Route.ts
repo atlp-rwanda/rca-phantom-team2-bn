@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/config";
 import Location from "./Location";
 
-class RouteModel extends Model {
+class Route extends Model {
   public id!: number;
   public name!: string;
   public origin!: string;
@@ -11,7 +11,7 @@ class RouteModel extends Model {
   public readonly updatedAt!: Date;
 }
 
-RouteModel.init(
+Route.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -50,4 +50,4 @@ RouteModel.init(
   }
 );
 
-export default RouteModel;
+export default Route;

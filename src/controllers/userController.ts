@@ -1,21 +1,21 @@
 import { hashPassword } from "./../utils/passwords/hashPassword";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import UserModel from "../models/UserModel";
+import User from "../models/User";
 import { API_RESPONSE } from "../utils/response/response";
-import { sendEmail } from "../utils/email/sendEmail";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { sendEmail } from "../utils/email/sendEmail";
 
 dotenv.config();
 
 export const createUser = async (req: Request, res: Response) => {
-  const { email, role, firstName, lastName } = req.body;
+  const { email, roleId, firstName, lastName } = req.body;
 
   const password: string = Math.random().toString(36).substring(2, 8);
 
   try {
-    const userExists: UserModel | null = await findUserByEmail(email);
+    const userExists: User | null = await findUserById(email);
 
     if (userExists) {
       return API_RESPONSE(res, {
@@ -25,14 +25,14 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
     const hashedPassword = await hashPassword(password);
-    const newUser = await UserModel.create({
+    const newUser = await User.create({
       email: email,
       firstName: firstName,
       lastName: lastName,
       password: hashedPassword,
-      role: role,
+      roleId: roleId,
     });
-    const { password: _, ...rest } = newUser.toJSON();
+    const { ...rest } = newUser.toJSON();
 
     sendEmail(email, password, res);
 
@@ -52,9 +52,9 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-const findUserByEmail = async (email: string) => {
+const findUserById = async (email: string) => {
   try {
-    const user: UserModel | null = await UserModel.findOne({
+    const user: User | null = await User.findOne({
       where: {
         email: email,
       },
@@ -66,7 +66,7 @@ const findUserByEmail = async (email: string) => {
 };
 
 export const signIn = (req: Request, res: Response) => {
-  UserModel.findOne({
+  User.findOne({
     where: {
       email: req.body.email,
     },
@@ -81,7 +81,7 @@ export const signIn = (req: Request, res: Response) => {
         });
       }
 
-      let passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -94,20 +94,20 @@ export const signIn = (req: Request, res: Response) => {
         });
       }
 
-      // let token = jwt.sign({ id: user.id }, String(process.env.AUTH_KEY), {
-      //   expiresIn: 86400, // 24 hours
-      // });
+      const token = jwt.sign(
+        { userId: user.id, roleId: user.roleId },
+        String(process.env.AUTH_KEY),
+        {
+          expiresIn: 86400, // 24 hours
+        }
+      );
 
-      let token = jwt.sign({ id: user.id }, "PHANTOM_KEYZ", {
-        expiresIn: 86400, // 24 hours
-      });
-
-      let uObject = (({ id, firstName, lastName, email, role }) => ({
+      const uObject = (({ id, firstName, lastName, email, roleId }) => ({
         id,
         firstName,
         lastName,
         email,
-        role,
+        roleId,
       }))(user);
 
       return API_RESPONSE(res, {
@@ -118,6 +118,7 @@ export const signIn = (req: Request, res: Response) => {
       });
     })
     .catch((err) => {
+      console.log("ERROR: ", err.message);
       return API_RESPONSE(res, {
         success: false,
         message: res.__("failed_to_sign_in_message"),
@@ -137,10 +138,10 @@ export const logout = (req: Request, res: Response) => {
 };
 
 export const updateUserProfile = async (req: Request, res: Response) => {
-  const { email, firstName, lastName, role } = req.body;
+  const { email, firstName, lastName, roleId } = req.body;
 
   try {
-    const user = await UserModel.findOne({ where: { email: email } });
+    const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
       return API_RESPONSE(res, {
@@ -154,7 +155,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
 
-    user.role = role || user.role;
+    user.roleId = roleId || user.roleId;
 
     await user.save();
 

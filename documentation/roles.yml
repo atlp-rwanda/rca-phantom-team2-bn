@@ -1,0 +1,166 @@
+paths:
+  /roles:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      description: Create/register new role
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRole'
+      responses:
+        201:
+          description: Role registered
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Role'
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of roles per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      description: Get all roles
+      responses:
+        200:
+          description: All registered roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRolesResBody'
+  /roles/role/{roleId}:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: roleId
+          in: path
+          required: true
+          description: Role id
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      description: Get role by id
+      responses:
+        200:
+          description: The role
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Role'
+  /roles/grant-permission:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      description: Grant a permission to a role
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrantRolePermission'
+      responses:
+        201:
+          description: Permission granted
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RolePermission'  
+components:
+  schemas:
+    GrantRolePermission:
+      type: object
+      properties:
+        roleId:
+          type: string
+        permissionId:
+          type: string
+    NewRole:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    GetRolesResBody:
+      allOf:
+        - $ref: '#/components/schemas/ResBody'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                prevPage: 
+                  type: number
+                currentPage: 
+                  type: number
+                nextPage: 
+                  type: number
+                lastPage: 
+                  type: number
+                total: 
+                  type: number
+                hasPrev: 
+                  type: boolean
+                hasNext: 
+                  type: boolean
+                data: 
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Role'
+                    
