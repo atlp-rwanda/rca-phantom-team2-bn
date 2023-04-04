@@ -46,7 +46,7 @@ describe("Users tests", () => {
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")
-            .send({ email: "tester@phantom.com", password: "1290" })
+            .send({ email: tUser.email, password: "1290" })
             .end((err, res) => {
                 res.should.have.status(401)
                 res.body.should.have.property("message").eq("Invalid message")
