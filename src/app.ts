@@ -32,7 +32,7 @@ app.use("/api/roles", rolesRouter)
 app.use("/api/permissions", permissionsRouter)
 app.use("/api/users", userRouter)
 app.use("/api/locations", locationRouter)
-app.use("/api/roles", routeRouter)
+app.use("/api/routes", routeRouter)
 app.get("/api", (_req: Request, res: Response) =>
     res.status(200).send({ message: res.__("greeting"), status: "RUNNING" })
 )

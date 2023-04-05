@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import RouteModel from "../models/Route"
+import Paginator from "../utils/pagination/paginator"
 import { API_RESPONSE } from "../utils/response/response"
 
 export const createRoute = async (req: Request, res: Response) => {
@@ -51,19 +52,15 @@ const findRouteByName = async (name: string) => {
 }
 export const getAllRoutes = async (req: Request, res: Response) => {
     try {
-        const routes = await RouteModel.findAll()
-        if (!routes) {
-            return API_RESPONSE(res, {
-                success: false,
-                message: res.__("route_not_found_message"),
-                data: {},
-                status: 404,
-            })
-        }
+        const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+        const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+        const paginator = new Paginator(RouteModel)
+        const results = await paginator.paginate({}, page, perPage)
+        
         return API_RESPONSE(res, {
             success: true,
-            message: res.__("route_found_message"),
-            data: routes,
+            message: res.__("success"),
+            data: results,
             status: 200,
         })
     } catch (error) {

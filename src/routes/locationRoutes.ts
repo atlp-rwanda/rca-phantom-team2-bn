@@ -23,8 +23,8 @@ locationRouter.post(
     hasPermission(ModelOperation.CREATE, "Location"),
     createLocation
 )
+locationRouter.get("/location/:id", verifyToken, findLocationById)
 locationRouter.get("/", verifyToken, getAllLocations)
-locationRouter.get("/:id", verifyToken, findLocationById)
 locationRouter.put(
     "/:id",
     verifyToken,
