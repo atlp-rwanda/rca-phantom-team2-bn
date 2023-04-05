@@ -23,8 +23,8 @@ router.get("", verifyToken, getAllBuses)
 
 router.delete("/:busId", verifyToken, deleteBusById)
 
-router.post("/assign", verifyToken, assignValidation, assignDriverToBus)
+router.post("/assign-driver", verifyToken, assignValidation, assignDriverToBus)
 
-router.get("/drivers", verifyToken, getBusDrivers)
+router.get("/buses-drivers", verifyToken, getBusDrivers)
 
 export default router
