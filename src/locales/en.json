@@ -19,7 +19,6 @@
   "failed_to_create_location_message": "failed_to_create_location_message",
   "location_created_message": "location_created_message",
   "location_found_message": "location_found_message",
-  "location_exits_message": "location_exits_message",
   "success": "success",
   "role_not_found": "Role is not found",
   "role_created": "Role created successfully",
@@ -28,8 +27,9 @@
   "permission_created": "Permission created",
   "permission_granted": "Permission granted",
   "permission_not_found": "Permission not found",
-  "bus_not_found": "Bus is not found",
   "route_bus_linked": "Linked bus to route",
   "bus_driver_assigned": "Bus assigned to driver",
-  "failed_to_assign": "Failed to assign driver to bus"
+  "failed_to_assign": "Failed to assign driver to bus",
+  "location_exits_message": "location_exits_message",
+  "bus_not_found": "Bus is not found"
 }

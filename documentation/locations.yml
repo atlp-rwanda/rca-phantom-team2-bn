@@ -1,5 +1,5 @@
 paths:
-  /routes:
+  /locations:
     post:
       parameters:
         - name: "Accept-Language"
@@ -7,24 +7,24 @@ paths:
           default: en
           required: true
           description: Preferred language
-      tags:
-        - Routes
-      description: Create new route
       security:
         - bearerAuth: []
+      tags:
+        - Locations
+      description: Create new location
       requestBody:
         description: Request Body
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewRoute"
+              $ref: '#/components/schemas/NewLocation'
       responses:
         201:
-          description: Route registered sucessfully
+          description: Location created
         400:
-          description: Route with the same name exists
+          description: Location exists
         500:
-          description: Failed to create route
+          description: Internal server error
     get:
       parameters:
         - name: "Accept-Language"
@@ -41,118 +41,115 @@ paths:
           in: query
           default: 10
           required: true
-          description: Limit of routes per page
-      tags:
-        - Routes
-      description: Get all routes
+          description: Limit of locations per page
       security:
         - bearerAuth: []
+      tags:
+        - Locations
+      description: GET all locations
       responses:
         200:
-          description: Routes found
-        400:
-          description: Failed to fetch routes
-
-  /routes/{id}:
+          description: List of locations
+        500:
+          description: Internal server error
+  /locations/location/{locationId}:
     get:
-      tags:
-        - Routes
-      description: Get route by id
-      security:
-        - bearerAuth: []
       parameters:
         - name: "Accept-Language"
           in: "header"
           default: en
           required: true
           description: Preferred language
-        - name: id
+        - name: locationId
           in: path
-          type: string
-          description: Route ID
           required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Get location by ID
       responses:
         200:
-          description: Route found
+          description: Location found
         404:
-          description: Route not found
-        400:
-          description: Failed to fetch route
+          description: Location Not Found
+        500:
+          description: Internal server error
+  /locations/{locationId}:
     put:
-      tags:
-        - Routes
-      description: Update route with given ID
-      security:
-        - bearerAuth: []
       parameters:
         - name: "Accept-Language"
           in: "header"
           default: en
           required: true
           description: Preferred language
-        - name: id
+        - name: locationId
           in: path
-          type: string
-          description: Route ID
           required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Update location by ID
       requestBody:
         description: Request Body
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateRoute"
+              $ref: '#/components/schemas/UpdateLocation'
       responses:
         200:
-          description: Route updated
+          description: Location updated
         404:
-          description: Route not found
-        400:
-          description: Failed to update route
+          description: Location Not Found
+        500:
+          description: Internal server error
     delete:
-      tags:
-        - Routes
-      description: Delete route with given id
-      security:
-        - bearerAuth: []
       parameters:
         - name: "Accept-Language"
           in: "header"
           default: en
           required: true
           description: Preferred language
-        - name: id
+        - name: locationId
           in: path
-          type: string
-          description: Route ID
           required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Delete location by ID
       responses:
         200:
-          description: Route delete
+          description: Location deleted
         404:
-          description: Route not found
-        400:
-          description: Failed to delete route
+          description: Location Not Found
+        500:
+          description: Internal server error
 components:
   schemas:
-    NewRoute:
+    NewLocation:
       type: object
       required:
         - name
-        - origin
-        - destination
+        - latitude
+        - latitude
       properties:
         name:
           type: string
-        origin:
-          type: string
-        destination:
-          type: string
-    UpdateRoute:
+        latitude:
+          type: number
+        longitude:
+          type: number
+    UpdateLocation:
       type: object
       properties:
         name:
           type: string
-        origin:
-          type: string
-        destination:
-          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
