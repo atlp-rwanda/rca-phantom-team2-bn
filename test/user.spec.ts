@@ -10,13 +10,15 @@ chai.should()
 chai.use(chaiHttp)
 
 const tUser = {
-    email: "alt.tp-dorml7n4@yopmail.com",
-    password: "qxe6pu",
+    email: "admin@phantom.com",
+    password: "pt6f6w",
 }
 
 describe("Users tests", () => {
-    it("It should create user", function () {
-        request(register).get("/api/users").expect(200)
+    it("It should create user", function() {
+        request(register)
+            .get("/api/users")
+            .expect(200)
     })
 
     it("should sign in user", (done) => {

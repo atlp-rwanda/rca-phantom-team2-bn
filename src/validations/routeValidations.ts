@@ -10,19 +10,9 @@ export const createRouteValidation = (
         next: NextFunction
 ) => {
     const schema = joi.object({
-        name: joi
-            .string()
-            .min(3)
-            .max(50)
-            .required(),
-        origin: joi
-            .string()
-            .uuid({ version: "uuidv4" })
-            .required(),
-        destination: joi
-            .string()
-            .uuid({ version: "uuidv4" })
-            .required(),
+        name: joi.string().min(3).max(50).required(),
+        origin: joi.string().uuid({ version: "uuidv4" }).required(),
+        destination: joi.string().uuid({ version: "uuidv4" }).required(),
     })
     const { error } = schema.validate(req.body)
 
@@ -43,11 +33,7 @@ export const updateRouteValidation = (
         next: NextFunction
 ) => {
     const schema = joi.object({
-        name: joi
-            .string()
-            .alphanum()
-            .min(3)
-            .max(50),
+        name: joi.string().alphanum().min(3).max(50),
         origin: joi.string().uuid({ version: "uuidv4" }),
         destination: joi.string().uuid({ version: "uuidv4" }),
     })

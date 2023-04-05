@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import RouteModel from "../models/Route"
-import { API_RESPONSE } from "../utils/response/response"
 import Paginator from "../utils/pagination/paginator"
+import { API_RESPONSE } from "../utils/response/response"
 
 export const createRoute = async (req: Request, res: Response) => {
     const { name, origin, destination } = req.body
