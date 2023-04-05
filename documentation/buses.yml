@@ -159,6 +159,54 @@ paths:
                         properties:
                           count:
                             type: number
+  /buses/link-bus-with-route:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Buses
+      description: Assign a route to bus
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkBusToRoute'
+      responses:
+        201:
+          description: Route assigned to bus sucessfully
+  /buses/buses-and-routes-assignments:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of assignments (bus and route) per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Get all buses and routes assignments
+      responses:
+        200:
+          description: All buses and routes assignments
 components:
   schemas:
     NewBus:
@@ -200,3 +248,10 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/Bus'
+    LinkBusToRoute:
+      type: object
+      properties:
+        busId:
+          type: string
+        routeId:
+          type: string     

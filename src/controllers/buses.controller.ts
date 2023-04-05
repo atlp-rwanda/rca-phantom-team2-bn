@@ -1,6 +1,7 @@
 import {Request, Response} from "express"
 import Joi from "joi"
 import Bus from "../models/Bus"
+import RouteBus from "../models/RouteBus"
 import Paginator from "../utils/pagination/paginator"
 import { API_RESPONSE } from "../utils/response/response"
 
@@ -97,5 +98,31 @@ export const deleteBusById = async (req: Request, res: Response)=> {
         message: res.__("success"),
         status: 200,
         data: {count: deleteCount}
+    })
+}
+
+export const linkBusToRoute = async (req: Request, res: Response) => {
+    const busLink = await RouteBus.create(req.body)
+
+    return API_RESPONSE(res, {
+        success: true,
+        status: 201,
+        message: res.__("route_bus_linked"),
+        data: busLink,
+    })
+}
+
+export const getAllBusToRoutes = async (req: Request, res: Response)=> {
+    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+    const paginator = new Paginator(RouteBus)
+
+    const results = await paginator.paginate({}, page, perPage)
+    
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("success"),
+        status: 200,
+        data: results
     })
 }

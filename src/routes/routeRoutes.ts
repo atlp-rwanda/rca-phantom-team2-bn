@@ -5,11 +5,9 @@ import {
     updateRouteById,
     deleteRouteById,
     getAllRoutes,
-    linkBusToRoute,
 } from "../controllers/routeController"
 import {
     createRouteValidation,
-    linkBusToRouteValidation,
     updateRouteValidation,
 } from "../validations/routeValidations"
 import { verifyToken } from "../middlewares/auth.middlewares"
@@ -39,13 +37,6 @@ routeRouter.delete(
     verifyToken,
     hasPermission(ModelOperation.DELETE, "Route"),
     deleteRouteById
-)
-
-routeRouter.post(
-    "/asign-bus-route",
-    verifyToken,
-    linkBusToRouteValidation,
-    linkBusToRoute
 )
 
 export default routeRouter

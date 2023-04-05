@@ -5,9 +5,12 @@ import {
     getAllBuses, 
     getBusById, 
     updateBusById, 
+    linkBusToRoute,
+    getAllBusToRoutes,
 } from "../controllers/buses.controller"
 import { verifyToken } from "../middlewares/auth.middlewares"
 import { busValidation } from "../validations/buses"
+import { linkBusToRouteValidation } from "../validations/routeValidations"
 
 const router = express.Router()
 
@@ -20,5 +23,14 @@ router.get("/bus/:busId", verifyToken, getBusById)
 router.get("", verifyToken, getAllBuses)
 
 router.delete("/:busId", verifyToken, deleteBusById)
+
+router.post(
+    "/link-bus-with-route",
+    verifyToken,
+    linkBusToRouteValidation,
+    linkBusToRoute
+)
+
+router.get("/buses-and-routes-assignments", verifyToken, getAllBusToRoutes)
 
 export default router

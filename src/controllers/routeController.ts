@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import RouteModel from "../models/Route"
 import { API_RESPONSE } from "../utils/response/response"
-import RouteBus from "../models/RouteBus"
 import Paginator from "../utils/pagination/paginator"
 
 export const createRoute = async (req: Request, res: Response) => {
@@ -151,15 +150,4 @@ export const deleteRouteById = async (req: Request, res: Response) => {
             status: 400,
         })
     }
-}
-
-export const linkBusToRoute = async (req: Request, res: Response) => {
-    const busLink = await RouteBus.create(req.body)
-
-    return API_RESPONSE(res, {
-        success: true,
-        status: 201,
-        message: res.__("route_bus_linked"),
-        data: busLink,
-    })
 }

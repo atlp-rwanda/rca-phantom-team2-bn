@@ -131,28 +131,6 @@ paths:
           description: Route not found
         400:
           description: Failed to delete route
-  /routes/asign-bus-route:
-    post:
-      parameters:
-        - name: "Accept-Language"
-          in: "header"
-          default: en
-          required: true
-          description: Preferred language
-      tags:
-        - Routes
-      description: Assign a route to bus
-      security:
-        - bearerAuth: []
-      requestBody:
-        description: Request Body
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LinkBusToRoute'
-      responses:
-        201:
-          description: Route assigned to bus sucessfullyy
 components:
   schemas:
     NewRoute:
@@ -176,11 +154,4 @@ components:
         origin:
           type: string
         destination:
-          type: string
-    LinkBusToRoute:
-      type: object
-      properties:
-        busId:
-          type: string
-        routeId:
           type: string
