@@ -6,25 +6,19 @@ import { createUser } from "../src/controllers/userController"
 const register = createUser
 
 const agent = request.agent(app)
-
+chai.should()
 chai.use(chaiHttp)
 
 const tUser = {
-    email: "tester@phantom.com",
-    password: "w6vav7",
+    email: "admin@phantom.com",
+    password: "pt6f6w",
 }
 
-before((done) => {
-    app.on("appStarted", () => done())
-})
-
-describe("Register User ", () => {
-    it("It should createUser: return  Ok", function () {
+describe("Users tests", () => {
+    it("It should create user", function () {
         request(register).get("/api/users").expect(200)
     })
-})
 
-describe("Sign In", () => {
     it("should sign in user", (done) => {
         agent
             .post("/api/users/signin")
@@ -37,6 +31,7 @@ describe("Sign In", () => {
                 done()
             })
     })
+
     it("user not found", (done) => {
         agent
             .post("/api/users/signin")
@@ -47,10 +42,11 @@ describe("Sign In", () => {
                 done()
             })
     })
+
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")
-            .send({ email: "tester@phantom.com", password: "1290" })
+            .send({ email: tUser.email, password: "1290" })
             .end((err, res) => {
                 res.should.have.status(401)
                 res.body.should.have.property("message").eq("Invalid message")

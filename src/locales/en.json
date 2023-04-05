@@ -16,5 +16,6 @@
   "failed_to_create_user_message": "Failed to create user",
   "signin_successful_message": "Sign in successful",
   "failed_to_sign_in_message": "Failed to sign in",
-  "invalid_password_message": "Invalid message"
+  "invalid_password_message": "Invalid message",
+  "bus_not_found": "Bus is not found"
 }

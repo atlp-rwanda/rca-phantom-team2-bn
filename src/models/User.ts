@@ -3,12 +3,12 @@ import { sequelize } from "../db/config"
 import Role from "./Role"
 
 class User extends Model {
-    id!: string
-    firstName!: string
-    lastName!: string
-    email!: string
-    password!: string
-    roleId!: string
+    declare id: string
+    declare firstName: string
+    declare lastName: string
+    declare email: string
+    declare password: string
+    declare roleId: string
 }
 
 User.init({

@@ -13,5 +13,6 @@
     "user_not_found_message": "Utilisateur non trouvé",
     "login_credentials_message": "Identifiants de connexion",
     "your_login_credentials_message": "Vos identifiants de connexion :",
-    "Failed_to_create_user_message": "Échec de la création de l'utilisateur"
+    "Failed_to_create_user_message": "Échec de la création de l'utilisateur",
+    "bus_not_found": "Le bus est introuvable"
 }
