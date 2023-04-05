@@ -136,7 +136,7 @@ paths:
           description: "Email sent successfully"
         404:
           description: "User not found"
-  /users/reset-password/:resetToken:
+  /users/reset-password/{resetToken}:
     post:
       parameters:
         - name: "Accept-Language"

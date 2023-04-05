@@ -242,6 +242,8 @@ const findUserById = async (id: string) => {
 
 export const resetPassword = async (req: Request, res: Response) => {
   const resetToken = req.params.resetToken
+  console.log("The req params")
+  console.log(resetToken)
   const { newPassword } = req.body;
 
   try {
