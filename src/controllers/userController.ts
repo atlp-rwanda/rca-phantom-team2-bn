@@ -273,7 +273,10 @@ export const resetPassword = async (req: Request, res: Response) => {
             status: 404,
         })
     }
-    user.password = newPassword
+
+    const hashedPassword = await hashPassword(newPassword)
+    user.password = hashedPassword
+    
     await user.save()
 
     return API_RESPONSE(res, {
