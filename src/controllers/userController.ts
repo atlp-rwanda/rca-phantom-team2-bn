@@ -1,10 +1,13 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
 import { Request, Response } from "express"
+import dotenv from "dotenv"
 import User from "../models/User"
 import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import { sendEmail } from "../utils/email/sendEmail"
+
+dotenv.config()
 
 export const createUser = async (req: Request, res: Response) => {
     const { email, roleId, firstName, lastName } = req.body
