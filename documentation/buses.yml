@@ -181,7 +181,13 @@ paths:
       responses:
         201:
           description: Route assigned to bus sucessfully
-  /buses/buses-and-routes-assignments:
+        400:
+          description: Bus already linked with route
+        500:
+          description: Internal server error:
+          description: Internal server error500:
+          description: Internal server error
+  /buses/routes-assignments:
     get:
       parameters:
         - name: "Accept-Language"
@@ -207,6 +213,8 @@ paths:
       responses:
         200:
           description: All buses and routes assignments
+        500:
+          description: Internal server error
 components:
   schemas:
     NewBus:

@@ -50,7 +50,7 @@ paths:
       responses:
         200:
           description: Routes found
-        400:
+        500:
           description: Failed to fetch routes
   /routes/{id}:
     get:
@@ -75,7 +75,7 @@ paths:
           description: Route found
         404:
           description: Route not found
-        400:
+        500:
           description: Failed to fetch route
     put:
       tags:
@@ -105,7 +105,7 @@ paths:
           description: Route updated
         404:
           description: Route not found
-        400:
+        500:
           description: Failed to update route
     delete:
       tags:
@@ -129,7 +129,7 @@ paths:
           description: Route delete
         404:
           description: Route not found
-        400:
+        500:
           description: Failed to delete route
 components:
   schemas:

@@ -29,5 +29,7 @@
   "permission_not_found": "Permission not found",
   "bus_not_found": "Bus is not found",
   "route_bus_linked": "Linked bus to route",
-  "location_exits_message": "location_exits_message"
+  "location_exits_message": "location_exits_message",
+  "internal_server_error": "Internal server error",
+  "bus_already_linked_to_route": "Bus is already assigned to the route"
 }

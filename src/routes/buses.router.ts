@@ -31,6 +31,6 @@ router.post(
     linkBusToRoute
 )
 
-router.get("/buses-and-routes-assignments", verifyToken, getAllBusToRoutes)
+router.get("/routes-assignments", verifyToken, getAllBusToRoutes)
 
 export default router

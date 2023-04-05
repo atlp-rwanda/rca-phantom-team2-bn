@@ -102,27 +102,55 @@ export const deleteBusById = async (req: Request, res: Response)=> {
 }
 
 export const linkBusToRoute = async (req: Request, res: Response) => {
-    const busLink = await RouteBus.create(req.body)
+    try {
+        const existing: RouteBus | null = await  RouteBus.findOne({
+            where: {...req.body}
+        })
 
-    return API_RESPONSE(res, {
-        success: true,
-        status: 201,
-        message: res.__("route_bus_linked"),
-        data: busLink,
-    })
+        if(existing) return API_RESPONSE(res, {
+            success: false,
+            message: res.__("bus_already_linked_to_route"),
+            status: 400
+        })
+
+        const busLink: RouteBus = await RouteBus.create(req.body)
+
+        return API_RESPONSE(res, {
+            success: true,
+            status: 201,
+            message: res.__("route_bus_linked"),
+            data: busLink,
+        })
+    } catch (error) {
+        return API_RESPONSE(res, {
+            success: false,
+            message: res.__("internal_server_error"),
+            err: (error as Error).message,
+            status: 500
+        })
+    }
 }
 
 export const getAllBusToRoutes = async (req: Request, res: Response)=> {
-    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
-    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
-    const paginator = new Paginator(RouteBus)
+    try {
+        const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+        const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+        const paginator = new Paginator(RouteBus)
 
-    const results = await paginator.paginate({}, page, perPage)
-    
-    return API_RESPONSE(res, {
-        success: true,
-        message: res.__("success"),
-        status: 200,
-        data: results
-    })
+        const results = await paginator.paginate({}, page, perPage)
+        
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("success"),
+            status: 200,
+            data: results
+        })
+    } catch (error) {
+        return API_RESPONSE(res, {
+            success: false,
+            message: res.__("internal_server_error"),
+            err: (error as Error).message,
+            status: 500
+        })
+    }
 }
