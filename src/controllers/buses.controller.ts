@@ -4,6 +4,7 @@ import Bus from "../models/Bus"
 import RouteBus from "../models/RouteBus"
 import Paginator from "../utils/pagination/paginator"
 import { API_RESPONSE } from "../utils/response/response"
+import BusDriver from "../models/BusDriver"
 
 export const createBus = async (req: Request, res: Response)=> {
     const bus: Bus = await (await Bus.create(req.body)).save()
@@ -131,11 +132,54 @@ export const linkBusToRoute = async (req: Request, res: Response) => {
     }
 }
 
+export const assignDriverToBus = async (req: Request, res: Response)=> {
+    try {
+        const busDriver = await BusDriver.create(req.body)
+        
+        return API_RESPONSE(res, {
+            success: true,
+            status: 201,
+            message: res.__("bus_driver_assigned"),
+            data: busDriver
+        })
+    } catch (error) {
+        return API_RESPONSE(res, {
+            success: false,
+            status: 500,
+            message: res.__("failed_to_assign")
+        })
+    }
+}
+
 export const getAllBusToRoutes = async (req: Request, res: Response)=> {
     try {
         const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
         const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
         const paginator = new Paginator(RouteBus)
+
+        const results = await paginator.paginate({}, page, perPage)
+        
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("success"),
+            status: 200,
+            data: results
+        })
+    } catch (error) {
+        return API_RESPONSE(res, {
+            success: false,
+            message: res.__("internal_server_error"),
+            err: (error as Error).message,
+            status: 500
+        })
+    }
+}
+
+export const getBusDrivers = async (req: Request, res: Response)=> {
+    try {
+        const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+        const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+        const paginator = new Paginator(BusDriver)
 
         const results = await paginator.paginate({}, page, perPage)
         

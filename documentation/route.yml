@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewRoute'
+              $ref: "#/components/schemas/NewRoute"
       responses:
         201:
           description: Route registered sucessfully
@@ -99,7 +99,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateRoute'
+              $ref: "#/components/schemas/UpdateRoute"
       responses:
         200:
           description: Route updated
