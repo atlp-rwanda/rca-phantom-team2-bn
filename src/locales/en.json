@@ -20,5 +20,6 @@
   "reset_password_email_sent": "Reset password was sent successfully",
   "reset_password_email_fail": "Failed to sent reset password email",
   "user_password_updated": "The password was updated successfully",
-  "failed_password_update": "Failed to update the password"
+  "failed_password_update": "Failed to update the password",
+  "invalid_or_expired_token": "Invalid or expired token"
 }

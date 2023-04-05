@@ -1,4 +1,5 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
+import { generateResetToken } from "./../utils/passwords/resetToken"
 import { Request, Response } from "express"
 import User from "../models/User"
 import UserToken from "../models/UserToken"
@@ -6,7 +7,6 @@ import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import { sendEmail, sendResetPasswordEmail } from "../utils/email/sendEmail"
-import { sha256 } from 'js-sha256';
 
 export const createUser = async (req: Request, res: Response) => {
     const { email, roleId, firstName, lastName } = req.body
@@ -190,9 +190,7 @@ export const resetPasswordEmail = async (req: Request, res: Response) => {
             });
         }
 
-        const randomToken = Math.random().toString(36).substring(2, 22);
-        const resetToken = sha256(randomToken);
-        const resetTokenExpiration = Date.now() + 3600000;
+        const {resetToken, resetTokenExpiration} = generateResetToken();
         const newToken = await UserToken.create({
             userId: user.id,
             resetPasswordToken: resetToken,
@@ -250,19 +248,21 @@ export const resetPassword = async (req: Request, res: Response) => {
     const token = await findResetToken(resetToken);
 
     if (!token) {
-      return res.status(404).json({
-        success: false,
-        message: 'Invalid or expired token',
-      });
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("invalid_or_expired_token"),
+            status: 404,
+        })
     }
 
     const { resetPasswordExpires } = token;
 
     if (resetPasswordExpires.getTime() < Date.now()) {
-      return res.status(404).json({
-        success: false,
-        message: 'Invalid or expired token',
-      });
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("invalid_or_expired_token"),
+            status: 404,
+        })
     }
 
     const user = await findUserById(token.userId)
