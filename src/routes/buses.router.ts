@@ -1,7 +1,14 @@
 import express from "express"
-import { createBus, deleteBusById, getAllBuses, getBusById, updateBusById } from "../controllers/buses.controller"
+import {
+    assignDriverToBus,
+    createBus,
+    deleteBusById,
+    getAllBuses,
+    getBusById,
+    updateBusById,
+} from "../controllers/buses.controller"
 import { verifyToken } from "../middlewares/auth.middlewares"
-import { busValidation } from "../validations/buses"
+import { assignValidation, busValidation } from "../validations/buses"
 
 const router = express.Router()
 
@@ -14,5 +21,7 @@ router.get("/bus/:busId", verifyToken, getBusById)
 router.get("", verifyToken, getAllBuses)
 
 router.delete("/:busId", verifyToken, deleteBusById)
+
+router.post("/assign", verifyToken, assignValidation, assignDriverToBus)
 
 export default router

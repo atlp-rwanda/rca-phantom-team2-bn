@@ -9,14 +9,9 @@ const agent = request.agent(app)
 chai.should()
 chai.use(chaiHttp)
 
-// const tUser = {
-//   email: "admin@phantom.com",
-//   password: "pt6f6w",
-// };
-
 const tUser = {
-    email: "alt.tp-dorml7n4@yopmail.com",
-    password: "qxe6pu",
+    email: "admin@phantom.com",
+    password: "pt6f6w",
 }
 
 describe("Users tests", () => {
@@ -53,7 +48,7 @@ describe("Users tests", () => {
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")
-            .send({ email: "alt.tp-dorml7n4@yopmail.com", password: "1290" })
+            .send({ email: tUser.email, password: "1290" })
             .end((err, res) => {
                 res.should.have.status(401)
                 res.body.should.have.property("message").eq("Invalid message")

@@ -29,5 +29,7 @@
   "permission_granted": "Permission granted",
   "permission_not_found": "Permission not found",
   "bus_not_found": "Bus is not found",
-  "route_bus_linked": "Linked bus to route"
+  "route_bus_linked": "Linked bus to route",
+  "bus_driver_assigned": "Bus assigned to driver",
+  "failed_to_assign": "Failed to assign driver to bus"
 }

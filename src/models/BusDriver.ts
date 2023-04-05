@@ -1,28 +1,20 @@
 import { Model } from "sequelize"
 import { sequelize, DataTypes } from "../db/config"
-import Route from "./Route"
+import User from "./User"
 import Bus from "./Bus"
 
-class RouteBus extends Model {
+class BusDriver extends Model {
     declare id: string
-    declare routeId: string
     declare busId: string
+    declare driverId: string
 }
 
-RouteBus.init(
+BusDriver.init(
     {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-        },
-        routeId: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references: {
-                model: Route,
-                key: "id",
-            },
         },
         busId: {
             type: DataTypes.UUID,
@@ -32,12 +24,20 @@ RouteBus.init(
                 key: "id",
             },
         },
+        driverId: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: User,
+                key: "id",
+            },
+        },
     },
     {
         sequelize: sequelize,
         timestamps: true,
-        modelName: "RouteBus",
+        modelName: "BusDriver",
     }
 )
 
-export default RouteBus
+export default BusDriver

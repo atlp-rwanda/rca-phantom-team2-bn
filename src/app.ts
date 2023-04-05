@@ -8,8 +8,6 @@ import i18n from "./configs/i18n"
 import rolesRouter from "./routes/roles.router"
 import permissionsRouter from "./routes/permissions.router"
 import userRouter from "./routes/userRoutes"
-import routeRouter from "./routes/routeRoutes"
-import locationRouter from "./routes/locationRoutes"
 import busesRouter from "./routes/buses.router"
 import { connectDB } from "./db/config"
 
@@ -32,8 +30,6 @@ app.use(
 app.use("/api/roles", rolesRouter)
 app.use("/api/permissions", permissionsRouter)
 app.use("/api/users", userRouter)
-app.use("/api/locations", locationRouter)
-app.use("/api/roles", routeRouter)
 app.use("/api/buses", busesRouter)
 app.get("/api", (_req: Request, res: Response) =>
     res.status(200).send({ message: res.__("greeting"), status: "RUNNING" })

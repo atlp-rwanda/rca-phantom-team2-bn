@@ -3,7 +3,7 @@ components:
     ResBody:
       type: object
       properties:
-        success: 
+        success:
           type: boolean
         message:
           type: string
@@ -39,7 +39,7 @@ components:
           properties:
             id:
               type: string
-        - $ref: '#/components/schemas/NewPermission'
+        - $ref: "#/components/schemas/NewPermission"
         - type: object
           properties:
             createdAt:
@@ -48,15 +48,13 @@ components:
             updatedAt:
               type: string
               format: date
-<<<<<<< HEAD
-=======
     Bus:
       allOf:
         - type: object
           properties:
             id:
               type: string
-        - $ref: '#/components/schemas/NewBus'
+        - $ref: "#/components/schemas/NewBus"
         - type: object
           properties:
             createdAt:
@@ -65,4 +63,3 @@ components:
             updatedAt:
               type: string
               format: date
->>>>>>> 1b634b956f46a27a62f5788a2ffda8fac52edb08
