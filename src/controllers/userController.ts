@@ -1,10 +1,12 @@
 import { hashPassword } from "./../utils/passwords/hashPassword"
 import { Request, Response } from "express"
 import User from "../models/User"
+import UserToken from "../models/UserToken"
 import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import { sendEmail } from "../utils/email/sendEmail"
+import { sendEmail, sendResetPasswordEmail } from "../utils/email/sendEmail"
+import { sha256 } from 'js-sha256';
 
 export const createUser = async (req: Request, res: Response) => {
     const { email, roleId, firstName, lastName } = req.body
@@ -12,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
     const password: string = Math.random().toString(36).substring(2, 8)
 
     try {
-        const userExists: User | null = await findUserById(email)
+        const userExists: User | null = await findUserByEmail(email)
 
         if (userExists) {
             return API_RESPONSE(res, {
@@ -49,7 +51,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 }
 
-const findUserById = async (email: string) => {
+const findUserByEmail = async (email: string) => {
     try {
         const user: User | null = await User.findOne({
             where: {
@@ -173,3 +175,118 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+export const resetPasswordEmail = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    try {
+        const user = await findUserByEmail(email);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        const randomToken = Math.random().toString(36).substring(2, 22);
+        const resetToken = sha256(randomToken);
+        const resetTokenExpiration = Date.now() + 3600000;
+        const newToken = await UserToken.create({
+            userId: user.id,
+            resetPasswordToken: resetToken,
+            resetPasswordExpires: resetTokenExpiration
+        })
+        await newToken.save()
+        sendResetPasswordEmail(email, resetToken)
+
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("reset_password_email_sent"),
+            status: 200,
+        })
+    } catch (error) {
+        console.log(error);
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("reset_password_email_fail"),
+            status: 500,
+        })
+    }
+};
+
+const findResetToken = async (token: string) => {
+    try {
+        const user: UserToken | null = await UserToken.findOne({
+            where: {
+                resetPasswordToken: token,
+            },
+        })
+        return user
+    } catch (error) {
+        return null
+    }
+}
+
+const findUserById = async (id: string) => {
+    try {
+        const user: User | null = await User.findOne({
+            where: {
+                id,
+            },
+        })
+        return user
+    } catch (error) {
+        return null
+    }
+}
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const resetToken = req.params.resetToken
+  const { newPassword } = req.body;
+
+  try {
+    const token = await findResetToken(resetToken);
+
+    if (!token) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invalid or expired token',
+      });
+    }
+
+    const { resetPasswordExpires } = token;
+
+    if (resetPasswordExpires.getTime() < Date.now()) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invalid or expired token',
+      });
+    }
+
+    const user = await findUserById(token.userId)
+    if(!user) {
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("user_not_found_message"),
+            status: 404,
+        })
+    }
+    user.password = newPassword
+    await user.save()
+
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("user_password_updated"),
+        status: 200,
+    })
+  } catch (error) {
+    console.error(error);
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("failed_password_update"),
+        status: 500,
+    })
+  }
+};

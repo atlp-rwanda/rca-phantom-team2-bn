@@ -16,5 +16,9 @@
   "failed_to_create_user_message": "Failed to create user",
   "signin_successful_message": "Sign in successful",
   "failed_to_sign_in_message": "Failed to sign in",
-  "invalid_password_message": "Invalid message"
+  "invalid_password_message": "Invalid message",
+  "reset_password_email_sent": "Reset password was sent successfully",
+  "reset_password_email_fail": "Failed to sent reset password email",
+  "user_password_updated": "The password was updated successfully",
+  "failed_password_update": "Failed to update the password"
 }
