@@ -194,6 +194,34 @@ paths:
                         properties:
                           count:
                             type: number
+  /buses/drivers:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Get bus drivers
+      responses:
+        200:
+          description: Bus drivers
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResBody"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          count:
+                            type: number
 components:
   schemas:
     NewBus:

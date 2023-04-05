@@ -1,27 +1,30 @@
-import express from "express"
+import express from "express";
 import {
-    assignDriverToBus,
-    createBus,
-    deleteBusById,
-    getAllBuses,
-    getBusById,
-    updateBusById,
-} from "../controllers/buses.controller"
-import { verifyToken } from "../middlewares/auth.middlewares"
-import { assignValidation, busValidation } from "../validations/buses"
+  assignDriverToBus,
+  createBus,
+  deleteBusById,
+  getAllBuses,
+  getBusById,
+  getBusDrivers,
+  updateBusById,
+} from "../controllers/buses.controller";
+import { verifyToken } from "../middlewares/auth.middlewares";
+import { assignValidation, busValidation } from "../validations/buses";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("", verifyToken, busValidation, createBus)
+router.post("", verifyToken, busValidation, createBus);
 
-router.put("/:busId", verifyToken, busValidation, updateBusById)
+router.put("/:busId", verifyToken, busValidation, updateBusById);
 
-router.get("/bus/:busId", verifyToken, getBusById)
+router.get("/bus/:busId", verifyToken, getBusById);
 
-router.get("", verifyToken, getAllBuses)
+router.get("", verifyToken, getAllBuses);
 
-router.delete("/:busId", verifyToken, deleteBusById)
+router.delete("/:busId", verifyToken, deleteBusById);
 
-router.post("/assign", verifyToken, assignValidation, assignDriverToBus)
+router.post("/assign", verifyToken, assignValidation, assignDriverToBus);
 
-export default router
+router.get("/drivers", verifyToken, getBusDrivers);
+
+export default router;

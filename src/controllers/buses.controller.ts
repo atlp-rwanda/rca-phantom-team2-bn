@@ -119,3 +119,26 @@ export const assignDriverToBus = async (req: Request, res: Response)=> {
         })
     }
 }
+
+export const getBusDrivers = async (req: Request, res: Response)=> {
+try {
+    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+    const paginator = new Paginator(BusDriver)
+
+    const results = await paginator.paginate({}, page, perPage)
+    
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("success"),
+        status: 200,
+        data: results
+    })
+} catch (error) {
+    return API_RESPONSE(res, {
+        success: false,
+        status: 500,
+        message: res.__("failed_to_assign")
+    })
+}
+}
