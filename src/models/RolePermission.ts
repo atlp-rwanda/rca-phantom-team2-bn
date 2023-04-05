@@ -4,9 +4,9 @@ import Permission from "./Permission"
 import Role from "./Role"
 
 class RolePermission extends Model {
-    id!: string
-    roleId!: string
-    permissionId!: string
+    declare id: string
+    declare roleId: string
+    declare permissionId: string
 }
 
 RolePermission.init({
