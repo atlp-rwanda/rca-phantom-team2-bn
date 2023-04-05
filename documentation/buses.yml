@@ -18,7 +18,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewBus'
+              $ref: "#/components/schemas/NewBus"
       responses:
         201:
           description: Bus registered
@@ -26,11 +26,11 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResBody'
+                  - $ref: "#/components/schemas/ResBody"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Bus'
+                        $ref: "#/components/schemas/Bus"
     get:
       parameters:
         - name: "Accept-Language"
@@ -59,7 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetBusesResBody'
+                $ref: "#/components/schemas/GetBusesResBody"
   /buses/bus/{busId}:
     get:
       parameters:
@@ -84,11 +84,11 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResBody'
+                  - $ref: "#/components/schemas/ResBody"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Bus'
+                        $ref: "#/components/schemas/Bus"
   /buses/{busId}:
     put:
       parameters:
@@ -112,7 +112,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewBus'
+              $ref: "#/components/schemas/NewBus"
       responses:
         200:
           description: Bus updated
@@ -120,7 +120,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResBody'
+                  - $ref: "#/components/schemas/ResBody"
                   - type: object
                     properties:
                       data:
@@ -151,7 +151,42 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResBody'
+                  - $ref: "#/components/schemas/ResBody"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          count:
+                            type: number
+  /buses/assign:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Assign driver to bus
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignBus"
+      responses:
+        201:
+          description: Driver assigned to bus
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResBody"
                   - type: object
                     properties:
                       data:
@@ -176,27 +211,34 @@ components:
           type: string
     GetBusesResBody:
       allOf:
-        - $ref: '#/components/schemas/ResBody'
+        - $ref: "#/components/schemas/ResBody"
         - type: object
           properties:
             data:
               type: object
               properties:
-                prevPage: 
+                prevPage:
                   type: number
-                currentPage: 
+                currentPage:
                   type: number
-                nextPage: 
+                nextPage:
                   type: number
-                lastPage: 
+                lastPage:
                   type: number
-                total: 
+                total:
                   type: number
-                hasPrev: 
+                hasPrev:
                   type: boolean
-                hasNext: 
+                hasNext:
                   type: boolean
-                data: 
+                data:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Bus'
+                    $ref: "#/components/schemas/Bus"
+    AssignBus:
+      type: object
+      properties:
+        busId:
+          type: string
+        driverId:
+          type: string
