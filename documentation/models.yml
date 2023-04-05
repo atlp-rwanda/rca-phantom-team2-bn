@@ -48,8 +48,6 @@ components:
             updatedAt:
               type: string
               format: date
-<<<<<<< HEAD
-=======
     Bus:
       allOf:
         - type: object
@@ -65,4 +63,3 @@ components:
             updatedAt:
               type: string
               format: date
->>>>>>> 1b634b956f46a27a62f5788a2ffda8fac52edb08

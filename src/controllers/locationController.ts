@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import LocationModel from "../models/Location"
+import Paginator from "../utils/pagination/paginator"
 import { API_RESPONSE } from "../utils/response/response"
 
 export const createLocation = async (req: Request, res: Response) => {
@@ -53,26 +54,22 @@ const findLocationByName = async (name: string) => {
 }
 export const getAllLocations = async (req: Request, res: Response) => {
     try {
-        const locations = await LocationModel.findAll()
-        if (!locations) {
-            return API_RESPONSE(res, {
-                success: false,
-                message: res.__("location_not_found_message"),
-                data: {},
-                status: 404,
-            })
-        }
+        const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+        const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+        const paginator = new Paginator(LocationModel)
+        const results = await paginator.paginate({}, page, perPage)
+        
         return API_RESPONSE(res, {
             success: true,
-            message: res.__("location_found_message"),
-            data: locations,
+            message: res.__("success"),
+            data: results,
             status: 200,
         })
     } catch (error) {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_location_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -99,7 +96,7 @@ export const findLocationById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_location_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -129,7 +126,7 @@ export const updateLocationById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_location_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -158,7 +155,7 @@ export const deleteLocationById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_location_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
