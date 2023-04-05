@@ -1,5 +1,11 @@
 import express from "express"
-import { createBus, deleteBusById, getAllBuses, getBusById, updateBusById } from "../controllers/buses.controller"
+import { 
+    createBus, 
+    deleteBusById, 
+    getAllBuses, 
+    getBusById, 
+    updateBusById, 
+} from "../controllers/buses.controller"
 import { verifyToken } from "../middlewares/auth.middlewares"
 import { busValidation } from "../validations/buses"
 
