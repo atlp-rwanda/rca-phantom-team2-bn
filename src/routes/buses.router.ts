@@ -1,15 +1,18 @@
 import express from "express"
-import {
+import { 
     assignDriverToBus,
-    createBus,
-    deleteBusById,
-    getAllBuses,
-    getBusById,
-    getBusDrivers,
+    createBus, 
+    deleteBusById, 
+    getAllBuses, 
+    getBusById, 
     updateBusById,
+    getBusDrivers, 
+    linkBusToRoute,
+    getAllBusToRoutes,
 } from "../controllers/buses.controller"
 import { verifyToken } from "../middlewares/auth.middlewares"
-import { assignValidation, busValidation } from "../validations/buses"
+import { busValidation, assignValidation, } from "../validations/buses"
+import { linkBusToRouteValidation } from "../validations/routeValidations"
 
 const router = express.Router()
 
@@ -22,6 +25,15 @@ router.get("/bus/:busId", verifyToken, getBusById)
 router.get("", verifyToken, getAllBuses)
 
 router.delete("/:busId", verifyToken, deleteBusById)
+
+router.post(
+    "/link-bus-with-route",
+    verifyToken,
+    linkBusToRouteValidation,
+    linkBusToRoute
+)
+
+router.get("/routes-assignments", verifyToken, getAllBusToRoutes)
 
 router.post("/assign-driver", verifyToken, assignValidation, assignDriverToBus)
 

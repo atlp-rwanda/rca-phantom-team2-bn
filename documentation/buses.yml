@@ -222,6 +222,60 @@ paths:
                         properties:
                           count:
                             type: number
+  /buses/link-bus-with-route:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Buses
+      description: Assign a route to bus
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkBusToRoute'
+      responses:
+        201:
+          description: Route assigned to bus sucessfully
+        400:
+          description: Bus already linked with route
+        500:
+          description: Internal server error
+  /buses/routes-assignments:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of assignments (bus and route) per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Buses
+      description: Get all buses and routes assignments
+      responses:
+        200:
+          description: All buses and routes assignments
+        500:
+          description: Internal server error
 components:
   schemas:
     NewBus:
@@ -262,11 +316,18 @@ components:
                 data:
                   type: array
                   items:
-                    $ref: "#/components/schemas/Bus"
+                    $ref: '#/components/schemas/Bus'
     AssignBus:
       type: object
       properties:
         busId:
           type: string
         driverId:
+          type: string
+    LinkBusToRoute:
+      type: object
+      properties:
+        busId:
+          type: string
+        routeId:
           type: string
