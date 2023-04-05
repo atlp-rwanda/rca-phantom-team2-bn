@@ -1,106 +1,148 @@
-/api/routes:
-  post:
-    tags:
-      - Route
-    description: Create new route
-    security:
-      - bearerAuth: -[]
-    parameters:
-      - name: routeName
-        in: body
-        type: string
-        required: true
-      - name: latitude
-        in: body
-        type: number
-        required: true
-      - name: longitude
-        in: body
-        type: number
-        required: true
-    responses:
-      201:
-        description: Route registered sucessfully
-      400:
-        decription: Route with the same name exists
-      500:
-        description: Failed to create route
-  get:
-    tags:
-      - Route
-    description: Get all routes
-    security:
-      - bearerAuth: -[]
-    responses:
-      200:
-        description: Routes found
-      400:
-        decription: Failed to fetch routes
+paths:
+  /routes:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Routes
+      description: Create new route
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRoute'
+      responses:
+        201:
+          description: Route registered sucessfully
+        400:
+          description: Route with the same name exists
+        500:
+          description: Failed to create route
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Routes
+      description: Get all routes
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Routes found
+        400:
+          description: Failed to fetch routes
 
-/api/routes/{id}:
-  get:
-    tags:
-      - Route
-    description: Get route by id
-    security:
-      - bearerAuth: -[]
-    parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-    responses:
-      200:
-        description: Route found
-      404:
-        decription: Route not found
-      400:
-        decription: Failed to fetch route
-  put:
-    tags:
-      - Route
-    description: Update route with given ID
-    security:
-      - bearerAuth: -[]
-    parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-      - name: routeName
-        in: body
-        type: string
-        required: true
-      - name: latitude
-        in: body
-        type: number
-        required: true
-      - name: longitude
-        in: body
-        type: number
-        required: true
-    responses:
-      200:
-        description: Route updated
-      404:
-        decription: Route not found
-      400:
-        decription: Failed to update route
-  delete:
-    tags:
-      - Route
-    description: Delete route with given id
-    security:
-      - bearerAuth: -[]
-    parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-    responses:
-      200:
-        description: Route delete
-      404:
-        decription: Route not found
-      400:
-        decription: Failed to delete route
+  /routes/{id}:
+    get:
+      tags:
+        - Routes
+      description: Get route by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: id
+          in: path
+          type: string
+          description: Route ID
+          required: true
+      responses:
+        200:
+          description: Route found
+        404:
+          description: Route not found
+        400:
+          description: Failed to fetch route
+    put:
+      tags:
+        - Routes
+      description: Update route with given ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: id
+          in: path
+          type: string
+          description: Route ID
+          required: true
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoute'
+      responses:
+        200:
+          description: Route updated
+        404:
+          description: Route not found
+        400:
+          description: Failed to update route
+    delete:
+      tags:
+        - Routes
+      description: Delete route with given id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: id
+          in: path
+          type: string
+          description: Route ID
+          required: true
+      responses:
+        200:
+          description: Route delete
+        404:
+          description: Route not found
+        400:
+          description: Failed to delete route
+components:
+  schemas:
+    NewRoute:
+      type: object
+      required:
+        - name
+        - origin
+        - destination
+      properties:
+        name:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
+    UpdateRoute:
+      type: object
+      properties:
+        name:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
