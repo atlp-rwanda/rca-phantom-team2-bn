@@ -42,7 +42,7 @@ routeRouter.delete(
 )
 
 routeRouter.post(
-    "/link",
+    "/asign-bus-route",
     verifyToken,
     linkBusToRouteValidation,
     linkBusToRoute
