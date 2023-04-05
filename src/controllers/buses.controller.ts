@@ -5,7 +5,7 @@ import Paginator from "../utils/pagination/paginator"
 import { API_RESPONSE } from "../utils/response/response"
 
 export const createBus = async (req: Request, res: Response)=> {
-    const bus = await Bus.create(req.body)
+    const bus = await (await Bus.create(req.body)).save()
 
     return API_RESPONSE(res, {
         success: true,
@@ -43,7 +43,7 @@ export const getBusById = async (req: Request, res: Response)=> {
             err: res.__("bus_not_found"),
             status: 404
         })
-    const bus = Bus.findByPk(req.params.busId)
+    const bus = await Bus.findByPk(req.params.busId)
     if(!bus) return API_RESPONSE(res, {
         success: false,
         message: res.__("bus_not_found"),

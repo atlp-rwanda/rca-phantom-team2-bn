@@ -7,7 +7,7 @@
     "build": "npm run lint:fix && tsc",
     "start": "node build/src/index.ts",
     "dev": "nodemon",
-    "test": "cross-env NODE_ENV=test mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 15000 --exit",
+    "test": "cross-env NODE_ENV=test nyc mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 20000 --exit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
@@ -21,7 +21,8 @@
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "reporter": [
-      "text-summary",
+      "text",
+      "html",
       "lcov"
     ],
     "all": "true",
