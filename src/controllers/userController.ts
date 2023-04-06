@@ -262,6 +262,15 @@ export const resetPassword = async (req: Request, res: Response) => {
 
     const { resetPasswordExpires } = token;
 
+    if (!token || !token.resetPasswordExpires) {
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("invalid_or_expired_token"),
+            status: 404,
+        })
+    }
+    
+
     if (resetPasswordExpires.getTime() < Date.now()) {
         return API_RESPONSE(res, {
             success: true,
