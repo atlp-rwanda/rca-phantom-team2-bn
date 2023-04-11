@@ -67,7 +67,7 @@ export const getAllRoutes = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_route_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -92,7 +92,7 @@ export const findRouteById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_route_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -120,7 +120,7 @@ export const updateRouteById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_route_message"),
-            status: 400,
+            status: 500,
         })
     }
 }
@@ -147,7 +147,7 @@ export const deleteRouteById = async (req: Request, res: Response) => {
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_fetch_route_message"),
-            status: 400,
+            status: 500,
         })
     }
 }

@@ -17,7 +17,7 @@
     "route_updated_message": "Route a été mis à jour avec succès",
     "route_deleted_message": "Route supprimée avec succès",
     "bus_not_found": "Le bus est introuvable",
-    "reset_password_email_sent": "La réinitialisation du mot de passe a été envoyée avec succès",
+    "reset_password_email_sent": "L'e-mail de réinitialisation du mot de passe a été envoyé avec succès",
     "reset_password_email_fail": "Échec de l'envoi de l'e-mail de réinitialisation du mot de passe",
     "user_password_updated": "Le mot de passe a été mis à jour avec succès",
     "failed_password_update": "Échec de la mise à jour du mot de passe",
