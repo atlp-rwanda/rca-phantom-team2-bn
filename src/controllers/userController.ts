@@ -245,14 +245,11 @@ const findUserById = async (id: string) => {
 
 export const resetPassword = async (req: Request, res: Response) => {
   const resetToken = req.params.resetToken
-  console.log("The req params")
-  console.log(resetToken)
   const { newPassword } = req.body;
 
   try {
-    const token = await findResetToken(resetToken);
-
-    if (!token) {
+    const resetTokenFound = await findResetToken(resetToken);
+    if (!resetTokenFound) {
         return API_RESPONSE(res, {
             success: true,
             message: res.__("invalid_or_expired_token"),
@@ -260,9 +257,9 @@ export const resetPassword = async (req: Request, res: Response) => {
         })
     }
 
-    const { resetPasswordExpires } = token;
+    const expirationDate = resetTokenFound.dataValues.resetPasswordExpires;
 
-    if (resetPasswordExpires.getTime() < Date.now()) {
+    if (expirationDate.getTime() < Date.now()) {
         return API_RESPONSE(res, {
             success: true,
             message: res.__("invalid_or_expired_token"),
@@ -270,7 +267,7 @@ export const resetPassword = async (req: Request, res: Response) => {
         })
     }
 
-    const user = await findUserById(token.userId)
+    const user = await findUserById(resetTokenFound.dataValues.userId)
     if(!user) {
         return API_RESPONSE(res, {
             success: true,
