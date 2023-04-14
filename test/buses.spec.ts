@@ -19,7 +19,7 @@ describe("Buses Tests", ()=> {
 
     it("Should sign in as admin", async function() {
         const res = await agent.post("/api/users/signin").send(admin)
-        expect(res.statusCode, "Should return 200: OK status").to.be.equal(200)
+        expect(res.status, "Should return 200: OK status").to.be.equal(200)
         token = res.body.data?.accessToken
     })
 
@@ -31,7 +31,7 @@ describe("Buses Tests", ()=> {
             model: "Yutong U12",
             manufacturer: "Yutong"
         })
-        expect(res.statusCode, "Should return 201: CREATED").to.be.equal(201)
+        expect(res.status, "Should return 201: CREATED").to.be.equal(201)
         busId = res.body.data?.id
     })
 
@@ -43,28 +43,28 @@ describe("Buses Tests", ()=> {
             model: "Yutong U12",
             manufacturer: "Yutong"
         })
-        expect(res.statusCode, "Should return 200: OK").to.be.equal(200)
+        expect(res.status, "Should return 200: OK").to.be.equal(200)
     })
 
     it("Should get a bus by ID", async function(){
         const res = await agent.get(`/api/buses/bus/${busId}`).set({"Authorization": `Bearer ${token}`}).send()
-        expect(res.statusCode, "Should return 200: OK").to.be.equal(200)
+        expect(res.status, "Should return 200: OK").to.be.equal(200)
         res.body.should.be.a("object")
         res.body.should.have.property("data")
     })
 
     it("Should delete a bus by ID", async function(){
         const res = await agent.delete(`/api/buses/${busId}`).set({"Authorization": `Bearer ${token}`}).send()
-        expect(res.statusCode, "Should return 200: OK").to.be.equal(200)
+        expect(res.status, "Should return 200: OK").to.be.equal(200)
     })
 
     it("Bus should not be found", async function(){
         const res = await agent.get(`/api/buses/bus/${busId}`).set({"Authorization": `Bearer ${token}`}).send()
-        expect(res.statusCode, "Should return 404: OK").to.be.equal(404)
+        expect(res.status, "Should return 404: OK").to.be.equal(404)
     })
 
     it("Should GET all buses", async function() {
         const res = await agent.get("/api/buses").set({"Authorization": `Bearer ${token}`}).send()
-        expect(res.statusCode, "Should return 200: OK").to.be.equal(200)
+        expect(res.status, "Should return 200: OK").to.be.equal(200)
     })
 })
