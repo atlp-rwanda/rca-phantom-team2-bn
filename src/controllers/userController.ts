@@ -3,7 +3,6 @@ import { generateResetToken } from "./../utils/passwords/resetToken"
 import { Request, Response } from "express"
 import dotenv from "dotenv"
 import User from "../models/User"
-import UserToken from "../models/UserToken"
 import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
@@ -194,12 +193,10 @@ export const resetPasswordEmail = async (req: Request, res: Response) => {
         }
 
         const {resetToken, resetTokenExpiration} = generateResetToken();
-        const newToken = await UserToken.create({
-            userId: user.id,
-            resetPasswordToken: resetToken,
-            resetPasswordExpires: resetTokenExpiration
-        })
-        await newToken.save()
+
+        user.resetPasswordToken = resetToken
+        user.resetPasswordExpires = resetTokenExpiration
+        await user.save()
         sendResetPasswordEmail(email, resetToken)
 
         return API_RESPONSE(res, {
@@ -217,24 +214,11 @@ export const resetPasswordEmail = async (req: Request, res: Response) => {
     }
 };
 
-const findResetToken = async (token: string) => {
-    try {
-        const user: UserToken | null = await UserToken.findOne({
-            where: {
-                resetPasswordToken: token,
-            },
-        })
-        return user
-    } catch (error) {
-        return null
-    }
-}
-
-const findUserById = async (id: string) => {
+const findUserByResetToken = async (token: string) => {
     try {
         const user: User | null = await User.findOne({
             where: {
-                id,
+                resetPasswordToken: token,
             },
         })
         return user
@@ -248,8 +232,8 @@ export const resetPassword = async (req: Request, res: Response) => {
   const { newPassword } = req.body;
 
   try {
-    const resetTokenFound = await findResetToken(resetToken);
-    if (!resetTokenFound) {
+    const user = await findUserByResetToken(resetToken);
+    if (!user) {
         return API_RESPONSE(res, {
             success: true,
             message: res.__("invalid_or_expired_token"),
@@ -257,21 +241,12 @@ export const resetPassword = async (req: Request, res: Response) => {
         })
     }
 
-    const expirationDate = resetTokenFound.dataValues.resetPasswordExpires;
+    const expirationDate = user.dataValues.resetPasswordExpires;
 
     if (expirationDate.getTime() < Date.now()) {
         return API_RESPONSE(res, {
             success: true,
             message: res.__("invalid_or_expired_token"),
-            status: 404,
-        })
-    }
-
-    const user = await findUserById(resetTokenFound.dataValues.userId)
-    if(!user) {
-        return API_RESPONSE(res, {
-            success: true,
-            message: res.__("user_not_found_message"),
             status: 404,
         })
     }

@@ -9,6 +9,8 @@ class User extends Model {
     declare email: string
     declare password: string
     declare roleId: string
+    declare resetPasswordToken: string
+    declare resetPasswordExpires: number
 }
 
 User.init(
@@ -34,6 +36,14 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        resetPasswordToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        resetPasswordExpires: {
+            type: DataTypes.DATE,
+            allowNull: true,
         },
         roleId: {
             type: DataTypes.UUID,
