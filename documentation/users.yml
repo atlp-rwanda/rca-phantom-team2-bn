@@ -106,6 +106,70 @@ paths:
           description: "User updated successfully"
         400:
           description: "User not found"
+  /users/forgot-password/:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: header
+          default: en
+          required: true
+          description: Preferred language
+      tags:
+        - Users
+      description: "Sends reset password email"
+      produces:
+        - "application/json"
+      requestBody:
+        description: User email
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: "Email sent successfully"
+        404:
+          description: "User not found"
+  /users/reset-password/{resetToken}:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: header
+          default: en
+          required: true
+          description: Preferred language
+        - name: resetToken
+          in: path
+          required: true
+          description: resetToken
+      tags:
+        - Users
+      description: "Resets password"
+      produces:
+        - "application/json"
+      requestBody:
+        description: New passwords that need to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - newPassword
+              properties:
+                newPassword:
+                  type: string
+      responses:
+        200:
+          description: "User password updated successfully"
+        404:
+          description: "User not found"
 components:
   schemas:
     UserLogin:
@@ -134,3 +198,5 @@ components:
           type: string
         roleId:
           type: string
+
+

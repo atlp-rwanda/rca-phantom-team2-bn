@@ -32,6 +32,11 @@
   "bus_driver_assigned": "Bus assigned to driver",
   "failed_to_assign": "Failed to assign driver to bus",
   "location_exits_message": "location_exits_message",
+  "reset_password_email_sent": "Reset password email was sent successfully",
+  "reset_password_email_fail": "Failed to sent reset password email",
+  "user_password_updated": "The password was updated successfully",
+  "failed_password_update": "Failed to update the password",
+  "invalid_or_expired_token": "Invalid or expired token",
   "internal_server_error": "Internal server error",
   "bus_already_linked_to_route": "Bus is already assigned to the route"
 }
