@@ -1,0 +1,155 @@
+paths:
+  /locations:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Create new location
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+      responses:
+        201:
+          description: Location created
+        400:
+          description: Location exists
+        500:
+          description: Internal server error
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of locations per page
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: GET all locations
+      responses:
+        200:
+          description: List of locations
+        500:
+          description: Internal server error
+  /locations/location/{locationId}:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: locationId
+          in: path
+          required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Get location by ID
+      responses:
+        200:
+          description: Location found
+        404:
+          description: Location Not Found
+        500:
+          description: Internal server error
+  /locations/{locationId}:
+    put:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: locationId
+          in: path
+          required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Update location by ID
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocation'
+      responses:
+        200:
+          description: Location updated
+        404:
+          description: Location Not Found
+        500:
+          description: Internal server error
+    delete:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: locationId
+          in: path
+          required: true
+          description: Location ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Locations
+      description: Delete location by ID
+      responses:
+        200:
+          description: Location deleted
+        404:
+          description: Location Not Found
+        500:
+          description: Internal server error
+components:
+  schemas:
+    NewLocation:
+      type: object
+      required:
+        - name
+        - latitude
+        - latitude
+      properties:
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+    UpdateLocation:
+      type: object
+      properties:
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number

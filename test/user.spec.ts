@@ -15,8 +15,10 @@ const tUser = {
 }
 
 describe("Users tests", () => {
-    it("It should create user", function () {
-        request(register).get("/api/users").expect(200)
+    it("It should create user", function() {
+        request(register)
+            .get("/api/users")
+            .expect(200)
     })
 
     it("should sign in user", (done) => {
@@ -46,7 +48,7 @@ describe("Users tests", () => {
     it("invalid password", (done) => {
         agent
             .post("/api/users/signin")
-            .send({ email: "admin@phantom.com", password: "1290" })
+            .send({ email: tUser.email, password: "1290" })
             .end((err, res) => {
                 res.should.have.status(401)
                 res.body.should.have.property("message").eq("Invalid message")
