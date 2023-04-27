@@ -16,11 +16,11 @@ import app from "./app"
 import {server} from "./socket"
 
 const PORT = parseInt(<string>process.env.PORT, 10) || 4000
-const SOCKET_PORT = parseInt(process.env.PORT as string, 10) || 4003
+const SOCKET_PORT = parseInt(process.env.SOCKET_PORT as string, 10) || 4003
 const HOST = process.env.HOST || "localhost"
 
-server.listen(SOCKET_PORT, HOST, ()=> console.log(`SERVER: http://${HOST}:${PORT}`))
+server.listen(SOCKET_PORT, HOST, ()=> console.log(`SOCKET SERVER: http://${HOST}:${SOCKET_PORT}`))
 
 app.listen(PORT, async () => {
-    console.info(`Server started at: http://localhost:${PORT}`)
+    console.info(`API SERVER: http://localhost:${PORT}`)
 })
