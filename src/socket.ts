@@ -3,6 +3,10 @@ import express from "express"
 import { Server } from "socket.io"
 import { createServer } from "http" 
 import cors from "cors"
+import { configureEnv } from "./utils/dotenv"
+import { LocationChange, StatusChange, CommuterChange } from "../types"
+
+configureEnv()
 
 export const server = createServer(express().use(cors()))
 const io = new Server(server, {
@@ -11,24 +15,7 @@ const io = new Server(server, {
 })
 let lastAvailableSeats:number
 let availbleSeats:number
-interface LocationChange {
-    busId: string;
-    busType: string;
-    latitude: number;
-    longitude: number;
-}
-interface CommuterChange{
-    busId: string;
-    busType: string;
-    alighted: number;
-    aboarded: number;
-}
-interface StatusChange{
-    busId: string;
-    busType: string;
-    status: string;
-    voidseats: number;
-}
+
 io.on("connection", (socket)=> {
     console.log("NEW CONNECTION:", socket.id)
     
@@ -38,7 +25,6 @@ io.on("connection", (socket)=> {
 
     socket.on("BUS_STATUS_CHANGE",(data:StatusChange)=>{
         if (data.status==="START") lastAvailableSeats = data.voidseats
-
         io.emit("BUS_STATUS_CHANGE",data)
     })
 
@@ -55,3 +41,8 @@ io.on("connection", (socket)=> {
         console.log("SOCKECT DISCONNECTED: ", reason, ", ID: ", socket.id)
     })
 }) 
+
+const SOCKET_PORT = parseInt(process.env.SOCKET_PORT as string, 10) || 4003
+const HOST = process.env.HOST || "localhost"
+
+server.listen(SOCKET_PORT, HOST, ()=> console.log(`SOCKET SERVER: http://${HOST}:${SOCKET_PORT}`))
