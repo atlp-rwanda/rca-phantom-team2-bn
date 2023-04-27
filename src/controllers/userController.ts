@@ -180,19 +180,19 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
 
 export const resetPasswordEmail = async (req: Request, res: Response) => {
-    const { email } = req.body;
+    const { email } = req.body
 
     try {
-        const user = await findUserByEmail(email);
+        const user = await findUserByEmail(email)
 
         if (!user) {
             return res.status(404).json({
                 success: false,
-                message: 'User not found',
-            });
+                message: "User not found",
+            })
         }
 
-        const {resetToken, resetTokenExpiration} = generateResetToken();
+        const {resetToken, resetTokenExpiration} = generateResetToken()
 
         user.resetPasswordToken = resetToken
         user.resetPasswordExpires = resetTokenExpiration
@@ -205,14 +205,14 @@ export const resetPasswordEmail = async (req: Request, res: Response) => {
             status: 200,
         })
     } catch (error) {
-        console.log(error);
+        console.log(error)
         return API_RESPONSE(res, {
             success: true,
             message: res.__("reset_password_email_fail"),
             status: 500,
         })
     }
-};
+}
 
 const findUserByResetToken = async (token: string) => {
     try {
@@ -228,45 +228,45 @@ const findUserByResetToken = async (token: string) => {
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
-  const resetToken = req.params.resetToken
-  const { newPassword } = req.body;
+    const resetToken = req.params.resetToken
+    const { newPassword } = req.body
 
-  try {
-    const user = await findUserByResetToken(resetToken);
-    if (!user) {
-        return API_RESPONSE(res, {
-            success: true,
-            message: res.__("invalid_or_expired_token"),
-            status: 404,
-        })
-    }
+    try {
+        const user = await findUserByResetToken(resetToken)
+        if (!user) {
+            return API_RESPONSE(res, {
+                success: true,
+                message: res.__("invalid_or_expired_token"),
+                status: 404,
+            })
+        }
 
-    const expirationDate = user.dataValues.resetPasswordExpires;
+        const expirationDate = user.dataValues.resetPasswordExpires
 
-    if (expirationDate.getTime() < Date.now()) {
-        return API_RESPONSE(res, {
-            success: true,
-            message: res.__("invalid_or_expired_token"),
-            status: 404,
-        })
-    }
+        if (expirationDate.getTime() < Date.now()) {
+            return API_RESPONSE(res, {
+                success: true,
+                message: res.__("invalid_or_expired_token"),
+                status: 404,
+            })
+        }
 
-    const hashedPassword = await hashPassword(newPassword)
-    user.password = hashedPassword
+        const hashedPassword = await hashPassword(newPassword)
+        user.password = hashedPassword
     
-    await user.save()
+        await user.save()
 
-    return API_RESPONSE(res, {
-        success: true,
-        message: res.__("user_password_updated"),
-        status: 200,
-    })
-  } catch (error) {
-    console.error(error);
-    return API_RESPONSE(res, {
-        success: true,
-        message: res.__("failed_password_update"),
-        status: 500,
-    })
-  }
-};
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("user_password_updated"),
+            status: 200,
+        })
+    } catch (error) {
+        console.error(error)
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("failed_password_update"),
+            status: 500,
+        })
+    }
+}
