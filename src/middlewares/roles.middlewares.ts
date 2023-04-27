@@ -6,7 +6,7 @@ import { ModelOperation } from "../enums/permissions.enums"
 import Permission from "../models/Permission"
 import RolePermission from "../models/RolePermission"
 
-export const hasPermission = (operation: ModelOperation, modelName: string) => {
+export const hasPermission = (operation: ModelOperation, modelName: string, doNext = true) => {
     return async (req: IRequest, res: Response, next: NextFunction) => {
         if (!req.auth)
             return res.status(401).send({
@@ -39,9 +39,9 @@ export const hasPermission = (operation: ModelOperation, modelName: string) => {
         if (permissions < 1)
             return res.status(403).send({
                 success: false,
-                message: "Forbidden",
+                message: `Forbidden: No permission to ${operation} model ${modelName}`,
                 status: 403,
             })
-        return next()
+        if(doNext) return next()
     }
 }

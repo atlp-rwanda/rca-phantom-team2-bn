@@ -4,6 +4,7 @@ import {
     getAllRoles,
     getRoleById,
     grantRolePermission,
+    grantUserRole,
     registerRole,
     updateRoleById,
 } from "../controllers/roles.controller"
@@ -11,6 +12,7 @@ import { ModelOperation } from "../enums/permissions.enums"
 import { verifyToken } from "../middlewares/auth.middlewares"
 import { hasPermission } from "../middlewares/roles.middlewares"
 import {
+    grantRoleValidation,
     newRoleValidation,
     rolePermissionValidation,
     updateRoleValidation,
@@ -24,6 +26,14 @@ router.post(
     verifyToken,
     hasPermission(ModelOperation.CREATE, "RolePermission"),
     grantRolePermission
+)
+
+router.post(
+    "/grant-role",
+    verifyToken,
+    grantRoleValidation,
+    hasPermission(ModelOperation.CREATE, "Role"),
+    grantUserRole
 )
 
 router.post(

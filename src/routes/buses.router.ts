@@ -10,32 +10,35 @@ import {
     linkBusToRoute,
     getAllBusToRoutes,
 } from "../controllers/buses.controller"
+import { ModelOperation } from "../enums/permissions.enums"
 import { verifyToken } from "../middlewares/auth.middlewares"
+import { hasPermission } from "../middlewares/roles.middlewares"
 import { busValidation, assignValidation, } from "../validations/buses"
 import { linkBusToRouteValidation } from "../validations/routeValidations"
 
 const router = express.Router()
 
-router.post("", verifyToken, busValidation, createBus)
+router.post("", verifyToken, busValidation, hasPermission(ModelOperation.CREATE, "Bus"), createBus)
 
-router.put("/:busId", verifyToken, busValidation, updateBusById)
+router.put("/:busId", verifyToken, busValidation, hasPermission(ModelOperation.UPDATE, "Bus"), updateBusById)
 
 router.get("/bus/:busId", verifyToken, getBusById)
 
 router.get("", verifyToken, getAllBuses)
 
-router.delete("/:busId", verifyToken, deleteBusById)
+router.delete("/:busId", verifyToken, hasPermission(ModelOperation.DELETE, "Bus"), deleteBusById)
 
 router.post(
     "/link-bus-with-route",
     verifyToken,
     linkBusToRouteValidation,
+    hasPermission(ModelOperation.CREATE, "RouteBus"),
     linkBusToRoute
 )
 
 router.get("/routes-assignments", verifyToken, getAllBusToRoutes)
 
-router.post("/assign-driver", verifyToken, assignValidation, assignDriverToBus)
+router.post("/assign-driver", verifyToken, assignValidation, hasPermission(ModelOperation.CREATE, "BusDriver"), assignDriverToBus)
 
 router.get("/buses-drivers", verifyToken, getBusDrivers)
 
