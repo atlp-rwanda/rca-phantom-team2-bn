@@ -5,7 +5,8 @@ import { IRequest } from "../../types"
 export const verifyToken = async (
         req: IRequest,
         res: Response,
-        next: NextFunction
+        next: NextFunction,
+        doNext = true
 ) => {
     let token = req.headers.authorization
 
@@ -27,7 +28,7 @@ export const verifyToken = async (
             userId: decoded.userId,
             roleId: decoded.roleId,
         }
-        return next()
+        if(doNext) return next()
     } catch (error) {
         return res.status(401).send({
             success: false,
