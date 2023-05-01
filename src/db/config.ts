@@ -6,13 +6,17 @@ dotenv.config()
 const sequelize =
   process.env.NODE_ENV === "test"
       ? new Sequelize(
-          "postgresql://postgres:reaYBl4M1hbiDdxjnTdr@containers-us-west-194.railway.app:7407/railway",
+          "postgres://phantom:x7HCMMAY9JKsniBAALdPND1TqqiqJCAD@dpg-ch5o2pl269v5rfrv4h0g-a.oregon-postgres.render.com/phantom_n3ha",
           {
               logging: false,
               sync: {
                   force: false,
                   alter: { drop: false },
               },
+              ssl: false,
+              dialectOptions: {
+                  ssl: {require: false}
+              }
           }
       )
       : new Sequelize({
@@ -27,6 +31,12 @@ const sequelize =
               force: false,
               alter: { drop: false },
           },
+          ssl: false,
+          ...(process.env.NODE_ENV === "production"? {
+              dialectOptions: {
+                  ssl: {require: false}
+              }
+          }:{})
       })
 
 async function connectDB() {
