@@ -38,6 +38,16 @@
                         "default": "/api"
                     }
                 }
+            },
+            {
+                "url":"{basePath}",
+                "description": "Dynamic server/Production server",
+                "variables": {
+                    "basePath": {
+                        "enum": ["/api", ""],
+                        "default": "/api"
+                    }
+                }
             }
         ],
         "components": {

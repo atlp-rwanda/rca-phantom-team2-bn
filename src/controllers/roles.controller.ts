@@ -4,6 +4,7 @@ import RolePermission from "../models/RolePermission"
 import Paginator from "../utils/pagination/paginator"
 import Joi from "joi"
 import { API_RESPONSE } from "../utils/response/response"
+import User from "../models/User"
 
 export const registerRole = async (req: Request, res: Response)=> {
     const role = await Role.create({
@@ -105,5 +106,19 @@ export const grantRolePermission = async (req: Request, res: Response)=> {
         status: 201,
         message: res.__("permission_granted"),
         data: rolePermission
+    })
+}
+
+export const grantUserRole = async (req: Request, res: Response)=> {
+    const [count] = await User.update(
+        {roleId: req.body.roleId},
+        {where: {id: req.body.userId}}
+    )
+
+    return API_RESPONSE(res, {
+        success: true,
+        status: 201,
+        message: res.__("role_granted"),
+        data: count
     })
 }

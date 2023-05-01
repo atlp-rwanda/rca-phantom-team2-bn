@@ -38,5 +38,6 @@
   "failed_password_update": "Failed to update the password",
   "invalid_or_expired_token": "Invalid or expired token",
   "internal_server_error": "Internal server error",
-  "bus_already_linked_to_route": "Bus is already assigned to the route"
+  "bus_already_linked_to_route": "Bus is already assigned to the route",
+  "role_granted": "Role Granted"
 }

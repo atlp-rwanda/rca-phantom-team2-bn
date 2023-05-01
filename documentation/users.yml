@@ -188,7 +188,6 @@ components:
         - firstName
         - lastName
         - email
-        - roleId
       properties:
         firstName:
           type: string
