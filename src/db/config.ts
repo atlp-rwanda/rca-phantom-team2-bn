@@ -31,7 +31,12 @@ const sequelize =
               force: false,
               alter: { drop: false },
           },
-          ssl: false
+          ssl: false,
+          ...(process.env.NODE_ENV === "production"? {
+              dialectOptions: {
+                  ssl: {require: false}
+              }
+          }:{})
       })
 
 async function connectDB() {
