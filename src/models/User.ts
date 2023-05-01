@@ -8,7 +8,7 @@ class User extends Model {
     declare lastName: string
     declare email: string
     declare password: string
-    declare roleId: string
+    declare roleId?: string
     declare resetPasswordToken: string
     declare resetPasswordExpires: number
 }
@@ -47,9 +47,10 @@ User.init(
         },
         roleId: {
             type: DataTypes.UUID,
-            allowNull: false,
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            allowNull: true,
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+            defaultValue: null,
             references: {
                 model: Role,
                 key: "id",
