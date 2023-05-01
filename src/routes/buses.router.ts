@@ -32,13 +32,13 @@ router.post(
     "/link-bus-with-route",
     verifyToken,
     linkBusToRouteValidation,
-    hasPermission(ModelOperation.CREATE, "RouteBus"),
+    hasPermission(ModelOperation.CREATE, "Route"),
     linkBusToRoute
 )
 
 router.get("/routes-assignments", verifyToken, getAllBusToRoutes)
 
-router.post("/assign-driver", verifyToken, assignValidation, hasPermission(ModelOperation.CREATE, "BusDriver"), assignDriverToBus)
+router.post("/assign-driver", verifyToken, assignValidation, hasPermission(ModelOperation.CREATE, "Bus"), assignDriverToBus)
 
 router.get("/buses-drivers", verifyToken, getBusDrivers)
 

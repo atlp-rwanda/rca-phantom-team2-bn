@@ -31,10 +31,7 @@ const sequelize =
               force: false,
               alter: { drop: false },
           },
-          ssl: false,
-          dialectOptions: {
-              ssl: {require: false}
-          }
+          ssl: false
       })
 
 async function connectDB() {
