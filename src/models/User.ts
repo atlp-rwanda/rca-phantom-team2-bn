@@ -9,46 +9,61 @@ class User extends Model {
     declare email: string
     declare password: string
     declare roleId: string
+<<<<<<< HEAD
+=======
+    declare resetPasswordToken: string
+    declare resetPasswordExpires: number
+>>>>>>> 5435d1f5a9e92807a1b1b5c03352b1ffa2109528
 }
 
-User.init({
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
+User.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        resetPasswordToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        resetPasswordExpires: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        roleId: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+            references: {
+                model: Role,
+                key: "id",
+            },
+        },
     },
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    roleId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-        references: {
-            model: Role,
-            key: "id"
-        }
+    {
+        modelName: "User",
+        timestamps: true,
+        sequelize,
     }
-},
-{
-    modelName: "User",
-    timestamps: true,
-    sequelize,
-})
+)
 
 export default User

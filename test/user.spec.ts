@@ -15,8 +15,10 @@ const tUser = {
 }
 
 describe("Users tests", () => {
-    it("It should create user", function () {
-        request(register).get("/api/users").expect(200)
+    it("It should create user", function() {
+        request(register)
+            .get("/api/users")
+            .expect(200)
     })
 
     it("should sign in user", (done) => {
