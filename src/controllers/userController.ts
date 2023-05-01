@@ -31,7 +31,7 @@ export const createUser = async (req: Request, res: Response) => {
             firstName: firstName,
             lastName: lastName,
             password: hashedPassword,
-            roleId: roleId,
+            ...(roleId? {roleId: roleId}:{})
         })
         const { ...rest } = newUser.toJSON()
 
@@ -44,7 +44,6 @@ export const createUser = async (req: Request, res: Response) => {
             status: 201,
         })
     } catch (error) {
-        console.log(error)
         return API_RESPONSE(res, {
             success: false,
             message: res.__("failed_to_create_user_message"),
