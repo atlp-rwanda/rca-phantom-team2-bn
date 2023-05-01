@@ -11,7 +11,8 @@
     "dev:socket": "nodemon --files src/socket.ts",
     "test": "cross-env NODE_ENV=test nyc mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 20000 --exit",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "prepare": "npx husky install"
   },
   "mocha": {
     "extension": [
