@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize"
-import dotenv from "dotenv"
+import { configureEnv } from "../utils/dotenv"
 
-dotenv.config()
+configureEnv()
 
 const sequelize =
   process.env.NODE_ENV === "test"

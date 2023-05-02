@@ -2,7 +2,7 @@ import i18n from "i18n"
 
 i18n.configure({
     locales: ["en", "fr"],
-    directory: `${__dirname}/../locales/`,
+    directory: "./src/locales",
     defaultLocale: "en",
     register: global,
 })

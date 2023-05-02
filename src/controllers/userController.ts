@@ -7,8 +7,24 @@ import { API_RESPONSE } from "../utils/response/response"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import { sendEmail, sendResetPasswordEmail } from "../utils/email/sendEmail"
+import Paginator from "../utils/pagination/paginator"
 
 dotenv.config()
+
+export const getAllUsers = async (req: Request, res: Response) => {
+    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+    const paginator = new Paginator(User)
+
+    const results = await paginator.paginate({}, page, perPage)
+    
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("success"),
+        status: 200,
+        data: results
+    })
+}
 
 export const createUser = async (req: Request, res: Response) => {
     const { email, roleId, firstName, lastName } = req.body

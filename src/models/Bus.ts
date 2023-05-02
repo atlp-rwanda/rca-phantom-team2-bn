@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize"
 import { sequelize } from "../db/config"
+import { BusStatus } from "../enums/bus.enums"
 
 class Bus extends Model {
     declare id: string
@@ -8,6 +9,9 @@ class Bus extends Model {
     declare regNumber: string
     declare model: string
     declare manufacturer: string
+    declare numOfSeats: number
+    declare availbleSeats: number
+    declare status: BusStatus
 }
 
 Bus.init({
@@ -37,7 +41,22 @@ Bus.init({
     manufacturer: {
         type: DataTypes.STRING,
         allowNull: false
-    } 
+    },
+    numOfSeats: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    availbleSeats: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    status: {
+        type: DataTypes.ENUM(...Object.values(BusStatus)),
+        allowNull: false,
+        defaultValue: BusStatus.STOPPED
+    }
 }, {
     sequelize: sequelize,
     timestamps: true,

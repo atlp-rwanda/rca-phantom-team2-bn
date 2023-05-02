@@ -24,7 +24,7 @@ router.post(
     "/grant-permission",
     rolePermissionValidation,
     verifyToken,
-    hasPermission(ModelOperation.CREATE, "RolePermission"),
+    hasPermission(ModelOperation.CREATE, "Role"),
     grantRolePermission
 )
 
