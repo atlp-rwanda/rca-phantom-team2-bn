@@ -40,11 +40,11 @@ export const sendResetPasswordEmail = async (email: string, resetToken: string) 
         from: process.env.EMAIL_ADDRESS,
         to: email,
         subject: "Password Reset Request",
-        text: `You are receiving this email because you (or someone else) has requested the reset of the password for your account.\n\n
-          Please click on the following link, or paste this into your browser to complete the process:\n\n
-          localhost:4000/api/users/reset-password/${resetToken}\n\n
-          This link is valid for 1 hour.\n\n
-          If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+        html: `You are receiving this email because you (or someone else) has requested the reset of the password for your account.<br><br>
+        Please click on the following link, or paste this into your browser to complete the process:<br><br>
+        <a href="https://phantom-team2.netlify.app/reset-password/${resetToken}">Reset Password</a><br><br>
+        This link is valid for 1 hour.<br><br>
+        If you did not request this, please ignore this email and your password will remain unchanged.<br>`,
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
