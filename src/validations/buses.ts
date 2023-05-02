@@ -39,6 +39,9 @@ export const busValidation = (
             .min(3)
             .max(30)
             .required(),
+        numOfSeats: joi.number().min(1).required(),
+        availbleSeats: joi.number().min(0).required(),
+        status: joi.string().min(3).required()
     })
 
     const { error } = schema.validate(

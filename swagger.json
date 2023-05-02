@@ -44,7 +44,7 @@
                 "description": "Dynamic server/Production server",
                 "variables": {
                     "basePath": {
-                        "enum": ["/api", ""],
+                        "enum": ["/api", "/"],
                         "default": "/api"
                     }
                 }

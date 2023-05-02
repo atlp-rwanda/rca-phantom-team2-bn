@@ -291,6 +291,12 @@ components:
           type: string
         manufacturer:
           type: string
+        numOfSeats:
+          type: number
+        availbleSeats:
+          type: number
+        status:
+          type: string
     GetBusesResBody:
       allOf:
         - $ref: "#/components/schemas/ResBody"

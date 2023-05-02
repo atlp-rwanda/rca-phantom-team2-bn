@@ -3,6 +3,7 @@ import app from "../src/app"
 import chai, { expect } from "chai"
 import chaiHttp from "chai-http"
 import { random } from "lodash"
+import { BusStatus } from "../src/enums/bus.enums"
 
 const agent = request.agent(app)
 chai.should()
@@ -29,7 +30,10 @@ describe("Buses Tests", ()=> {
             plateNumber: `RAC${random(1000,2000)}`,
             regNumber: `RAC${random(3000,4000)}`,
             model: "Yutong U12",
-            manufacturer: "Yutong"
+            manufacturer: "Yutong",
+            numOfSeats: 20,
+            availbleSeats: 20,
+            status: BusStatus.STOPPED
         })
         expect(res.statusCode, "Should return 201: CREATED").to.be.equal(201)
         busId = res.body.data?.id
@@ -41,7 +45,10 @@ describe("Buses Tests", ()=> {
             plateNumber: `RAC${random(1000,2000)}`,
             regNumber: `RAC${random(3000,4000)}`,
             model: "Yutong U12",
-            manufacturer: "Yutong"
+            manufacturer: "Yutong",
+            numOfSeats: 20,
+            availbleSeats: 20,
+            status: BusStatus.STOPPED
         })
         expect(res.statusCode, "Should return 200: OK").to.be.equal(200)
     })

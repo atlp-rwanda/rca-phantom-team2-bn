@@ -5,8 +5,10 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "npm run lint:fix && tsc",
-    "start": "node build/src/index.js",
-    "dev": "nodemon",
+    "start": "cross-env NODE_ENV=production node build/src/index.js",
+    "start:socket": "cross-env NODE_ENV=production node build/src/socket.js",
+    "dev": "nodemon --files src/index.ts",
+    "dev:socket": "nodemon --files src/socket.ts",
     "test": "cross-env NODE_ENV=test nyc mocha --require ts-node/register --recursive test/**/*.spec.ts --timeout 20000 --exit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

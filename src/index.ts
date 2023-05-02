@@ -1,16 +1,7 @@
-import { config } from "dotenv"
+import { configureEnv } from "./utils/dotenv"
 
-switch (process.env.NODE_ENV) {
-    case "development":
-        config({ path: ".env.development" })
-        break
-    case "production":
-        config({ path: ".env.production" })
-        break
-    default:
-        config({ path: ".env" })
-        break
-}
+// Configure dotenv
+configureEnv()
 
 import app from "./app"
 import {server} from "./socket"

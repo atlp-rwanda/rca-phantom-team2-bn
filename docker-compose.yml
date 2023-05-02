@@ -12,6 +12,18 @@ services:
       - db
     profiles: # Prevent starting this container
      - donotstart
+  socket:
+    image: phantom/socket
+    container_name: phantom_socket
+    network_mode: host # https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode
+    restart: always
+    build: ./src/socket
+    ports:
+      - 4003:4003
+    depends_on:
+      - db
+    profiles: # Prevent starting this container
+     - donotstart
   db:
     image: phantom/postgres
     container_name: phantom_db
