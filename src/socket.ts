@@ -5,7 +5,7 @@ import { Server } from "socket.io"
 import { createServer } from "http" 
 import { configureEnv } from "./utils/dotenv"
 import express, { Request, Response } from "express"
-import { LocationChange, StatusChange, CommuterChange } from "../types"
+import { LocationChange, StatusChange, CommuterChange, SpeedChange } from "../types"
 import { BusStatus } from "./enums/bus.enums"
 import { connectDB } from "./db/config"
 
@@ -58,7 +58,9 @@ io.on("connection", (socket)=> {
         await Bus.update({availbleSeats: availbleSeats}, {where: { id: data.busId }})
         io.emit("COMMUTERS_AND_AVAILABLE_SEATS",{busId: data.busId, availbleSeats: availbleSeats, numOfCommuters: numOfCommuters})
     })
-
+    socket.on("SPEED_CHANGE",(data: SpeedChange)=>{
+        io.emit("SPEED_CHANGE", data)
+    })
     socket.on("disconnect", (reason)=> {
         console.log("SOCKECT DISCONNECTED: ", reason, ", ID: ", socket.id)
     })
