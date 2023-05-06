@@ -1,4 +1,4 @@
-import { BusStatus } from "../src/enums/bus.enums"
+import { BusSpeed, BusStatus } from "../src/enums/bus.enums"
 
 export interface LocationChange {
     busId: string;
@@ -20,4 +20,10 @@ export interface StatusChange{
     status: BusStatus;
     voidseats: number;
     speed: number; // km/h
+}
+export interface SpeedChange{
+    busId: string;
+    busType: string;
+    theChange: BusSpeed;
+    speed:number;
 }
