@@ -17,13 +17,36 @@ export const getAllUsers = async (req: Request, res: Response) => {
     const paginator = new Paginator(User)
 
     const results = await paginator.paginate({}, page, perPage)
-    
+
     return API_RESPONSE(res, {
         success: true,
         message: res.__("success"),
         status: 200,
         data: results
     })
+}
+
+export const getAllByRole = async (req: Request, res: Response) => {
+    if (req.params.roleId) {
+        const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+        const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+        const paginator = new Paginator(User)
+
+        const results = await paginator.paginate({where: { roleId: req.params.roleId.trim() }}, page, perPage)
+
+        return API_RESPONSE(res, {
+            success: true,
+            message: res.__("success"),
+            status: 200,
+            data: results
+        })
+    } else {
+        return API_RESPONSE(res, {
+            success: false,
+            message: res.__("invalid_role"),
+            status: 400,
+        })
+    }
 }
 
 export const createUser = async (req: Request, res: Response) => {
@@ -47,7 +70,7 @@ export const createUser = async (req: Request, res: Response) => {
             firstName: firstName,
             lastName: lastName,
             password: hashedPassword,
-            ...(roleId? {roleId: roleId}:{})
+            ...(roleId ? { roleId: roleId } : {})
         })
         const { ...rest } = newUser.toJSON()
 
@@ -207,7 +230,7 @@ export const resetPasswordEmail = async (req: Request, res: Response) => {
             })
         }
 
-        const {resetToken, resetTokenExpiration} = generateResetToken()
+        const { resetToken, resetTokenExpiration } = generateResetToken()
 
         user.resetPasswordToken = resetToken
         user.resetPasswordExpires = resetTokenExpiration
@@ -268,7 +291,7 @@ export const resetPassword = async (req: Request, res: Response) => {
 
         const hashedPassword = await hashPassword(newPassword)
         user.password = hashedPassword
-    
+
         await user.save()
 
         return API_RESPONSE(res, {
