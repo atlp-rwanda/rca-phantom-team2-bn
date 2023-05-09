@@ -7,6 +7,7 @@ import {
     resetPasswordEmail,
     resetPassword,
     getAllUsers,
+    getAllByRole,
 } from "../controllers/userController"
 import { ModelOperation } from "../enums/permissions.enums"
 import { verifyToken } from "../middlewares/auth.middlewares"
@@ -35,6 +36,7 @@ userRouter.post("/reset-password/:resetToken", resetPassword)
 /**
  * For admins only
  */
+userRouter.get("/by-role/:roleId", verifyToken, hasPermission(ModelOperation.UPDATE, "Role"), getAllByRole)
 userRouter.get("", verifyToken, hasPermission(ModelOperation.UPDATE, "Role"), getAllUsers)
 
 export default userRouter
