@@ -75,6 +75,23 @@ export const getAllBuses = async (req: Request, res: Response)=> {
     })
 }
 
+export const getAllOrderedBuses = async (req: Request, res: Response) => {
+    const page = parseInt((String(req.query.page ? req.query.page : 1))) || 1
+    const perPage = parseInt((String(req.query.perPage ? req.query.perPage : 10))) || 10
+    const paginator = new Paginator(Bus)
+  
+    const results = await paginator.paginate({
+        order: [["plateNumber", "ASC"]]
+    }, page, perPage) // Order buses by name in ascending order
+  
+    return API_RESPONSE(res, {
+        success: true,
+        message: res.__("success"),
+        status: 200,
+        data: results
+    })
+}
+
 export const deleteBusById = async (req: Request, res: Response)=> {
     if(Joi.string().uuid({version: "uuidv4"}).validate(req.params.busId).error)
         return API_RESPONSE(res, {

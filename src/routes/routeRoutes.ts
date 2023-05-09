@@ -5,6 +5,7 @@ import {
     updateRouteById,
     deleteRouteById,
     getAllRoutes,
+    getAllRoutesBasedOnSelectionCriteria,
 } from "../controllers/routeController"
 import {
     createRouteValidation,
@@ -25,6 +26,7 @@ routeRouter.post(
 )
 routeRouter.get("/", verifyToken, getAllRoutes)
 routeRouter.get("/:id", verifyToken, findRouteById)
+routeRouter.get("/selection", verifyToken,getAllRoutesBasedOnSelectionCriteria)
 routeRouter.put(
     "/:id",
     verifyToken,

@@ -9,6 +9,7 @@ import {
     getBusDrivers, 
     linkBusToRoute,
     getAllBusToRoutes,
+    getAllOrderedBuses,
 } from "../controllers/buses.controller"
 import { ModelOperation } from "../enums/permissions.enums"
 import { verifyToken } from "../middlewares/auth.middlewares"
@@ -39,6 +40,8 @@ router.post(
 router.get("/routes-assignments", verifyToken, getAllBusToRoutes)
 
 router.post("/assign-driver", verifyToken, assignValidation, hasPermission(ModelOperation.CREATE, "Bus"), assignDriverToBus)
+
+router.get("/ordered-buses", verifyToken, getAllOrderedBuses)
 
 router.get("/buses-drivers", verifyToken, getBusDrivers)
 
