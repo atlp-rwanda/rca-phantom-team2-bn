@@ -1,4 +1,30 @@
 paths:
+  /users:
+    get:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+        - name: page
+          in: query
+          default: 1
+          required: true
+          description: Page to Query
+        - name: perPage
+          in: query
+          default: 10
+          required: true
+          description: Limit of users per page
+      security:
+        - bearerAuth: []
+      description: Get a list of all users
+      tags:
+        - Users
+      responses:
+        200:
+          description: List of users
   /users/register:
     post:
       parameters:
@@ -12,8 +38,6 @@ paths:
       description: Creates a new user in the system
       tags:
         - Users
-      consumes:
-        - "application/json"
       requestBody:
         description: Request body
         required: true
@@ -188,7 +212,6 @@ components:
         - firstName
         - lastName
         - email
-        - roleId
       properties:
         firstName:
           type: string

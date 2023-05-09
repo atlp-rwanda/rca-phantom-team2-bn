@@ -120,7 +120,39 @@ paths:
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RolePermission'  
+                        $ref: '#/components/schemas/RolePermission'
+  /roles/grant-role:
+    post:
+      parameters:
+        - name: "Accept-Language"
+          in: "header"
+          default: en
+          required: true
+          description: Preferred language
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      description: Grant a role to a user
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrantUserRole'
+      responses:
+        201:
+          description: Role granted [Affected count]
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ResBody'
+                  - type: object
+                    properties:
+                      data:
+                        type: number
 components:
   schemas:
     GrantRolePermission:
@@ -129,6 +161,16 @@ components:
         roleId:
           type: string
         permissionId:
+          type: string
+    GrantUserRole:
+      type: object
+      required:
+        - userId
+        - roleId
+      properties:
+        userId:
+          type: string
+        roleId:
           type: string
     NewRole:
       type: object

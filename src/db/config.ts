@@ -1,18 +1,43 @@
 import { Sequelize, DataTypes } from "sequelize"
-import dotenv from "dotenv"
+import { configureEnv } from "../utils/dotenv"
 
-dotenv.config()
+configureEnv()
 
-const sequelize = new Sequelize(
-    "postgresql://postgres:reaYBl4M1hbiDdxjnTdr@containers-us-west-194.railway.app:7407/railway",
-    {
-        logging: false,
-        sync: {
-            force: false,
-            alter: { drop: false },
-        },
-    }
-)
+const sequelize =
+  process.env.NODE_ENV === "test"
+      ? new Sequelize(
+          "postgres://phantom:x7HCMMAY9JKsniBAALdPND1TqqiqJCAD@dpg-ch5o2pl269v5rfrv4h0g-a.oregon-postgres.render.com/phantom_n3ha",
+          {
+              logging: false,
+              sync: {
+                  force: false,
+                  alter: { drop: false },
+              },
+              ssl: false,
+              dialectOptions: {
+                  ssl: {require: false}
+              }
+          }
+      )
+      : new Sequelize({
+          dialect: "postgres",
+          host: String(process.env.DB_HOST),
+          port: Number(process.env.DB_PORT),
+          database: String(process.env.DB_NAME),
+          username: String(process.env.DB_USER),
+          password: String(process.env.DB_PASSWORD),
+          logging: false,
+          sync: {
+              force: false,
+              alter: { drop: false },
+          },
+          ssl: false,
+          ...(process.env.NODE_ENV === "production"? {
+              dialectOptions: {
+                  ssl: {require: false}
+              }
+          }:{})
+      })
 
 async function connectDB() {
     try {
